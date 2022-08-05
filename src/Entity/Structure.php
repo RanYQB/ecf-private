@@ -33,6 +33,9 @@ class Structure
     #[ORM\OneToOne(mappedBy: 'structure', cascade: ['persist', 'remove'])]
     private ?Permissions $permissions = null;
 
+    #[ORM\Column]
+    private ?bool $is_active = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -116,6 +119,18 @@ class Structure
         }
 
         $this->permissions = $permissions;
+
+        return $this;
+    }
+
+    public function isIsActive(): ?bool
+    {
+        return $this->is_active;
+    }
+
+    public function setIsActive(bool $is_active): self
+    {
+        $this->is_active = $is_active;
 
         return $this;
     }
