@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Partenaire{% endblock %}
+
+{% block body %}
+
+
+<div class="example-wrapper">
+    <h1>Partenaire - {{ partner.name}} </h1>
+    <div>
+        <h2>Permissions globales</h2>
+
+        {{ form_start(partnerPermissionsForm) }}
+        {{ form_row(partnerPermissionsForm.permissions.newsletter) }}
+        {{ form_row(partnerPermissionsForm.permissions.planning_management) }}
+        {{ form_row(partnerPermissionsForm.permissions.drink_sales) }}
+        {{ form_row(partnerPermissionsForm.permissions.video_courses) }}
+        {{ form_row(partnerPermissionsForm.permissions.prospect_reminders) }}
+        {{ form_row(partnerPermissionsForm.permissions.sponsorship) }}
+        {{ form_row(partnerPermissionsForm.permissions.free_wifi) }}
+        {{ form_row(partnerPermissionsForm.permissions.flexible_hours) }}
+
+        <button type="submit" class="btn">Enregistrer les modifications</button>
+        {{ form_end(partnerPermissionsForm) }}
+    </div>
+
+    <div>
+        {% for structure in structures %}
+            <div>
+                <h3>{{ structure.address }}</h3>
+                <p>{{ structure.address }}</p>
+                <p>{{ structure.zipcode }}</p>
+                <p>{{ structure.city }}</p>
+                <a href="{{ path('app_admin_show_structure', {slug: structure.slug }) }}">Voir la fiche de la structure</a>
+            </div>
+            
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

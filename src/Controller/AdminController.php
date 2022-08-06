@@ -7,9 +7,13 @@ use App\Entity\Permissions;
 use App\Entity\Structure;
 use App\Entity\User;
 use App\Form\PartnerType;
+use App\Form\PermissionsType;
 use App\Form\RegistrationFormType;
+use App\Form\StructurePermissionsType;
 use App\Form\StructureType;
 use App\Repository\PartnerRepository;
+use App\Repository\PermissionsRepository;
+use App\Repository\StructureRepository;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -181,12 +185,62 @@ class AdminController extends AbstractController
 
 
     #[Route('/partenaires', name: '_show_partners')]
-    public function showPartners(Request $request, EntityManagerInterface $entityManager, PartnerRepository $partnerRepository): Response
+    public function showPartners(PartnerRepository $partnerRepository): Response
     {
         $partners = $partnerRepository->findBy([], ['name' => 'ASC']);
 
         return $this->render('admin/admin_show_partners.html.twig', [
             'partners' => $partners,
+
+        ]);
+    }
+
+    #[Route('/partenaires/{slug}', name: '_show_partner')]
+    public function showPartner(EntityManagerInterface $entityManager, PartnerRepository $partnerRepository, string $slug, StructureRepository $structureRepository, PermissionsRepository $permissionsRepository, Request $request): Response
+    {
+        $partner = $partnerRepository->findOneBy(['slug' => $slug]);
+        $structures = $structureRepository->findBy(['partner' => $partner], ['address' => 'ASC']);
+        $partnerPermissions = $permissionsRepository->findOneBy(['partner' => $partner]);
+
+        $form = $this->createFormBuilder(['permissions' => $partnerPermissions])
+            ->add('permissions', PermissionsType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($partnerPermissions);
+            $entityManager->flush();
+        }
+
+        return $this->render('admin/admin_show_partner.html.twig', [
+            'partnerPermissionsForm' => $form->createView(),
+            'partner' => $partner,
+            'structures' => $structures,
+        ]);
+    }
+
+    #[Route('/structure/{slug}', name: '_show_structure')]
+    public function showStructure(EntityManagerInterface $entityManager, PartnerRepository $partnerRepository, string $slug, StructureRepository $structureRepository, PermissionsRepository $permissionsRepository, Request $request): Response
+    {
+        $structure = $structureRepository->findOneBy(['slug' => $slug]);
+        $structurePermissions = $permissionsRepository->findOneBy(['structure' => $structure]);
+
+        $form = $this->createFormBuilder(['permissions' => $structurePermissions])
+            ->add('permissions', PermissionsType::class)
+            ->getForm();
+
+        // $form = $this->createForm(PermissionsType::class, $partnerPermissions);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($structurePermissions);
+            $entityManager->flush();
+        }
+
+
+        return $this->render('admin/admin_show_structure.html.twig', [
+            'structurePermissionsForm' => $form->createView(),
+            'structure' => $structure,
         ]);
     }
 }

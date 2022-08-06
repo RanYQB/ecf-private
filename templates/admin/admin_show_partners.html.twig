@@ -12,6 +12,7 @@
         {% for partner in partners %}
             <h3>{{ partner.name }}</h3>
             <p>{{ partner.user.email }}</p>
+            <a href="{{ path('app_admin_show_partner', {slug: partner.slug }) }}">Voir la fiche du partenaire</a>
         {% endfor %}
     </div>
 </div>

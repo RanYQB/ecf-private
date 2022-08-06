@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Partenaire{% endblock %}
+
+{% block body %}
+
+
+<div class="example-wrapper">
+    <h1>Structure - {{ structure.address}} </h1>
+            <div>
+                <h3>{{ structure.address }}</h3>
+                <p>{{ structure.address }}</p>
+                <p>{{ structure.zipcode }}</p>
+                <p>{{ structure.city }}</p>
+            </div>
+            <div>
+                <h2>Permissions structure</h2>
+                {{ form_start(structurePermissionsForm) }}
+                {{ form_row(structurePermissionsForm.permissions.newsletter) }}
+                {{ form_row(structurePermissionsForm.permissions.planning_management) }}
+                {{ form_row(structurePermissionsForm.permissions.drink_sales) }}
+                {{ form_row(structurePermissionsForm.permissions.video_courses) }}
+                {{ form_row(structurePermissionsForm.permissions.prospect_reminders) }}
+                {{ form_row(structurePermissionsForm.permissions.sponsorship) }}
+                {{ form_row(structurePermissionsForm.permissions.free_wifi) }}
+                {{ form_row(structurePermissionsForm.permissions.flexible_hours) }}
+
+                <button type="submit" class="btn">Enregistrer les modifications</button>
+                {{ form_end(structurePermissionsForm) }}
+            </div>
+    </div>
+</div>
+{% endblock %}
