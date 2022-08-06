@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Partenaires{% endblock %}
+
+{% block body %}
+
+
+<div class="example-wrapper">
+    <h1>Liste des partenaires ({{ partners|length }})</h1>
+
+    <div>
+        {% for partner in partners %}
+            <h3>{{ partner.name }}</h3>
+            <p>{{ partner.user.email }}</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

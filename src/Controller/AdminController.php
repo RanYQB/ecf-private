@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Partner;
+use App\Entity\Permissions;
 use App\Entity\Structure;
 use App\Entity\User;
 use App\Form\PartnerType;
@@ -13,19 +14,19 @@ use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/admin', name: 'app_admin')]
 class AdminController extends AbstractController
 {
     private EmailVerifier $emailVerifier;
 
-    public function __construct(EmailVerifier $emailVerifier)
+    public function __construct(EmailVerifier $emailVerifier, private SluggerInterface $slugger)
     {
         $this->emailVerifier = $emailVerifier;
     }
@@ -44,6 +45,7 @@ class AdminController extends AbstractController
 
         $user = new User();
         $partner = new Partner();
+        $permissions = new Permissions();
         $items = ['user' => $user, 'partner' => $partner];
 
         $form = $this->createFormBuilder($items)
@@ -64,12 +66,23 @@ class AdminController extends AbstractController
             );
 
             $entityManager->persist($user);
-            $entityManager->flush();
 
             $partner->setUser($user);
             $partner->setIsActive(true);
-
+            $partner->setSlug($this->slugger->slug($partner->getName())->lower());
             $entityManager->persist($partner);
+
+            $permissions->setPartner($partner);
+            $permissions->setNewsletter(true);
+            $permissions->setPlanningManagement(true);
+            $permissions->setDrinkSales(true);
+            $permissions->setVideoCourses(true);
+            $permissions->setProspectReminders(false);
+            $permissions->setSponsorship(false);
+            $permissions->setFreeWifi(false);
+            $permissions->setFlexibleHours(false);
+
+            $entityManager->persist($permissions);
             $entityManager->flush();
 
             // generate a signed url and email it to the user
@@ -96,11 +109,12 @@ class AdminController extends AbstractController
 
 
     #[Route('/nouvelle-structure', name: '_create_structure')]
-    public function createStructure(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, PartnerRepository $partnerRepository): Response
+    public function createStructure(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
 
         $user = new User();
         $structure = new Structure();
+        $permissions = new Permissions();
 
         $items = ['user' => $user, 'structure' => $structure];
 
@@ -122,14 +136,29 @@ class AdminController extends AbstractController
             );
 
             $entityManager->persist($user);
-            $entityManager->flush();
+
+            $partner = $form->get('structure')->get('partner')->getData();
 
             $structure->setUser($user);
-            $structure->setPartner($form->get('structure')->get('partner')->getData());
+            $structure->setPartner($partner);
             $structure->setIsActive(true);
+            $structure->setSlug($this->slugger->slug($structure->getAddress())->lower());
 
             $entityManager->persist($structure);
+
+            $permissions->setStructure($structure);
+            $permissions->setNewsletter($partner->getPermissions()->isNewsletter());
+            $permissions->setPlanningManagement($partner->getPermissions()->isPlanningManagement());
+            $permissions->setDrinkSales($partner->getPermissions()->isDrinkSales());
+            $permissions->setVideoCourses($partner->getPermissions()->isVideoCourses());
+            $permissions->setProspectReminders($partner->getPermissions()->isProspectReminders());
+            $permissions->setSponsorship($partner->getPermissions()->isSponsorship());
+            $permissions->setFreeWifi($partner->getPermissions()->isFreeWifi());
+            $permissions->setFlexibleHours($partner->getPermissions()->isFlexibleHours());
+
+            $entityManager->persist($permissions);
             $entityManager->flush();
+
 
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
@@ -147,6 +176,17 @@ class AdminController extends AbstractController
 
         return $this->render('admin/admin_new_structure.html.twig', [
             'structureForm' => $form->createView(),
+        ]);
+    }
+
+
+    #[Route('/partenaires', name: '_show_partners')]
+    public function showPartners(Request $request, EntityManagerInterface $entityManager, PartnerRepository $partnerRepository): Response
+    {
+        $partners = $partnerRepository->findBy([], ['name' => 'ASC']);
+
+        return $this->render('admin/admin_show_partners.html.twig', [
+            'partners' => $partners,
         ]);
     }
 }

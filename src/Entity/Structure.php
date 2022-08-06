@@ -2,12 +2,15 @@
 
 namespace App\Entity;
 
+use App\Entity\Trait\SlugTrait;
 use App\Repository\StructureRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: StructureRepository::class)]
 class Structure
 {
+    use SlugTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
