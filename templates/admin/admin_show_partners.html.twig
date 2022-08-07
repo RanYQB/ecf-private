@@ -8,6 +8,7 @@
 <div class="example-wrapper">
     <h1>Liste des partenaires ({{ partners|length }})</h1>
 
+    {{ form(searchForm) }}
     <div>
         {% for partner in partners %}
             <h3>{{ partner.name }}</h3>

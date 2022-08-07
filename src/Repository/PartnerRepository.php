@@ -39,6 +39,17 @@ class PartnerRepository extends ServiceEntityRepository
         }
     }
 
+    public function search(string $words)
+    {
+        $query = $this->createQueryBuilder('p');
+        if($words != null){
+            $query->where('p.name LIKE :name')
+                ->setParameter('name', $words.'%');
+        }
+
+        return $query->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Partner[] Returns an array of Partner objects
 //     */

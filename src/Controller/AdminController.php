@@ -10,6 +10,7 @@ use App\Form\ActivatePartnerType;
 use App\Form\PartnerType;
 use App\Form\PermissionsType;
 use App\Form\RegistrationFormType;
+use App\Form\SearchPartnerType;
 use App\Form\StructurePermissionsType;
 use App\Form\StructureType;
 use App\Repository\PartnerRepository;
@@ -202,12 +203,20 @@ class AdminController extends AbstractController
 
 
     #[Route('/partenaires', name: '_show_partners')]
-    public function showPartners(PartnerRepository $partnerRepository): Response
+    public function showPartners(PartnerRepository $partnerRepository, Request $request): Response
     {
         $partners = $partnerRepository->findBy([], ['name' => 'ASC']);
+        $form = $this->createForm(SearchPartnerType::class);
+
+        $search = $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $partners = $partnerRepository->search($search->get('word')->getData());
+        }
 
         return $this->render('admin/admin_show_partners.html.twig', [
             'partners' => $partners,
+            'searchForm' => $form->createView(),
 
         ]);
     }

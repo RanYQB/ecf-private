@@ -10,6 +10,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PartnerRepository::class)]
+#[ORM\Table(name: 'Partner')]
+#[ORM\Index(columns: ['name'], name: 'Partner_index', flags: ['fulltext'])]
 class Partner
 {
     use SlugTrait;
@@ -20,6 +22,7 @@ class Partner
     private ?int $id = null;
 
     #[ORM\Column(length: 150)]
+
     private ?string $name = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
