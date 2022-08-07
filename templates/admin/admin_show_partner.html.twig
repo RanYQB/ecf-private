@@ -7,6 +7,15 @@
 
 <div class="example-wrapper">
     <h1>Partenaire - {{ partner.name}} </h1>
+
+    <div>
+        {% if partner.user.isActive == true %}
+            <a href="{{ path('app_admin_enable_user', {id: partner.user.id }) }}" class="btn">Désactiver</a>
+        {% elseif partner.user.isActive == false %}
+            <a href="{{ path('app_admin_enable_user', {id: partner.user.id }) }}" class=btn">Activer</a>
+        {% endif %}
+    </div>
+
     <div>
         <h2>Permissions globales</h2>
 

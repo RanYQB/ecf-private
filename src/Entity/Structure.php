@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Trait\IsActiveTrait;
 use App\Entity\Trait\SlugTrait;
 use App\Repository\StructureRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -35,9 +36,6 @@ class Structure
 
     #[ORM\OneToOne(mappedBy: 'structure', cascade: ['persist', 'remove'])]
     private ?Permissions $permissions = null;
-
-    #[ORM\Column]
-    private ?bool $is_active = null;
 
     public function getId(): ?int
     {
@@ -126,15 +124,5 @@ class Structure
         return $this;
     }
 
-    public function isIsActive(): ?bool
-    {
-        return $this->is_active;
-    }
 
-    public function setIsActive(bool $is_active): self
-    {
-        $this->is_active = $is_active;
-
-        return $this;
-    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Trait\IsActiveTrait;
 use App\Entity\Trait\SlugTrait;
 use App\Repository\PartnerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -20,9 +21,6 @@ class Partner
 
     #[ORM\Column(length: 150)]
     private ?string $name = null;
-
-    #[ORM\Column]
-    private ?bool $is_active = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
@@ -52,18 +50,6 @@ class Partner
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function isIsActive(): ?bool
-    {
-        return $this->is_active;
-    }
-
-    public function setIsActive(bool $is_active): self
-    {
-        $this->is_active = $is_active;
 
         return $this;
     }

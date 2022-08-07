@@ -6,6 +6,7 @@ use App\Entity\Partner;
 use App\Entity\Permissions;
 use App\Entity\Structure;
 use App\Entity\User;
+use App\Form\ActivatePartnerType;
 use App\Form\PartnerType;
 use App\Form\PermissionsType;
 use App\Form\RegistrationFormType;
@@ -14,12 +15,14 @@ use App\Form\StructureType;
 use App\Repository\PartnerRepository;
 use App\Repository\PermissionsRepository;
 use App\Repository\StructureRepository;
+use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -62,6 +65,7 @@ class AdminController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
 
             $user->setRoles((array)'ROLE_PARTNER');
+            $user->setIsActive(true);
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -72,7 +76,6 @@ class AdminController extends AbstractController
             $entityManager->persist($user);
 
             $partner->setUser($user);
-            $partner->setIsActive(true);
             $partner->setSlug($this->slugger->slug($partner->getName())->lower());
             $entityManager->persist($partner);
 
@@ -113,7 +116,7 @@ class AdminController extends AbstractController
 
 
     #[Route('/nouvelle-structure', name: '_create_structure')]
-    public function createStructure(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function createStructure(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
     {
 
         $user = new User();
@@ -132,6 +135,7 @@ class AdminController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
 
             $user->setRoles((array)'ROLE_STRUCTURE');
+            $user->setIsActive(true);
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -145,7 +149,6 @@ class AdminController extends AbstractController
 
             $structure->setUser($user);
             $structure->setPartner($partner);
-            $structure->setIsActive(true);
             $structure->setSlug($this->slugger->slug($structure->getAddress())->lower());
 
             $entityManager->persist($structure);
@@ -173,8 +176,22 @@ class AdminController extends AbstractController
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
             // do anything else you need here, like send an email
+            $email = (new TemplatedEmail())
+                ->from(new Address('manager@manager-fitnessclub.com', 'Manager Fitness Club'))
+                ->to($structure->getPartner()->getUser()->getEmail())
+                ->subject('Nouvelle structure ajoutée à votre compte')
+                ->htmlTemplate('partner/new_structure_email.html.twig')
+                ->context([
+                    'structure'=> $structure,
+                    'address' => $structure->getAddress(),
+                    'zipcode' => $structure->getZipcode(),
+                    'city' => $structure->getCity(),
+                ]);
+            $mailer->send($email);
+            $this->addFlash('message', 'Votre e-mail a été envoyé.');
 
-            return $this->redirectToRoute('app_admin');
+
+            return $this->redirectToRoute('app_admin_create_structure');
 
         }
 
@@ -196,7 +213,7 @@ class AdminController extends AbstractController
     }
 
     #[Route('/partenaires/{slug}', name: '_show_partner')]
-    public function showPartner(EntityManagerInterface $entityManager, PartnerRepository $partnerRepository, string $slug, StructureRepository $structureRepository, PermissionsRepository $permissionsRepository, Request $request): Response
+    public function showPartner(EntityManagerInterface $entityManager, PartnerRepository $partnerRepository, string $slug, StructureRepository $structureRepository, PermissionsRepository $permissionsRepository, Request $request, MailerInterface $mailer): Response
     {
         $partner = $partnerRepository->findOneBy(['slug' => $slug]);
         $structures = $structureRepository->findBy(['partner' => $partner], ['address' => 'ASC']);
@@ -210,7 +227,20 @@ class AdminController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($partnerPermissions);
             $entityManager->flush();
+
+            $email = (new TemplatedEmail())
+                ->from(new Address('manager@manager-fitnessclub.com', 'Manager Fitness Club'))
+                ->to($partner->getUser()->getEmail())
+                ->subject('Modifications de vos permissions')
+                ->htmlTemplate('partner/new_permissions_email.html.twig')
+                ->context([
+                    'partner'=> $partner,
+                    'name' => $partner->getName(),
+                ]);
+            $mailer->send($email);
+            $this->addFlash('message', 'Votre e-mail a été envoyé.');
         }
+
 
         return $this->render('admin/admin_show_partner.html.twig', [
             'partnerPermissionsForm' => $form->createView(),
@@ -220,7 +250,7 @@ class AdminController extends AbstractController
     }
 
     #[Route('/structure/{slug}', name: '_show_structure')]
-    public function showStructure(EntityManagerInterface $entityManager, PartnerRepository $partnerRepository, string $slug, StructureRepository $structureRepository, PermissionsRepository $permissionsRepository, Request $request): Response
+    public function showStructure(EntityManagerInterface $entityManager, string $slug, StructureRepository $structureRepository, PermissionsRepository $permissionsRepository, Request $request, MailerInterface $mailer): Response
     {
         $structure = $structureRepository->findOneBy(['slug' => $slug]);
         $structurePermissions = $permissionsRepository->findOneBy(['structure' => $structure]);
@@ -235,12 +265,57 @@ class AdminController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($structurePermissions);
             $entityManager->flush();
-        }
 
+            $email = (new TemplatedEmail())
+                ->from(new Address('manager@manager-fitnessclub.com', 'Manager Fitness Club'))
+                ->to($structure->getUser()->getEmail())
+                ->subject('Modifications de vos permissions')
+                ->htmlTemplate('structure/new_permissions_email.html.twig')
+                ->context([
+                    'structure'=> $structure,
+                    'address' => $structure->getAddress(),
+                    'zipcode' => $structure->getZipcode(),
+                    'city' => $structure->getCity(),
+                ]);
+            $mailer->send($email);
+
+            $emailPartner = (new TemplatedEmail())
+                ->from(new Address('manager@manager-fitnessclub.com', 'Manager Fitness Club'))
+                ->to($structure->getPartner()->getUser()->getEmail())
+                ->subject('Modifications des permissions d\'une structure')
+                ->htmlTemplate('partner/new_structure_permissions_email.html.twig')
+                ->context([
+                    'partner'=> $structure->getPartner(),
+                    'name' => $structure->getPartner()->getName(),
+                ]);
+            $mailer->send($emailPartner);
+            $this->addFlash('message', 'Vos e-mails ont bien été envoyés.');
+
+        }
 
         return $this->render('admin/admin_show_structure.html.twig', [
             'structurePermissionsForm' => $form->createView(),
             'structure' => $structure,
         ]);
     }
+
+    #[Route('/desactiver/{id}', name: '_enable_user')]
+    public function setStatus(EntityManagerInterface $entityManager, UserRepository $userRepository, PartnerRepository $partnerRepository , int $id, StructureRepository $structureRepository, PermissionsRepository $permissionsRepository, Request $request): Response
+    {
+        $user = $userRepository->findOneBy(['id' => $id]);
+
+        if($user->isIsActive() == true){
+            $user->setIsActive(false);
+        } elseif ($user->isIsActive() == false){
+            $user->setIsActive(true);
+        }
+
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        $route = $request->headers->get('referer');
+
+        return $this->redirect($route);
+    }
+
 }
