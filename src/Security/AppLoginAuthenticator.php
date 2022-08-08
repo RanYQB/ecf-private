@@ -48,6 +48,7 @@ class AppLoginAuthenticator extends AbstractLoginFormAuthenticator
 
         $user = $token->getUser();
 
+        // Définitions des routes en fonction des rôles des utilisateurs
         if (in_array('ROLE_PARTNER', $user->getRoles())) {
             return new RedirectResponse($this->urlGenerator->generate('app_partner'));
         }

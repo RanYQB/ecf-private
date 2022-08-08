@@ -16,13 +16,10 @@ class SecurityController extends AbstractController
     #[Route(path: '/', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        //if ($this->getUser()) {
-        //    return $this->redirectToRoute('target_path');
-        //}
 
-        // get the login error if there is one
+        // Retour d'un message d'erreur à la connexion, s'il y en a une
         $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
+        // Dernier utilisateur connecté
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
@@ -33,12 +30,14 @@ class SecurityController extends AbstractController
     #[Route(path: '/modifier-mot-de-passe', name: 'app_edit_pass')]
     public function editPassword(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
+        // Récupération de l'utilisateur
         $user = $this->getUser();
+        // Création d'un formulaire de réinitialisation du mot de passe
         $form = $this->createForm(EditPasswordType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
+            // Encodage du mot de passe en clair
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -49,6 +48,7 @@ class SecurityController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
+            // En fonction du rôle attribué, les routes de redirection sont définies différemment
             if($this->isGranted('ROLE_PARTNER')){
                 $route = 'app_partner';
             } elseif ($this->isGranted('ROLE_STRUCTURE')){
@@ -63,7 +63,6 @@ class SecurityController extends AbstractController
             'editPassForm' => $form->createView(),
         ]);
     }
-
 
     #[Route(path: '/reinitialisation-mot-de-passe', name: 'app_reset_pass')]
     public function resetPassword(): Response

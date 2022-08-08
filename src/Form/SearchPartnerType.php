@@ -16,8 +16,8 @@ class SearchPartnerType extends AbstractType
             ->add('word', SearchType::class, [
                 'label' => false,
                 'attr'=>[
-                    'class'=>'form_control',
-                    'placeholder'=>'Saisissez'
+                    'class'=>'form-control',
+                    'placeholder'=>'Rechercher un partenaire...'
                 ]
             ])
             ->add('rechercher', SubmitType::class, [

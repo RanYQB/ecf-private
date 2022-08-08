@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Fitness Club - Nouvelle structure{% endblock %}
 
 {% block body %}
     {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
 
-    <h1>Nouveau structure</h1>
+    <h1>Nouvelle structure</h1>
 
 
     {{ form_start(structureForm) }}
@@ -19,7 +19,7 @@
     {{ form_row(structureForm.structure.address) }}
     {{ form_row(structureForm.structure.zipcode) }}
     {{ form_row(structureForm.structure.city) }}
-    <button type="submit" class="btn">Valider</button>
+    <button type="submit" class="btn">Ajouter la structure</button>
     {{ form_end(structureForm) }}
 
 

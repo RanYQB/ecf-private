@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Fitness Club - Nouveau partenaire{% endblock %}
 
 {% block body %}
     {% for flash_error in app.flashes('verify_email_error') %}
@@ -9,14 +9,13 @@
 
     <h1>Nouveau partenaire</h1>
 
-
     {{ form_start(partnerForm) }}
     {{ form_row(partnerForm.partner.name) }}
     {{ form_row(partnerForm.user.email) }}
     {{ form_row(partnerForm.user.plainPassword, {
         label: 'Password'
     }) }}
-    <button type="submit" class="btn">Valider</button>
+    <button type="submit" class="btn">Ajouter le partenaire</button>
     {{ form_end(partnerForm) }}
 
 
