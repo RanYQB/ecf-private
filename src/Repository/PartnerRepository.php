@@ -50,6 +50,22 @@ class PartnerRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();
     }
 
+    public function filter(bool $filter)
+    {
+        $query = $this->createQueryBuilder('p');
+        if ($filter == true) {
+            $query->select('p', 'u')
+                ->innerJoin('p.user', 'u')
+                ->where('u.is_active = 1');
+            return $query->getQuery()->getResult();
+        } elseif ($filter == false) {
+            $query->select('p', 'u')
+                ->innerJoin('p.user', 'u')
+                ->where('u.is_active = 0');
+            return $query->getQuery()->getResult();
+        }
+    }
+
 //    /**
 //     * @return Partner[] Returns an array of Partner objects
 //     */

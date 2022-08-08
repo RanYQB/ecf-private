@@ -2,14 +2,47 @@
 
 {% block title %}Partenaires{% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
 {% block body %}
 
 
 <div class="example-wrapper">
     <h1>Liste des partenaires ({{ partners|length }})</h1>
-
     {{ form(searchForm) }}
-    <div>
+
+
+    <form id="filters">
+        <label for="filter-select">Filtrer</label>
+        <select name="filters" id="filter-select">
+            <option value="">Tous</option>
+            <option value="1">Activés</option>
+            <option value="0">Désactivés</option>
+        </select>
+    <!--
+        <fieldset>
+            <legend>Filtrer</legend>
+            <div>
+                <input type="radio" id="all-partners" name="filters[]" value=""
+                       checked>
+                <label for="all-partners">Tous</label>
+            </div>
+
+            <div>
+                <input type="radio" id="active-partners" name="filters[]" value="true">
+                <label for="active-partners">Activés</label>
+            </div>
+
+            <div>
+                <input type="radio" id="disabled-partners" name="filters[]" value="false">
+                <label for="disabled-partners">Désactivés</label>
+            </div>
+        </fieldset>
+        -->
+    </form>
+    <div id="content">
         {% for partner in partners %}
             <h3>{{ partner.name }}</h3>
             <p>{{ partner.user.email }}</p>

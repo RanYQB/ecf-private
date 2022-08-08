@@ -21,6 +21,7 @@ use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
@@ -212,6 +213,24 @@ class AdminController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             $partners = $partnerRepository->search($search->get('word')->getData());
+        }
+
+
+        $filter = $request->get("filtre");
+
+
+        if($filter != "" && $filter != null){
+            $partners = $partnerRepository->filter($filter);
+        }
+
+        if($request->get('ajax')){
+            return new JsonResponse([
+                'content' => $this->renderView('admin/admin_show_partners.html.twig', [
+                    'partners' => $partners,
+                    'searchForm' => $form->createView(),
+
+                ])
+            ]);
         }
 
         return $this->render('admin/admin_show_partners.html.twig', [
