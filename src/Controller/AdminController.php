@@ -109,7 +109,12 @@ class AdminController extends AbstractController
                         ->from(new Address('manager@manager-fitnessclub.com', 'Manager Fitness Club'))
                         ->to($user->getEmail())
                         ->subject('Veuillez confirmer votre compte')
-                        ->htmlTemplate('registration/confirmation_email.html.twig')
+                        ->htmlTemplate('registration/confirmation_partner_email.html.twig')
+                        ->context([
+                            'user' => $user,
+                            'partner' => $partner,
+                            'password' => $form->get('user')->get('plainPassword')->getData(),
+                        ])
                 );
 
                 return $this->redirectToRoute('app_admin');
@@ -185,7 +190,12 @@ class AdminController extends AbstractController
                         ->from(new Address('manager@manager-fitnessclub.com', 'Manager Fitness Club'))
                         ->to($user->getEmail())
                         ->subject('Veuillez confirmer votre compte')
-                        ->htmlTemplate('registration/confirmation_email.html.twig')
+                        ->htmlTemplate('registration/confirmation_structure_email.html.twig')
+                        ->context([
+                            'user' => $user,
+                            'structure' => $structure,
+                            'password' => $form->get('user')->get('plainPassword')->getData(),
+                        ])
                 );
 
                 // Envoi d'un mail au partenaire pour lui notifier la création d'une nouvelle structure
@@ -337,8 +347,7 @@ class AdminController extends AbstractController
                     ->subject('Modification des permissions d\'une structure')
                     ->htmlTemplate('partner/new_structure_permissions_email.html.twig')
                     ->context([
-                        'partner'=> $structure->getPartner(),
-                        'name' => $structure->getPartner()->getName(),
+                        'structure'=> $structure,
                     ]);
                 $mailer->send($emailPartner);
                 $this->addFlash('message', 'Vos e-mails ont bien été envoyés.');

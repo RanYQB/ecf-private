@@ -1,0 +1,21 @@
+
+
+<div class="text-center">
+    <h1>Veuillez confirmer votre compte</h1><br>
+
+    <p>Bonjour,</p>
+    <p>Nous vous souhaitons d'être les bienvenues chez Fitness Club ! </p>
+    <p>Un nouveau compte vient d'être créé pour votre franchise : <b>Fitness Club - {{ partner.name }} </b> </p>
+    <p>Voici vos identifiants :</p>
+    <p>Adresse email : {{ user.email }}</p>
+    <p>Mot de passe : {{ password }}</p>
+    <p>Veuillez confirmer votre adresse email en cliquant sur le lien suivant :</p><br>
+    <a href="{{ signedUrl }}" class="btn btn-primary">Confirmer l'adresse email</a><br>
+    <p>Un nouveau mot de passe vous sera demandé après votre première connexion.</p>
+    <p>Ce lien expire dans une heure</p><br>
+
+    <p>Cordialement,</p><br>
+
+    <p>Votre gestionnaire Fitness Club</p>
+</div>
+
