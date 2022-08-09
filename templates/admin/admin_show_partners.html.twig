@@ -11,13 +11,13 @@
 
 <div class="example-wrapper">
     <h1>Liste des partenaires ({{ partners|length }})</h1>
-    {{ form(searchForm) }}
-
+    <!--  -->
+    <input type="text" class="form-control" id="search-bar" placeholder="Rechercher un partenaire...">
 
     <form id="filters">
         <label for="filter-select">Filtrer</label>
         <select name="filters" id="filter-select">
-            <option value="">Tous</option>
+            <option value="none">Tous</option>
             <option value="1">Activés</option>
             <option value="0">Désactivés</option>
         </select>

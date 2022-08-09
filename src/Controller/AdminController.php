@@ -232,28 +232,44 @@ class AdminController extends AbstractController
         $partners = $partnerRepository->findBy([], ['name' => 'ASC']);
 
         // Création de la barre de recherche
-        $form = $this->createForm(SearchPartnerType::class);
+        //$form = $this->createForm(SearchPartnerType::class);
 
-        $search = $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()){
-            // Utilisation de la fonction Search que l'on a créée dans le PartnerRepository
-            $partners = $partnerRepository->search($search->get('word')->getData());
-        }
+        // $search = $form->handleRequest($request);
+        $search = $request->get("search");
 
         $filter = $request->get("filtre");
 
-        if($filter != "" && $filter != null){
+        if($filter != "" && $filter != null ){
             // Utilisation de la fonction Filter que l'on a créée dans le PartnerRepository
             $partners = $partnerRepository->filter($filter);
         }
+
+        if($search != "" || $search != null){
+            // Utilisation de la fonction Filter que l'on a créée dans le PartnerRepository
+                // Utilisation de la fonction Filter que l'on a créée dans le PartnerRepository
+                if(isset($_GET['filtre'])){
+                    $partners = $partnerRepository->search($search, $filter);
+                } else {
+                    $partners = $partnerRepository->searchWithoutFilters($search);
+                }
+
+
+        }
+
+
+
+        //if($form->isSubmitted() && $form->isValid()){
+            // Utilisation de la fonction Search que l'on a créée dans le PartnerRepository
+          //  $partners = $partnerRepository->search($search->get('word')->getData());
+        //}
+
 
         // On vérifie si l'URL possède un paramètre "Ajax" pour retourner les résultats du filtrage de la page
         if($request->get('ajax')){
             return new JsonResponse([
                 'content' => $this->renderView('Partials/_content.html.twig', [
                     'partners' => $partners,
-                    'searchForm' => $form->createView(),
+                    //'searchForm' => $form->createView(),
 
                 ])
             ]);
@@ -261,7 +277,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/admin_show_partners.html.twig', [
             'partners' => $partners,
-            'searchForm' => $form->createView(),
+            //'searchForm' => $form->createView(),
 
         ]);
     }

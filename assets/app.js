@@ -9,17 +9,36 @@ window.onload = () => {
     // const filters = document.querySelector('#filters');
     const filtersList = document.querySelector('#filter-select');
 
-    filtersList.addEventListener('change', (event)=>{
+    const searchBar = document.getElementById('search-bar');
 
-        //const form = new FormData();
-        //form.set('filtre', event.target.value );
+    const parameters = new URLSearchParams;
 
-        const parameters = new URLSearchParams;
-        parameters.set('filtre', event.target.value)
+    const url = new URL(window.location.href);
+
+    searchBar.addEventListener('input', (event) =>{
+
+        parameters.set('search', event.target.value)
 
         console.log(parameters.toString())
 
-        const url = new URL(window.location.href);
+
+        fetch(url.pathname + "?" + parameters.toString() + "&ajax=1",{
+            headers: {
+                "X-Requested-With": "XMLHttpRequest"
+            }
+        })
+            .then(response => response.json()).then(data =>{
+            const content = document.getElementById('content');
+            content.innerHTML = data.content;
+        })
+            .catch(error => alert(error))
+    });
+
+
+
+    filtersList.addEventListener('change', (event)=>{
+
+        parameters.set('filtre', event.target.value)
 
         fetch(url.pathname + "?" + parameters.toString() + "&ajax=1",{
             headers: {
@@ -32,4 +51,6 @@ window.onload = () => {
         })
             .catch(error => alert(error))
     });
+
+
 }
