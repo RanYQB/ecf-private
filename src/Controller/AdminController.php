@@ -50,7 +50,7 @@ class AdminController extends AbstractController
     public function createPartner(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
 
-        // Conditionner l'éxécution de la fonction à l'attribution du rôle Administrateur à l'utilisateur connecté
+        // Conditionner l'exécution de la fonction à l'attribution du rôle Administrateur à l'utilisateur connecté
         if($this->isGranted('ROLE_ADMIN')){
 
             // Initialisation d'un nouvel utilisateur et d'un nouveau partenaire
@@ -100,7 +100,7 @@ class AdminController extends AbstractController
                 $entityManager->persist($permissions);
 
                 // Enregistrement en base de données du partenaire, de son compte utilisateur et de ses permissions.
-                // L'action  est effectuée en dernier afin d'éviter un enregistrement partiel ou incomplet en cas d'erreur.
+                // L'action est effectuée en dernier afin d'éviter un enregistrement partiel ou incomplet en cas d'erreur.
                 $entityManager->flush();
 
                 // Envoi d'un mail au partenaire pour confirmer son compte
@@ -160,7 +160,7 @@ class AdminController extends AbstractController
 
                 $entityManager->persist($user);
 
-                // Récupération dans une variable du partenaire séléctionné via le formulaire d'ajout de la structure "StructureType"
+                // Récupération dans une variable du partenaire sélectionné via le formulaire d'ajout de la structure "StructureType"
                 $partner = $form->get('structure')->get('partner')->getData();
 
                 $structure->setUser($user);
@@ -227,24 +227,31 @@ class AdminController extends AbstractController
     #[Route('/partenaires', name: '_show_partners')]
     public function showPartners(PartnerRepository $partnerRepository, Request $request): Response
     {
+        // Récupération de la liste de tous les partenaires avec la fonction findBy afin de les classer par ordre
+        // alphabétique.
         $partners = $partnerRepository->findBy([], ['name' => 'ASC']);
+
+        // Création de la barre de recherche
         $form = $this->createForm(SearchPartnerType::class);
 
         $search = $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+            // Utilisation de la fonction Search que l'on a créée dans le PartnerRepository
             $partners = $partnerRepository->search($search->get('word')->getData());
         }
 
         $filter = $request->get("filtre");
 
         if($filter != "" && $filter != null){
+            // Utilisation de la fonction Filter que l'on a créée dans le PartnerRepository
             $partners = $partnerRepository->filter($filter);
         }
 
+        // On vérifie si l'URL possède un paramètre "Ajax" pour retourner les résultats du filtrage de la page
         if($request->get('ajax')){
             return new JsonResponse([
-                'content' => $this->renderView('admin/admin_show_partners.html.twig', [
+                'content' => $this->renderView('Partials/_content.html.twig', [
                     'partners' => $partners,
                     'searchForm' => $form->createView(),
 
@@ -264,8 +271,8 @@ class AdminController extends AbstractController
     {
         if($this->isGranted('ROLE_ADMIN')){
             // Passage du slug du partenaire par l'intermédiaire de l'URL.
-            // Le slug est en suite passé en paramétre de la fonction.
-            // Une fois récupéré, nous pouvons effectuer une recherche du partenaire souhaité dans le répértoire
+            // Le slug est en suite passé en paramètre de la fonction.
+            // Une fois récupéré, nous pouvons effectuer une recherche du partenaire souhaité dans le répertoire
             // de l'entité Partner grâce à ce slug avec la méthode findOneBy.
             $partner = $partnerRepository->findOneBy(['slug' => $slug]);
 
@@ -279,7 +286,6 @@ class AdminController extends AbstractController
                 ->getForm();
 
             $form->handleRequest($request);
-
 
             if($form->isSubmitted() && $form->isValid()) {
                 $entityManager->persist($partnerPermissions);

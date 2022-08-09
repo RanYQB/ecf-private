@@ -21,33 +21,10 @@
             <option value="1">Activés</option>
             <option value="0">Désactivés</option>
         </select>
-    <!--
-        <fieldset>
-            <legend>Filtrer</legend>
-            <div>
-                <input type="radio" id="all-partners" name="filters[]" value=""
-                       checked>
-                <label for="all-partners">Tous</label>
-            </div>
 
-            <div>
-                <input type="radio" id="active-partners" name="filters[]" value="true">
-                <label for="active-partners">Activés</label>
-            </div>
-
-            <div>
-                <input type="radio" id="disabled-partners" name="filters[]" value="false">
-                <label for="disabled-partners">Désactivés</label>
-            </div>
-        </fieldset>
-        -->
     </form>
     <div id="content">
-        {% for partner in partners %}
-            <h3>{{ partner.name }}</h3>
-            <p>{{ partner.user.email }}</p>
-            <a href="{{ path('app_admin_show_partner', {slug: partner.slug }) }}">Voir la fiche du partenaire</a>
-        {% endfor %}
+        {% include 'Partials/_content.html.twig' %}
     </div>
 </div>
 {% endblock %}
