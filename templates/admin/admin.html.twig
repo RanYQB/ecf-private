@@ -3,18 +3,33 @@
 {% block title %}Fitness Club{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+{% block stylesheets %}
+    {{ parent() }}
+   <link rel="stylesheet" href="{{ asset('build/adminNavBar.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/panel.css') }}">
+{% endblock%}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/apps/Fitness-club-app/src/Controller/AdminController.php'|file_link(0) }}">src/Controller/AdminController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/apps/Fitness-club-app/templates/admin/admin.html.twig'|file_link(0) }}">templates/admin/index.html.twig</a></code></li>
-    </ul>
+{% block javascripts %}
+    {{ encore_entry_script_tags('adminNavBar') }}
+    {{ encore_entry_script_tags('panel') }}
+
+{% endblock%}
+
+<div class="main-container">
+    {% include 'Partials/_admin_navBar.html.twig' %}
+
+    <h2>Bonjour Manager !</h2>
+
+    <h3>Tableau de bord</h3>
+    <div class="dashboard-card">
+        <h4>Partenaires</h4>
+        <p>{{ partners|length }}</p>
+
+    </div>
+    <div class="dashboard-card">
+        <h4>Structure</h4>
+        <p>{{ structures|length }}</p>
+    </div>
 </div>
 {% endblock %}

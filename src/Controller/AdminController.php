@@ -39,10 +39,14 @@ class AdminController extends AbstractController
     }
 
     #[Route('/', name: '')]
-    public function index(): Response
+    public function index(PartnerRepository $partnerRepository, StructureRepository $structureRepository): Response
     {
+        $partners = $partnerRepository->findAll();
+        $structures = $structureRepository->findAll();
+
         return $this->render('admin/admin.html.twig', [
-            'controller_name' => 'AdminController',
+            'partners' => $partners,
+            'structures' => $structures,
         ]);
     }
 
