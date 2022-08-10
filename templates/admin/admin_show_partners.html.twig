@@ -2,12 +2,18 @@
 
 {% block title %}Partenaires{% endblock %}
 
-{% block javascripts %}
+{% block stylesheets %}
     {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/adminNavBar.css') }}">
 {% endblock %}
 
-{% block body %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('adminNavBar') }}
+{% endblock%}
 
+{% block body %}
+    {% include 'Partials/_admin_navBar.html.twig' %}
 
 <div class="example-wrapper">
     <h1>Liste des partenaires ({{ partners|length }})</h1>

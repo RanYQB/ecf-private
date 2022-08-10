@@ -2,9 +2,18 @@
 
 {% block title %}Partenaire{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/adminNavBar.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('adminNavBar') }}
+{% endblock%}
+
 {% block body %}
 
-
+    {% include 'Partials/_admin_navBar.html.twig' %}
 <div class="example-wrapper">
     <h1>Structure - {{ structure.address}} </h1>
         <div>

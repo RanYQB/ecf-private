@@ -2,10 +2,19 @@
 
 {% block title %}Fitness Club - Nouveau partenaire{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+<link rel="stylesheet" href="{{ asset('build/adminNavBar.css') }}">
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('adminNavBar') }}
+{% endblock%}
+
 {% block body %}
     {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
+    {% include 'Partials/_admin_navBar.html.twig' %}
 
     <h1>Nouveau partenaire</h1>
 

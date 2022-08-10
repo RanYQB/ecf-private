@@ -13,7 +13,6 @@
 {% block javascripts %}
     {{ encore_entry_script_tags('adminNavBar') }}
     {{ encore_entry_script_tags('panel') }}
-
 {% endblock%}
 
 <div class="main-container">
@@ -22,14 +21,15 @@
     <h2>Bonjour Manager !</h2>
 
     <h3>Tableau de bord</h3>
-    <div class="dashboard-card">
-        <h4>Partenaires</h4>
-        <p>{{ partners|length }}</p>
-
-    </div>
-    <div class="dashboard-card">
-        <h4>Structure</h4>
-        <p>{{ structures|length }}</p>
+    <div class="dashboard-cards">
+        <div class="dashboard-card">
+            <h4>Partenaires</h4>
+            <p>{{ partners|length }}</p>
+        </div>
+        <div class="dashboard-card">
+            <h4>Structure</h4>
+            <p>{{ structures|length }}</p>
+        </div>
     </div>
 </div>
 {% endblock %}

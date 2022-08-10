@@ -17,7 +17,7 @@
   .logo{
 
     .logo-name{
-      font-size: 1rem;
+      font-size: 1.2rem;
       margin-bottom: 0;
       text-transform: uppercase;
       font-weight: 600;
@@ -25,6 +25,7 @@
 
 
       span{
+
         color: #4c99cd;
       }
     }
@@ -32,16 +33,17 @@
 
   a{
     text-decoration: none;
-    border: solid 1px white;
+    border: solid 1px #378cc8;
     padding: 5px 1rem;
     font-size: 0.8rem;
     font-weight: 600;
-    color: #4c99cd;
-  ;
 
+    color: #378cc8;
 
     &:hover{
-      color: #4c99cd;
+      color: white;
+      border: solid 1px white;
+      background-color: rgba(76, 153, 205, 0.53);
     }
   }
 
@@ -55,35 +57,48 @@
   top: 8vh;
   left: 0;
   height: 92vh;
-  width: 15vw;
+  width: 25vw;
+  padding-top: 3rem;
   background-color: white;
   border-right: solid 1px lightgray;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: start;
   align-items: center;
   color: #EEEEEE;
 
-
 }
 
+.link-list {
+  width: inherit;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 0;
 
-li{
-  list-style: none;
+  li {
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+    padding-left: 2rem;
+    list-style: none;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    font-size: 0.8rem;
 
-  a{
-    text-decoration: none;
-    color:#4c99cd;
-    font-weight: 600;
+    &:hover{
+      background-color: #1c4763;
+
+      a{
+        color: #d7e8f4;
+      }
+
+    }
+
+    a{
+      text-decoration: none;
+      color:#4c99cd;
+      font-weight: 600;
+    }
   }
-}
-
-
-.link-li{
-  list-style: none;
-  cursor: pointer;
-  letter-spacing: 0.5px;
-  font-size: 0.8rem;
 }
 
 
@@ -97,13 +112,20 @@ li{
 
   .nav-bar{
 
-     padding: 0 1.2rem;
+    padding: 0 2rem;
     border: none;
     justify-content: space-between;
 
     .buttons{
       display: block;
-      width: 20vw;
+      width: 15vw;
+    }
+
+    .logo{
+
+      .logo-name{
+        font-size: 1rem;
+      }
     }
 
     a{
@@ -111,6 +133,12 @@ li{
       font-weight: 600;
       padding: 0;
       color: #d7e8f4;
+
+      &:hover{
+        border: none;
+        background: none;
+        color: #378cc8;
+      }
     }
   }
 
