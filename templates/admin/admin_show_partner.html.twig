@@ -5,23 +5,26 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('build/adminNavBar.css') }}">
-{% endblock %}
+    <link rel="stylesheet" href="{{ asset('build/partner.css') }}">
+{% endblock%}
 
 {% block javascripts %}
     {{ encore_entry_script_tags('adminNavBar') }}
+    {{ encore_entry_script_tags('partner') }}
+    {{ encore_entry_script_tags('bootstrap') }}
 {% endblock%}
 
 {% block body %}
     {% include 'Partials/_admin_navBar.html.twig' %}
 
-<div class="example-wrapper">
+<div class="main-container">
     <h1>Partenaire - {{ partner.name}} </h1>
 
     <div>
         {% if partner.user.isActive == true %}
             <a href="{{ path('app_admin_enable_user', {id: partner.user.id }) }}" class="btn">Désactiver</a>
         {% elseif partner.user.isActive == false %}
-            <a href="{{ path('app_admin_enable_user', {id: partner.user.id }) }}" class=btn">Activer</a>
+            <a href="{{ path('app_admin_enable_user', {id: partner.user.id }) }}" class="btn">Activer</a>
         {% endif %}
     </div>
 
@@ -37,8 +40,40 @@
         {{ form_row(partnerPermissionsForm.permissions.sponsorship) }}
         {{ form_row(partnerPermissionsForm.permissions.free_wifi) }}
         {{ form_row(partnerPermissionsForm.permissions.flexible_hours) }}
+        <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Launch demo modal
+        </button> -->
+        <button id="myBtn" class="btn">Open Modal</button>
 
-        <button type="submit" class="btn">Enregistrer les modifications</button>
+        <!-- Modal -->
+        <!--<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        -->
+        <!-- The Modal -->
+        <div id="myModal" class="my-modal">
+
+            <!-- Modal content -->
+            <div class="my-modal-content">
+                <span class="btn-close">&times;</span>
+                <p>Some text in the Modal..</p>
+            </div>
+
+        </div>
         {{ form_end(partnerPermissionsForm) }}
     </div>
 

@@ -5,17 +5,19 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('build/adminNavBar.css') }}">
-{% endblock %}
+    <link rel="stylesheet" href="{{ asset('build/partners.css') }}">
+{% endblock%}
 
 {% block javascripts %}
-    {{ parent() }}
     {{ encore_entry_script_tags('adminNavBar') }}
+    {{ encore_entry_script_tags('partners') }}
+    {{ encore_entry_script_tags('app') }}
 {% endblock%}
 
 {% block body %}
     {% include 'Partials/_admin_navBar.html.twig' %}
 
-<div class="example-wrapper">
+<div class="main-container">
     <h1>Liste des partenaires ({{ partners|length }})</h1>
     <!--  -->
     <input type="text" class="form-control" id="search-bar" placeholder="Rechercher un partenaire...">

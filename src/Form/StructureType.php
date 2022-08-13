@@ -23,11 +23,17 @@ class StructureType extends AbstractType
         $builder
             ->add('address', TextType::class, [
                 'label' => 'Adresse',
-                'attr' => ['class' => 'form-control'],
+                'label_attr' => [
+                    'class' => 'col-sm-2 col-form-label',
+                ],
+                'attr' => ['class' => 'form-control form-input'],
             ])
             ->add('zipcode', NumberType::class,  [
                 'label' => 'Code postale',
-                'attr' => ['class' => 'form-control'],
+                'label_attr' => [
+                    'class' => 'col-sm-2 col-form-label',
+                ],
+                'attr' => ['class' => 'form-control form-input'],
                 'constraints' => [
                     new Length([
                         'max' => 5,
@@ -35,14 +41,23 @@ class StructureType extends AbstractType
                 ]])
             ->add('city', TextType::class ,  [
                 'label' => 'Ville',
-                'attr' => ['class' => 'form-control'],
+                'label_attr' => [
+                    'class' => 'col-sm-2 col-form-label',
+                ],
+                'attr' => ['class' => 'form-control form-input'],
             ])
             ->add('partner', EntityType::class, [
                     'mapped' => false,
                     'class' => Partner::class,
                     'choice_label' => 'name',
                     'placeholder' => 'Partenaire',
-                    'label' => 'Partenaire'
+                    'label' => 'Partenaire',
+                    'label_attr' => [
+                        'class' => 'col-sm-2 col-form-label',
+                    ],
+                    'attr' => [
+                        'class' => 'form-select'
+                    ],
                 ]
             );
         ;

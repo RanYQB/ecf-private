@@ -39,14 +39,16 @@ class AdminController extends AbstractController
     }
 
     #[Route('/', name: '')]
-    public function index(PartnerRepository $partnerRepository, StructureRepository $structureRepository): Response
+    public function index(UserRepository $userRepository, PartnerRepository $partnerRepository, StructureRepository $structureRepository): Response
     {
         $partners = $partnerRepository->findAll();
         $structures = $structureRepository->findAll();
+        $users = $userRepository->findAll();
 
         return $this->render('admin/admin.html.twig', [
             'partners' => $partners,
             'structures' => $structures,
+            'users' => $users,
         ]);
     }
 
@@ -308,6 +310,7 @@ class AdminController extends AbstractController
             $form->handleRequest($request);
 
             if($form->isSubmitted() && $form->isValid()) {
+
                 $entityManager->persist($partnerPermissions);
                 $entityManager->flush();
 
@@ -323,6 +326,7 @@ class AdminController extends AbstractController
                     ]);
                 $mailer->send($email);
                 $this->addFlash('message', 'Votre e-mail a été envoyé.');
+
             }
 
         }

@@ -1,0 +1,60 @@
+
+.main-container{
+  background-color: #f3f9fc;
+  position: absolute;
+  top: 8vh;
+  left: 25vw;
+  width: 75vw;
+  min-height: 92%;
+  padding: 3rem;
+
+}
+
+form{
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+
+
+
+}
+
+.submit-btn{
+  background-color: #2ecc71;
+  font-size: 1rem;
+  border: solid 1px #27ae60;
+  color: white;
+
+  &:hover{
+    background-color: #27ae60;
+    border: solid 1px #27ae60;
+  }
+}
+
+.parent-div{
+
+  div{
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+
+.form-control{
+  width: available;
+  display: inline-block;
+}
+
+
+@media screen and (max-width: 992px) {
+
+  .main-container{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    left: 0;
+    right: 0;
+
+  }
+
+}

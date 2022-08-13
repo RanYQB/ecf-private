@@ -4,10 +4,13 @@
 
 {% block stylesheets %}
     {{ parent() }}
-<link rel="stylesheet" href="{{ asset('build/adminNavBar.css') }}">
-{% endblock %}
+    <link rel="stylesheet" href="{{ asset('build/adminNavBar.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/formAdd.css') }}">
+{% endblock%}
+
 {% block javascripts %}
     {{ encore_entry_script_tags('adminNavBar') }}
+    {{ encore_entry_script_tags('formAdd') }}
 {% endblock%}
 
 {% block body %}
@@ -15,18 +18,27 @@
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
     {% include 'Partials/_admin_navBar.html.twig' %}
-
+    <div class="main-container">
     <h1>Nouveau partenaire</h1>
 
     {{ form_start(partnerForm) }}
+    <div class="mb-3 row parent-div">
     {{ form_row(partnerForm.partner.name) }}
-    {{ form_row(partnerForm.user.email) }}
-    {{ form_row(partnerForm.user.plainPassword, {
-        label: 'Password'
-    }) }}
-    <button type="submit" class="btn">Ajouter le partenaire</button>
-    {{ form_end(partnerForm) }}
+    </div>
+    <div class="mb-3 row parent-div">
 
+    {{ form_row(partnerForm.user.email) }}
+    </div>
+    <div class="mb-3 row parent-div">
+
+    {{ form_row(partnerForm.user.plainPassword, {
+        label: 'Mot de passe'
+    }) }}
+    </div>
+<div class="text-center">
+    <button type="submit" class="btn submit-btn ">Ajouter le partenaire</button>
+    {{ form_end(partnerForm) }}
+</div>
 
 
 {% endblock %}
