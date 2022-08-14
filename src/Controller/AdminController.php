@@ -112,7 +112,7 @@ class AdminController extends AbstractController
                 // Envoi d'un mail au partenaire pour confirmer son compte
                 $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                     (new TemplatedEmail())
-                        ->from(new Address('manager@manager-fitnessclub.com', 'Manager Fitness Club'))
+                        ->from(new Address('manager.fitnessclub.app@gmail.com', 'Manager Fitness Club'))
                         ->to($user->getEmail())
                         ->subject('Veuillez confirmer votre compte')
                         ->htmlTemplate('registration/confirmation_partner_email.html.twig')
