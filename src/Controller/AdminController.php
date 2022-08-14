@@ -231,11 +231,13 @@ class AdminController extends AbstractController
 
 
     #[Route('/partenaires', name: '_show_partners')]
-    public function showPartners(PartnerRepository $partnerRepository, Request $request): Response
+    public function showPartners(PartnerRepository $partnerRepository, UserRepository $userRepository, Request $request): Response
     {
         // Récupération de la liste de tous les partenaires avec la fonction findBy afin de les classer par ordre
         // alphabétique.
-        $partners = $partnerRepository->findBy(['is_verified' => true], ['name' => 'ASC']);
+        $user = $userRepository->findBy(['isVerified' => true]);
+
+        $partners = $partnerRepository->findBy(['user' => $user], ['name' => 'ASC']);
 
         // Création de la barre de recherche
         //$form = $this->createForm(SearchPartnerType::class);
