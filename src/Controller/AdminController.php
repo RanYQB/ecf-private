@@ -235,7 +235,7 @@ class AdminController extends AbstractController
     {
         // Récupération de la liste de tous les partenaires avec la fonction findBy afin de les classer par ordre
         // alphabétique.
-        $partners = $partnerRepository->findBy([], ['name' => 'ASC']);
+        $partners = $partnerRepository->findBy(['is_verified' => true], ['name' => 'ASC']);
 
         // Création de la barre de recherche
         //$form = $this->createForm(SearchPartnerType::class);
