@@ -19,40 +19,21 @@
     {% endfor %}
     {% include 'Partials/_admin_navBar.html.twig' %}
     <div class="main-container">
-    <h1>Nouvelle structure</h1>
-
-
+    <h2>Nouvelle structure</h2>
+    <div class="form-add">
     {{ form_start(structureForm) }}
-    <div class="mb-3 row parent-div">
-
     {{ form_row(structureForm.structure.partner) }}
-    </div>
-    <div class="mb-3 row parent-div">
-
     {{ form_row(structureForm.user.email) }}
-    </div>
-    <div class="mb-3 row parent-div">
-
     {{ form_row(structureForm.user.plainPassword, {
-        label: 'Mot de passe'
+        label: 'Mot de passe :'
     }) }}
-    </div>
-    <div class="mb-3 row parent-div">
-
     {{ form_row(structureForm.structure.address) }}
-    </div>
-    <div class="mb-3 row parent-div">
-
     {{ form_row(structureForm.structure.zipcode) }}
-    </div>
-    <div class="mb-3 row parent-div">
 
     {{ form_row(structureForm.structure.city) }}
-    </div>
-    <div class="text-center">
+    <div class="form-btn">
     <button type="submit" class="btn submit-btn">Ajouter la structure</button>
     {{ form_end(structureForm) }}
-
     </div>
-
+    </div>
 {% endblock %}

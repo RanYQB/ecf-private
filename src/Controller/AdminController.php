@@ -193,7 +193,7 @@ class AdminController extends AbstractController
                 // Envoi d'un mail à la structure pour confirmer son compte
                 $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                     (new TemplatedEmail())
-                        ->from(new Address('manager@manager-fitnessclub.com', 'Manager Fitness Club'))
+                        ->from(new Address('manager.fitnessclub.app@gmail.com', 'Manager Fitness Club'))
                         ->to($user->getEmail())
                         ->subject('Veuillez confirmer votre compte')
                         ->htmlTemplate('registration/confirmation_structure_email.html.twig')
@@ -206,7 +206,7 @@ class AdminController extends AbstractController
 
                 // Envoi d'un mail au partenaire pour lui notifier la création d'une nouvelle structure
                 $email = (new TemplatedEmail())
-                    ->from(new Address('manager@manager-fitnessclub.com', 'Manager Fitness Club'))
+                    ->from(new Address('manager.fitnessclub.app@gmail.com', 'Manager Fitness Club'))
                     ->to($structure->getPartner()->getUser()->getEmail())
                     ->subject('Nouvelle structure ajoutée à votre compte')
                     ->htmlTemplate('partner/new_structure_email.html.twig')
@@ -312,13 +312,12 @@ class AdminController extends AbstractController
             $form->handleRequest($request);
 
             if($form->isSubmitted() && $form->isValid()) {
-
                 $entityManager->persist($partnerPermissions);
                 $entityManager->flush();
 
                 // Notification au partenaire de la modification de ses permissions si le formulaire est soumis
                 $email = (new TemplatedEmail())
-                    ->from(new Address('manager@manager-fitnessclub.com', 'Manager Fitness Club'))
+                    ->from(new Address('manager.fitnessclub.app@gmail.com', 'Manager Fitness Club'))
                     ->to($partner->getUser()->getEmail())
                     ->subject('Vos permissions ont été modifiées')
                     ->htmlTemplate('partner/new_permissions_email.html.twig')
@@ -360,7 +359,7 @@ class AdminController extends AbstractController
 
                 // Notification à la structure de la modification de ses permissions
                 $email = (new TemplatedEmail())
-                    ->from(new Address('manager@manager-fitnessclub.com', 'Manager Fitness Club'))
+                    ->from(new Address('manager.fitnessclub.app@gmail.com', 'Manager Fitness Club'))
                     ->to($structure->getUser()->getEmail())
                     ->subject('Modifications de vos permissions')
                     ->htmlTemplate('structure/new_permissions_email.html.twig')
@@ -374,7 +373,7 @@ class AdminController extends AbstractController
 
                 // Notification au partenaire de la modification des permissions d'une de ses structures
                 $emailPartner = (new TemplatedEmail())
-                    ->from(new Address('manager@manager-fitnessclub.com', 'Manager Fitness Club'))
+                    ->from(new Address('manager.fitnessclub.app@gmail.com', 'Manager Fitness Club'))
                     ->to($structure->getPartner()->getUser()->getEmail())
                     ->subject('Modification des permissions d\'une structure')
                     ->htmlTemplate('partner/new_structure_permissions_email.html.twig')

@@ -2,11 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\EditPasswordType;
+use App\Form\ResetPassType;
+use App\Repository\UserRepository;
+use App\Services\JWTService;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -65,11 +72,48 @@ class SecurityController extends AbstractController
     }
 
     #[Route(path: '/reinitialisation-mot-de-passe', name: 'app_reset_pass')]
-    public function resetPassword(): Response
+    public function resetPassword(Request $request, MailerInterface $mailer, JWTService $jwt, UserRepository $userRepository): Response
     {
-        return $this->render('security/reset_pass.html.twig');
-    }
 
+        $form = $this->createForm(ResetPassType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userEmail = $form->get('email')->getData();
+            $user = $userRepository->findOneBy(['email' => $userEmail]);
+
+            if($user !== null ){
+
+                $header = [
+                    'alg' => 'HS256',
+                    'typ' => 'JWT'];
+                $payload = [
+                    'user_id' => $user->getId(),
+                ];
+                $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
+                $email = (new TemplatedEmail())
+                    ->from(new Address('manager.fitnessclub.app@gmail.com', 'Manager Fitness Club'))
+                    ->to($user->getEmail())
+                    ->subject('Réinitialisation de votre mot de passe')
+                    ->htmlTemplate('user/reset_pass_email.html.twig')
+                    ->context([
+                        'token' => $token,
+
+
+                    ]);
+                $mailer->send($email);
+                $this->addFlash('message', 'Votre e-mail a été envoyé.');
+                return $this->redirectToRoute('app_login');
+            }
+
+        }
+
+        return $this->render('security/reset_pass.html.twig', [
+                'resetPassForm' => $form->createView(),
+            ]
+        );
+
+    }
 
 
     #[Route(path: '/logout', name: 'app_logout')]

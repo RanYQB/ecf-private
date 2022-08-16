@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fitness Club - Récupération de mot de passe{% endblock %}
+
+{% block body %}
+<h1>Réinitialisation de votre mot de passe</h1>
+    <p>{{ user.email }}</p>
+    <div>
+        {{ form_start(newPassForm) }}
+        {{ form_row(newPassForm.plainPassword) }}
+        <button type="submit" class="btn">Enregistrer</button>
+        {{ form_end(newPassForm) }}
+    </div>
+{% endblock %}

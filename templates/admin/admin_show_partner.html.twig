@@ -18,19 +18,35 @@
     {% include 'Partials/_admin_navBar.html.twig' %}
 
 <div class="main-container">
-    <h1>Partenaire - {{ partner.name}} </h1>
+    <h2>Partenaire - {{ partner.name}} </h2>
 
-    <div>
+
+    <div class="infos-div white-card">
+        <div class="info-partner">
+            <h3>Informations</h3>
+            <div>
+            <p>Nom du partenaire : {{ partner.name }}</p>
+            <p>Statut : {% if partner.user.isActive == 1%}activé
+                {% elseif partner.user.isActive == 0%}désactivé
+                {% endif %}</p>
+            <p>Nombre de structures : {{ partner.structures|length }}</p>
+            </div>
+        </div>
+        <div class="partner-btns">
         {% if partner.user.isActive == true %}
-            <a href="{{ path('app_admin_enable_user', {id: partner.user.id }) }}" class="btn">Désactiver</a>
+            <a href="{{ path('app_admin_enable_user', {id: partner.user.id }) }}" class="btn btn-primary">Désactiver</a>
         {% elseif partner.user.isActive == false %}
-            <a href="{{ path('app_admin_enable_user', {id: partner.user.id }) }}" class="btn">Activer</a>
+            <a href="{{ path('app_admin_enable_user', {id: partner.user.id }) }}" class="btn btn-success">Activer</a>
         {% endif %}
+        <a href="#" class="btn btn-danger">Supprimer</a>
+        </div>
     </div>
 
-    <div>
-        <h2>Permissions globales</h2>
+    <div class="permissions-div white-card">
 
+        <h3>Permissions globales</h3>
+        <div class="form-permissions">
+            <form id="permissions-modify" class="container" method="post">
         {{ form_start(partnerPermissionsForm) }}
         {{ form_row(partnerPermissionsForm.permissions.newsletter) }}
         {{ form_row(partnerPermissionsForm.permissions.planning_management) }}
@@ -40,44 +56,31 @@
         {{ form_row(partnerPermissionsForm.permissions.sponsorship) }}
         {{ form_row(partnerPermissionsForm.permissions.free_wifi) }}
         {{ form_row(partnerPermissionsForm.permissions.flexible_hours) }}
-        <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Launch demo modal
-        </button> -->
-        <button id="myBtn" class="btn">Open Modal</button>
-
-        <!-- Modal -->
-        <!--<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        -->
-        <!-- The Modal -->
-        <div id="myModal" class="my-modal">
-
-            <!-- Modal content -->
-            <div class="my-modal-content">
-                <span class="btn-close">&times;</span>
-                <p>Some text in the Modal..</p>
-            </div>
-
-        </div>
+                <button type="submit" class="btn" id="submit-form">Enregistrer les modifications</button>
         {{ form_end(partnerPermissionsForm) }}
+            </form>
+            <button type="button" class="btn btn-primary" id="open-modal" >Enregistrer les modifications</button>
+        </div>
     </div>
 
-    <div>
+    <!-- The Modal -->
+    <div id="confirm-modal" class="confirm-modal">
+        <!-- Modal content -->
+        <div class="modal-buttons">
+            <span class="closing"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </span>
+            <p>Etes-vous sûr de vouloir modifier les permissions globales du partenaire? </p>
+            <div>
+                <button class="btn btn-primary">Annuler</button>
+                <button class="btn btn-success" id="confirm-btn">Confirmer</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="structures-div white-card">
+        <h3>Structures</h3>
         {% for structure in structures %}
             <div>
                 <h3>{{ structure.address }}</h3>

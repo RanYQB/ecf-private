@@ -1,7 +1,22 @@
-{% extends 'base.html.twig' %}
+{% block stylesheets %}
+{% endblock%}
 
-{% block title %}Fitness Club - Récupération de mot de passe{% endblock %}
+{% block javascripts %}
+{% endblock%}
 
 {% block body %}
+    <div class="page-container">
+        <h1><span>Fitness</span> Club</h1>
+        <div class="form-container">
+            <form method="post">
+                <h2 class="h3 mb-3 font-weight-normal">Mot de passe oublié</h2>
+                {{ form_start(resetPassForm) }}
+                {{ form_row(resetPassForm.email) }}
 
+                <button type="submit" class="btn">Valider</button>
+                {{ form_end(resetPassForm) }}
+
+            </form>
+        </div>
+    </div>
 {% endblock %}
