@@ -13,6 +13,7 @@
   align-items: center;
   color: #EEEEEE;
   border-bottom: solid 1px #0a1e2a;
+  z-index: 1;
 
   .logo{
 
@@ -57,7 +58,7 @@
   top: 8vh;
   left: 0;
   height: 92vh;
-  width: 25vw;
+  width: 20vw;
   padding-top: 3rem;
   background-color: #112B3C;
   border-right: solid 1px lightgray;

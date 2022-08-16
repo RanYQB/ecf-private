@@ -18,19 +18,21 @@
     {% include 'Partials/_admin_navBar.html.twig' %}
 
 <div class="main-container">
-    <h1>Liste des partenaires ({{ partners|length }})</h1>
-    <!--  -->
-    <input type="text" class="form-control" id="search-bar" placeholder="Rechercher un partenaire...">
+    <h2>Liste des partenaires</h2>
 
-    <form id="filters">
-        <label for="filter-select">Filtrer</label>
-        <select name="filters" id="filter-select">
-            <option value="none">Tous</option>
-            <option value="1">Activés</option>
-            <option value="0">Désactivés</option>
-        </select>
+    <div class="filter-bar">
+        <input type="text" class="form-control" id="search-bar" placeholder=" Rechercher un partenaire...">
 
-    </form>
+        <form id="filters">
+            <label for="filter-select">Filtrer</label>
+            <select name="filters" id="filter-select">
+                <option value="none">Tous</option>
+                <option value="1">Activés</option>
+                <option value="0">Désactivés</option>
+            </select>
+
+        </form>
+    </div>
     <div id="content">
         {% include 'Partials/_content.html.twig' %}
     </div>
