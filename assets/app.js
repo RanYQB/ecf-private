@@ -5,6 +5,7 @@ import './styles/app.scss';
 // start the Stimulus application
 import './bootstrap';
 
+
 window.onload = () => {
     // const filters = document.querySelector('#filters');
     const filtersList = document.querySelector('#filter-select');

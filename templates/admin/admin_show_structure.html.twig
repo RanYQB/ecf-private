@@ -1,36 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Partenaire{% endblock %}
+{% block title %}Structure{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('build/adminNavBar.css') }}">
-{% endblock %}
+    <link rel="stylesheet" href="{{ asset('build/structure.css') }}">
+
+{% endblock%}
 
 {% block javascripts %}
     {{ encore_entry_script_tags('adminNavBar') }}
+    {{ encore_entry_script_tags('structure') }}
 {% endblock%}
+
 
 {% block body %}
 
     {% include 'Partials/_admin_navBar.html.twig' %}
-<div class="example-wrapper">
-    <h1>Structure - {{ structure.address}} </h1>
-        <div>
-            {% if structure.user.isActive == true %}
-                <a href="{{ path('app_admin_enable_user', {id: structure.user.id }) }}" class="btn">Désactiver</a>
-            {% elseif structure.user.isActive == false %}
-                <a href="{{ path('app_admin_enable_user', {id: structure.user.id }) }}" class=btn">Activer</a>
-            {% endif %}
+<div class="main-container">
+    <h2>Structure - {{ structure.address}} </h2>
+
+    <div class="infos-div white-card">
+        <div class="info-partner">
+            <h3>{{ structure.address }}</h3>
+            <p>Adresse : {{ structure.address }}</p>
+            <p>Code postal : {{ structure.zipcode }}</p>
+            <p>Ville : {{ structure.city }}</p>
+            <p>Statut : {% if structure.user.isActive == 1%}<span class="status">activé</span>
+                {% elseif structure.user.isActive == 0%}<span class="status">désactivé</span>
+                {% endif %}</p>
+            <p>Partenaire : Fitness Club - {{ structure.partner.name }}</p>
         </div>
-            <div>
-                <h3>{{ structure.address }}</h3>
-                <p>{{ structure.address }}</p>
-                <p>{{ structure.zipcode }}</p>
-                <p>{{ structure.city }}</p>
-            </div>
-            <div>
-                <h2>Permissions structure</h2>
+        <div class="partner-btns">
+            {% if structure.user.isActive == true %}
+                <a href="{{ path('app_admin_enable_user', {id: structure.user.id }) }}" class="btn btn-primary">Désactiver</a>
+            {% elseif structure.user.isActive == false %}
+                <a href="{{ path('app_admin_enable_user', {id: structure.user.id }) }}" class="btn btn-success">Activer</a>
+            {% endif %}
+            <a href="#" class="btn btn-danger">Supprimer</a>
+        </div>
+    </div>
+    <div class="permissions-div white-card">
+        <h3>Permissions structure</h3>
+        <div class="form-permissions">
+            <form id="permissions-modification" class="container" method="post">
                 {{ form_start(structurePermissionsForm) }}
                 {{ form_row(structurePermissionsForm.permissions.newsletter) }}
                 {{ form_row(structurePermissionsForm.permissions.planning_management) }}
@@ -41,9 +55,31 @@
                 {{ form_row(structurePermissionsForm.permissions.free_wifi) }}
                 {{ form_row(structurePermissionsForm.permissions.flexible_hours) }}
 
-                <button type="submit" class="btn">Enregistrer les modifications</button>
+                <button type="submit" class="btn" id="submit-modify">Enregistrer les modifications</button>
                 {{ form_end(structurePermissionsForm) }}
+            </form>
+            <button type="button" class="btn btn-primary" id="open-str-modal" >Enregistrer les modifications</button>
+        </div>
+    </div>
+    <!-- The Modal -->
+    <div id="confirm-str-modal" class="confirm-modal">
+        <!-- Modal content -->
+        <div class="modal-buttons">
+            <div class="closing">
+                <h4>Modification des permissions</h4>
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#aaa" class="bi bi-x" viewBox="0 0 16 16">
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
             </div>
+            <div class="modal-p">
+                <p>Etes-vous sûr de vouloir modifier les permissions de cette structure ? </p>
+            </div>
+            <div class="modal-buttons-div">
+                <button class="btn btn-outline-secondary">Annuler</button>
+                <button class="btn btn-primary" id="confirm-str-btn">Confirmer</button>
+            </div>
+        </div>
     </div>
 </div>
+
 {% endblock %}

@@ -18,7 +18,7 @@
     {% include 'Partials/_admin_navBar.html.twig' %}
 
 <div class="main-container">
-    <h2>Partenaire - {{ partner.name}} </h2>
+    <h2>Fitness Club - {{ partner.name}} </h2>
 
 
     <div class="infos-div white-card">
@@ -26,8 +26,8 @@
             <h3>Informations</h3>
             <div>
             <p>Nom du partenaire : {{ partner.name }}</p>
-            <p>Statut : {% if partner.user.isActive == 1%}activé
-                {% elseif partner.user.isActive == 0%}désactivé
+                <p>Statut : {% if partner.user.isActive == 1%}<span class="status">activé</span>
+                {% elseif partner.user.isActive == 0%}<span class="status">désactivé</span>
                 {% endif %}</p>
             <p>Nombre de structures : {{ partner.structures|length }}</p>
             </div>
@@ -67,30 +67,53 @@
     <div id="confirm-modal" class="confirm-modal">
         <!-- Modal content -->
         <div class="modal-buttons">
-            <span class="closing"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+            <div class="closing">
+                <h4>Modification des permissions</h4>
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#aaa" class="bi bi-x" viewBox="0 0 16 16">
                     <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                 </svg>
-            </span>
+            </div>
+            <div class="modal-p">
             <p>Etes-vous sûr de vouloir modifier les permissions globales du partenaire? </p>
-            <div>
-                <button class="btn btn-primary">Annuler</button>
-                <button class="btn btn-success" id="confirm-btn">Confirmer</button>
+            </div>
+            <div class="modal-buttons-div">
+                <button class="btn btn-outline-secondary">Annuler</button>
+                <button class="btn btn-primary" id="confirm-btn">Confirmer</button>
             </div>
         </div>
     </div>
 
-    <div class="structures-div white-card">
-        <h3>Structures</h3>
-        {% for structure in structures %}
-            <div>
-                <h3>{{ structure.address }}</h3>
-                <p>{{ structure.address }}</p>
-                <p>{{ structure.zipcode }}</p>
-                <p>{{ structure.city }}</p>
-                <a href="{{ path('app_admin_show_structure', {slug: structure.slug }) }}">Voir la fiche de la structure</a>
+    <div class="structures-div white-card" id="my-accordion">
+        <button class="my-accordion">
+            <span>Structures</span>
+            <svg xmlns="http://www.w3.org/2000/svg"  width="22" height="22" fill="#4c99cd" viewBox="0 0 384 512"><!--! Font Awesome Pro 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M192 384c-8.188 0-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L192 306.8l137.4-137.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-160 160C208.4 380.9 200.2 384 192 384z"/></svg>
+        </button>
+        <div class="my-panel">
+            {% if structures|length >= 1 %}
+            <p class="structures-nb">Nombre de structures : {{ structures|length }}</p>
+            <div class="structures-container">
+                {% for structure in structures %}
+                    <div class="structures-card">
+                        <div class="structure-title">
+                            <h4>{{ structure.address }}</h4>
+                            <div class="title-border"></div>
+                        </div>
+                        <div class="structure-info">
+                        <p><span>Adresse :</span> {{ structure.address }}</p>
+                        <p><span>Code postal :</span> {{ structure.zipcode }}</p>
+                        <p><span>Ville :</span> {{ structure.city }}</p>
+                        </div>
+                        <div class="structure-btn">
+                        <a href="{{ path('app_admin_show_structure', {slug: structure.slug }) }}" class="btn btn-primary">
+                            Voir la fiche de la structure</a>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-            
-        {% endfor %}
+            {% else %}
+            <p class="structures-none">Ce partenaire ne possède pas de structure.</p>
+            {% endif %}
+        </div>
     </div>
 </div>
 {% endblock %}

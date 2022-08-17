@@ -29,7 +29,7 @@ class StructureType extends AbstractType
                 'attr' => ['class' => 'form-control form-input'],
             ])
             ->add('zipcode', NumberType::class,  [
-                'label' => 'Code postale :',
+                'label' => 'Code postal :',
                 'label_attr' => [
                     'class' => 'col-sm-2 col-form-label',
                 ],
