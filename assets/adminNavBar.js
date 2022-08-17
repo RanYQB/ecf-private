@@ -17,3 +17,24 @@ const showMenu = ()=>{
 }
 
 showMenu()
+
+const navAccordions = document.querySelectorAll(".nav-accordion");
+
+navAccordions.forEach( navAccordion =>{
+    navAccordion.addEventListener("click", function() {
+
+        this.classList.toggle("nav-active");
+
+        const panel = this.nextElementSibling;
+
+        if (panel.style.display === "block") {
+            panel.style.display = "none";
+
+        } else {
+            panel.style.display = "block";
+
+        }
+    })
+})
+
+
