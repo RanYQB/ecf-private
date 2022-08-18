@@ -9,7 +9,6 @@ use App\Entity\User;
 use App\Form\PartnerType;
 use App\Form\PermissionsType;
 use App\Form\RegistrationFormType;
-use App\Form\SearchPartnerType;
 use App\Form\StructureType;
 use App\Repository\PartnerRepository;
 use App\Repository\PermissionsRepository;
@@ -44,11 +43,36 @@ class AdminController extends AbstractController
         $partners = $partnerRepository->findAll();
         $structures = $structureRepository->findAll();
         $users = $userRepository->findAll();
+        $usersVerified = $userRepository->findBy(['isVerified' => true]);
+        $usersUnverified = $userRepository->findBy(['isVerified' => false]);
+        $usersEnabled = $userRepository->findBy(['is_active' => true]);
+        $usersDisabled = $userRepository->findBy(['is_active' => false]);
+        $partnersVerified = $partnerRepository->findBy(['user' => $usersVerified]);
+        $partnersUnverified = $partnerRepository->findBy(['user' => $usersUnverified]);
+        $partnersEnabled = $partnerRepository->findBy(['user' => $usersEnabled]);
+        $partnersDisabled = $partnerRepository->findBy(['user' => $usersDisabled]);
+        $structuresVerified = $structureRepository->findBy(['user' => $usersVerified]);
+        $structuresUnverified = $structureRepository->findBy(['user' => $usersUnverified]);
+        $structuresEnabled = $structureRepository->findBy(['user' => $usersEnabled]);
+        $structuresDisabled = $structureRepository->findBy(['user' => $usersDisabled]);
+        $current = $this->getUser()->getEmail();
 
         return $this->render('admin/admin.html.twig', [
             'partners' => $partners,
             'structures' => $structures,
             'users' => $users,
+            'verifiedUsers' => $usersVerified,
+            'unverifiedUsers' => $usersUnverified,
+            'verifiedPartners' => $partnersVerified,
+            'unverifiedPartners' => $partnersUnverified,
+            'enabledPartners' => $partnersEnabled,
+            'disabledPartners' => $partnersDisabled,
+            'verifiedStructures' => $structuresVerified,
+            'unverifiedStructures' => $structuresUnverified,
+            'enabledStructures' => $structuresEnabled,
+            'disabledStructures' => $structuresDisabled,
+            'currentUser' => $current,
+
         ]);
     }
 
@@ -291,7 +315,7 @@ class AdminController extends AbstractController
     }
 
     #[Route('/partenaires/{slug}', name: '_show_partner')]
-    public function showPartner(EntityManagerInterface $entityManager, PartnerRepository $partnerRepository, string $slug, StructureRepository $structureRepository, PermissionsRepository $permissionsRepository, Request $request, MailerInterface $mailer): Response
+    public function showPartner(EntityManagerInterface $entityManager,UserRepository $userRepository, PartnerRepository $partnerRepository, string $slug, StructureRepository $structureRepository, PermissionsRepository $permissionsRepository, Request $request, MailerInterface $mailer): Response
     {
         if($this->isGranted('ROLE_ADMIN')){
             // Passage du slug du partenaire par l'intermédiaire de l'URL.
@@ -300,8 +324,9 @@ class AdminController extends AbstractController
             // de l'entité Partner grâce à ce slug avec la méthode findOneBy.
             $partner = $partnerRepository->findOneBy(['slug' => $slug]);
 
+            $user = $userRepository->findBy(['isVerified' => true]);
             // Récupération de l'intégralité des structures rattachées au partenaire
-            $structures = $structureRepository->findBy(['partner' => $partner], ['address' => 'ASC']);
+            $structures = $structureRepository->findBy(array('partner' => $partner, 'user' => $user), ['address' => 'ASC']);
             $partnerPermissions = $permissionsRepository->findOneBy(['partner' => $partner]);
 
             // Création d'un formulaire permettant la modification des permissions du partenaire dans la base de données
@@ -391,8 +416,50 @@ class AdminController extends AbstractController
         ]);
     }
 
+    #[Route('/en-attente', name: '_unverified_user')]
+    public function showUnverified( UserRepository $userRepository): Response
+    {
+        if($this->isGranted('ROLE_ADMIN')){
+            $users = $userRepository->findBy(['isVerified' => false]);
+
+        }
+
+        return $this->render('admin/admin_show_unverified.html.twig', [
+
+            'users' => $users,
+        ]);
+    }
+
+
+    #[Route('/confirmation/{id}', name: '_verify_user')]
+    public function sendVerif( UserRepository $userRepository, int $id, Request $request): Response
+    {
+        if($this->isGranted('ROLE_ADMIN')){
+            $user = $userRepository->findOneBy(['id' => $id]);
+
+
+            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+                (new TemplatedEmail())
+                    ->from(new Address('manager.fitnessclub.app@gmail.com', 'Manager Fitness Club'))
+                    ->to($user->getEmail())
+                    ->subject('Veuillez confirmer votre compte')
+                    ->htmlTemplate('registration/confirmation_email.html.twig')
+                    ->context([
+                        'user' => $user,
+                    ])
+            );
+
+        }
+        // Définition de la route dans une variable qui récupère l'URL de provenance de la requête
+        // étant donné que plusieurs pages sont concernées par cette action
+        $route = $request->headers->get('referer');
+
+        return $this->redirect($route);
+    }
+
+
     #[Route('/desactiver/{id}', name: '_enable_user')]
-    public function setStatus(EntityManagerInterface $entityManager, UserRepository $userRepository, PartnerRepository $partnerRepository , int $id, StructureRepository $structureRepository, PermissionsRepository $permissionsRepository, Request $request): Response
+    public function setStatus(EntityManagerInterface $entityManager, UserRepository $userRepository, int $id, Request $request): Response
     {
         if($this->isGranted('ROLE_ADMIN')){
             // Pour désactiver et activer un compte, nous récupérons l'id de l'utilisateur

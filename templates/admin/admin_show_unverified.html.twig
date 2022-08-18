@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Partenaires{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/adminNavBar.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/mainContainer.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/unverified.css') }}">
+{% endblock%}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('adminNavBar') }}
+    {{ encore_entry_script_tags('mainContainer') }}
+    {{ encore_entry_script_tags('unverified') }}
+{% endblock%}
+
+{% block body %}
+    {% include 'Partials/_admin_navBar.html.twig' %}
+
+    <div class="main-container">
+        <h2>Utilisateurs non vérifiés</h2>
+
+        <div class="white-card">
+            {% if users|length >= 1 %}
+                {% set i = 0 %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col" class="nb-th">#</th>
+                    <th scope="col" class="email-th">Email</th>
+                    <th scope="col">Rôle</th>
+                    <th scope="col">Confirmation</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <th scope="row" class="nb-th">{% set i = i + 1 %}{{ i }}</th>
+                        <td>{{ user.email }}</td>
+                        <td>{% if 'ROLE_PARTNER' in user.roles %}
+                        Partenaire
+                        {% elseif 'ROLE_STRUCTURE' in user.roles %}
+                        Structure
+                            {% endif %}</td>
+                        <td><a href="{{ path('app_admin_verify_user', {id: user.id }) }}" class="btn btn-primary">Renvoyer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>Tous les utilisateurs ont vérifié leurs adresses mails.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
