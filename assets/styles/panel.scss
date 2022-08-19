@@ -257,6 +257,20 @@ h6{
 }
 
 @media screen and (max-width: 576px) {
+  .white-card{
+    padding: 1rem .8rem;
+  }
+
+  .dashboard-cards .dashboard-row .dashboard-card .title-card h5 {
+    color: gray;
+    font-size: 1.2rem;
+  }
+
+  .dashboard-second-row .dashboard-card .title-card h5 {
+    color: gray;
+    font-size: 1.2rem;
+  }
+
   .dashboard-cards {
     .dashboard-row {
       flex-direction: column;
