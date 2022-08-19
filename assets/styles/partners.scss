@@ -201,7 +201,7 @@ h2{
 
   .partners-card .person-svg{
     width: 100%;
-    height: 180px;
+    min-height: 180px;
   }
 
   .partner-card{
@@ -227,7 +227,10 @@ h2{
     margin-bottom: 1rem;
   }
 
-
+  .page-link a{
+    height: 48px;
+    width: 48px;
+  }
 
   #content{
     display: flex;
