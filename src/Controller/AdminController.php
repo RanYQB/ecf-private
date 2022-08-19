@@ -101,7 +101,7 @@ class AdminController extends AbstractController
             if($form->isSubmitted() && $form->isValid()) {
 
                 $user->setRoles((array)'ROLE_PARTNER');
-                $user->setIsActive(true);
+                $user->setIsActive(false);
                 $user->setPassword(
                     $userPasswordHasher->hashPassword(
                         $user,
@@ -180,7 +180,7 @@ class AdminController extends AbstractController
             // Soumission du formulaire
             if ($form->isSubmitted() && $form->isValid()) {
                 $user->setRoles((array)'ROLE_STRUCTURE');
-                $user->setIsActive(true);
+                $user->setIsActive(false);
                 $user->setPassword(
                     $userPasswordHasher->hashPassword(
                         $user,
