@@ -14,12 +14,13 @@ class PartnerType extends AbstractType
     {
         $builder
             ->add('name', TextType::class,[
-                'label' => 'Nom du partenaire :',
+                'label' => 'Nom du partenaire ',
                 'label_attr' => [
                     'class' => 'col-sm-2 col-form-label',
                 ],
                 'attr' => [
-                    'class' => 'form-control '
+                    'class' => 'form-control ',
+                    'placeholder' => 'nom du partenaire ...'
                 ]
             ])
         ;

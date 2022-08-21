@@ -22,36 +22,41 @@ class StructureType extends AbstractType
 
         $builder
             ->add('address', TextType::class, [
-                'label' => 'Adresse :',
+                'label' => 'Adresse ',
                 'label_attr' => [
                     'class' => 'col-sm-2 col-form-label',
                 ],
-                'attr' => ['class' => 'form-control form-input'],
+                'attr' => [
+                    'class' => 'form-control form-input',
+                    'placeholder' => 'adresse de la structure ...',
+                    ],
             ])
             ->add('zipcode', NumberType::class,  [
-                'label' => 'Code postal :',
+                'label' => 'Code postal ',
                 'label_attr' => [
                     'class' => 'col-sm-2 col-form-label',
                 ],
-                'attr' => ['class' => 'form-control form-input'],
+                'attr' => ['class' => 'form-control form-input',
+                    'placeholder' => 'code postal ...'],
                 'constraints' => [
                     new Length([
                         'max' => 5,
                     ]),
                 ]])
             ->add('city', TextType::class ,  [
-                'label' => 'Ville :',
+                'label' => 'Ville ',
                 'label_attr' => [
                     'class' => 'col-sm-2 col-form-label',
                 ],
-                'attr' => ['class' => 'form-control form-input'],
+                'attr' => ['class' => 'form-control form-input',
+                    'placeholder' => 'ville ...'],
             ])
             ->add('partner', EntityType::class, [
                     'mapped' => false,
                     'class' => Partner::class,
                     'choice_label' => 'name',
-                    'placeholder' => 'Partenaire ...',
-                    'label' => 'Partenaire :',
+                    'placeholder' => 'choisissez un partenaire ...',
+                    'label' => 'Partenaire ',
                     'label_attr' => [
                         'class' => 'col-sm-2 col-form-label',
                     ],
