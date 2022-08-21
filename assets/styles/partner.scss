@@ -9,8 +9,9 @@
 }
 
 h2{
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 1.5rem;
+  margin-top: 1rem;
 }
 
 
@@ -69,6 +70,7 @@ h3{
   align-items: start;
   justify-content: space-between;
   height: 30%;
+  width: 100%;
 
   .info-partner{
     display: flex;
@@ -175,6 +177,7 @@ h3{
 
 #my-accordion{
   padding: 0 2rem;
+  width: 100%;
 }
 
 /* Style the buttons that are used to open and close the accordion panel */
@@ -247,19 +250,29 @@ h3{
   justify-content: center;
 
   .structures-card{
+
     border: solid 1px lightgray;
-    margin: 1rem .5rem;
-    width: 45%;
-    padding: 2rem 1rem;
+    margin: 1rem 0.5rem;
+    min-height: 320px;
+    width: 350px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
 
     .structure-title{
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      line-height: 2rem;
+      width: 100%;
 
       h4{
         font-weight: 600;
+        word-break: break-word;
       }
 
       .title-border{
@@ -270,10 +283,12 @@ h3{
     }
 
     .structure-info{
-        display: flex;
-        flex-direction: column;
-        justify-content: end;
-        margin: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      margin: 2rem 1rem;
+      height: 40%;
+      width: 100%;
 
       p{
         margin-bottom: .3rem;
@@ -287,6 +302,7 @@ h3{
     }
 
     .structure-btn{
+      height: 20%;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -294,6 +310,24 @@ h3{
 
   }
 }
+
+.return-btn{
+  display: block;
+  margin-bottom: 1rem;
+  padding: .5rem 1rem;
+  text-decoration: none;
+  color: #0a1e2a;
+  border: solid 1px lightgray;
+  width: fit-content;
+  background-color: white;
+
+
+  &:hover{
+   // box-shadow: 0 0 10px 2px lightgray;
+    color: #2c70a0;
+  }
+}
+
 
 @media screen and (max-width: 992px) {
 
@@ -305,6 +339,90 @@ h3{
     left: 0;
     right: 0;
 
+  }
+
+  .structures-container .structures-card{
+    width: 80%;
+    padding: 1rem;
+    min-height: unset;
+    max-height: unset;
+    min-width: unset;
+    max-width: unset;
+  }
+
+
+  .permissions-div .form-permissions button{
+    width: 100%;
+    margin-top: 2rem;
+  }
+
+  .permissions-div{
+    width: 100%;
+
+    .form-permissions{
+      width: 100%;
+    }
+  }
+
+
+}
+
+@media screen and (max-width: 680px){
+  .infos-div{
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .infos-div .partner-btns{
+
+    width: 100%;
+    margin-top: 2rem;
+
+    a{
+      width: 50%;
+    }
+
+  }
+}
+
+@media screen and (max-width: 576px) {
+
+  .main-container{
+    padding: 1rem;
+  }
+
+  .infos-div{
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .permissions-div .form-permissions form{
+    flex-direction: column;
+    width: 100%;
+    align-items: start;
+    padding-left: 0;
+
+  }
+
+  .structures-container .structures-card{
+    width: 100%;
+  }
+  .permissions-div .form-permissions button{
+    width: 100%;
+    margin-top: 2rem;
+  }
+
+  .my-accordion{
+
+    span{
+      font-size: 1.5rem;;
+    }
+  }
+
+
+
+  .modal-buttons{
+    width: 85%;
   }
 
 }

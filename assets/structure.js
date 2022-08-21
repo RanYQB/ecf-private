@@ -19,7 +19,8 @@ window.onload = ()=>{
         const parent = checkBox.parentNode;
         parent.classList.add("form-check")
         parent.classList.add("form-switch")
-        parent.classList.add("col-6")
+        parent.classList.add("col-10")
+        parent.classList.add("col-md-6")
 
         if(status.textContent === "désactivé"){
             checkBox.setAttribute("disabled", "")
