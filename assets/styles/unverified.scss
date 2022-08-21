@@ -34,6 +34,15 @@ th{
   width:25%;
 }
 
+.role-th{
+  width: 25%;
+}
+
+.btn-th{
+  width: 25%;
+}
+
+
 .nb-th{
   width: 10%;
   vertical-align: middle;
@@ -86,10 +95,12 @@ th{
 
   .nb-th{
     font-size: smaller;
+    width: 4%;
 
   }
 
   .email-th{
+    width: 35%;
     font-size: smaller;
   }
 
@@ -100,5 +111,13 @@ th{
     a{
       font-size: smaller;
     }
+  }
+
+  .role-th{
+    width: 30%;
+  }
+
+  .btn-th{
+    width: 31%;
   }
 }
