@@ -5,13 +5,11 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('build/adminNavBar.css') }}">
-    <link rel="stylesheet" href="{{ asset('build/mainContainer.css') }}">
     <link rel="stylesheet" href="{{ asset('build/unverified.css') }}">
 {% endblock%}
 
 {% block javascripts %}
     {{ encore_entry_script_tags('adminNavBar') }}
-    {{ encore_entry_script_tags('mainContainer') }}
     {{ encore_entry_script_tags('unverified') }}
 {% endblock%}
 
@@ -36,14 +34,14 @@
                 <tbody>
                 {% for user in users %}
                     <tr>
-                        <th scope="row" class="nb-th">{% set i = i + 1 %}{{ i }}</th>
-                        <td>{{ user.email }}</td>
-                        <td>{% if 'ROLE_PARTNER' in user.roles %}
+                        <th scope="row" class="nb-th ">{% set i = i + 1 %}{{ i }}</th>
+                        <td class="td-cell">{{ user.email }}</td>
+                        <td class="td-cell">{% if 'ROLE_PARTNER' in user.roles %}
                         Partenaire
                         {% elseif 'ROLE_STRUCTURE' in user.roles %}
                         Structure
                             {% endif %}</td>
-                        <td><a href="{{ path('app_admin_verify_user', {id: user.id }) }}" class="btn btn-primary">Renvoyer</a>
+                        <td class="td-cell"><a href="{{ path('app_admin_verify_user', {id: user.id }) }}" class="btn btn-primary">Renvoyer</a>
                         </td>
                     </tr>
                 {% endfor %}

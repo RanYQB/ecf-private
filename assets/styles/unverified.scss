@@ -1,11 +1,104 @@
+.main-container {
+  background-color: #f3f9fc;
+  position: absolute;
+  top: 8vh;
+  left: 20%;
+  width: 80%;
+  min-height: 92%;
+  padding: 3rem 6rem;
+}
+
+.white-card{
+  background-color: white;
+  border: solid 1px lightgray;
+  padding: 1rem 2rem;
+  margin-bottom: 1.5rem;
+
+  &:hover{
+    box-shadow: 0 0 10px 2px lightgray;
+
+  }
+
+}
+
+h2{
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.td-cell {
+  vertical-align: middle;
+}
+
 th{
   width:25%;
 }
 
 .nb-th{
   width: 10%;
+  vertical-align: middle;
 }
 
 .email-th{
   width: 40%;
+}
+
+
+.main-container{
+  background-color: #f3f9fc;
+  position: absolute;
+  top: 8vh;
+  left: 20%;
+  width: 80%;
+  min-height: 92%;
+  padding: 3rem 6rem;
+}
+
+
+@media screen and (max-width: 992px) {
+
+
+  .main-container{
+    background-color: #f3f9fc;
+    position: absolute;
+    top: 8vh;
+    left: 0;
+    width: 100%;
+    min-height: 92%;
+    padding: 1rem 2rem;
+  }
+
+}
+
+
+@media screen and (max-width: 576px) {
+  .main-container {
+    padding: 1rem;
+  }
+
+  .white-card{
+    padding: 1rem;
+  }
+
+  th{
+    font-size: smaller;
+  }
+
+  .nb-th{
+    font-size: smaller;
+
+  }
+
+  .email-th{
+    font-size: smaller;
+  }
+
+  .td-cell{
+    font-size: smaller;
+    vertical-align: middle;
+
+    a{
+      font-size: smaller;
+    }
+  }
 }
