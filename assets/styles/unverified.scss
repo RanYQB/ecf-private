@@ -100,13 +100,14 @@ th{
   }
 
   .email-th{
-    width: 35%;
+    width: 40%;
     font-size: smaller;
   }
 
   .td-cell{
     font-size: smaller;
     vertical-align: middle;
+    word-break: break-word;
 
     a{
       font-size: smaller;
@@ -114,10 +115,10 @@ th{
   }
 
   .role-th{
-    width: 30%;
+    width: 26%;
   }
 
   .btn-th{
-    width: 31%;
+    width: 26%;
   }
 }
