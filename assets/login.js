@@ -5,9 +5,3 @@ import './styles/login.scss';
 // start the Stimulus application
 import './bootstrap';
 
-window.onload = ()=>{
-    const resetInput = document.querySelector('.reset-input');
-
-    const parent = resetInput.parentNode;
-        parent.classList.add("form-inputs")
-}

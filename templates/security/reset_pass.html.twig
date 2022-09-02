@@ -9,21 +9,20 @@
 {% endblock%}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('login') }}
+    {{ encore_entry_script_tags('reset') }}
 
 {% endblock%}
 
 {% block body %}
     <div class="page-container">
-        <h1><span>Fitness</span> Club</h1>
         <div class="form-container">
+            <div class="logo-img"></div>
             <form method="post">
-                <h2 class="h3 mb-3 font-weight-normal">Mot de passe oublié</h2>
+                <h2 class="reset-title">Mot de passe oublié</h2>
                 <p class="reset-p">Entrez votre adresse email pour recevoir un email de réinitialisation du mot de passe.</p>
                 {{ form_start(resetPassForm) }}
                 {{ form_row(resetPassForm.email) }}
-
-                <button type="submit" class="btn btn-lg btn-primary">Valider</button>
+                <button type="submit" class="mainForm-btn">Valider</button>
                 {{ form_end(resetPassForm) }}
 
             </form>

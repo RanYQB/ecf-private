@@ -19,7 +19,7 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'label' => 'Email ',
+                'label' => 'Email',
                 'label_attr' => [
                     'class' => 'col-sm-2 col-form-label',
                 ],
