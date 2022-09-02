@@ -31,6 +31,10 @@ body{
         color: #27ae60;
         margin-bottom: 0;
     }
+
+    .flash-message-close{
+        color: #27ae60 ;
+    }
 }
 
 @keyframes flash {
@@ -48,4 +52,19 @@ body{
     100%{
         opacity: 0;
     }
+}
+
+
+@media screen and (max-width: 992px) {
+    .flash-messages{
+        min-height: 4rem;
+        width: 90%;
+
+        .flash-success-content{
+            width: 70%;
+        }
+
+    }
+
+
 }
