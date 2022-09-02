@@ -31,6 +31,7 @@ Encore
     .addEntry('structure', './assets/structure.js')
     .addEntry('mainContainer', './assets/mainContainer.js')
     .addEntry('unverified', './assets/unverified.js')
+    .addEntry('read', './assets/read.js')
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
 

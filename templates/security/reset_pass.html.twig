@@ -1,7 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fitness Club - Réinitialisation du mot de passe{% endblock %}
+
 {% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/login.css') }}">
+
 {% endblock%}
 
 {% block javascripts %}
+    {{ encore_entry_script_tags('login') }}
+
 {% endblock%}
 
 {% block body %}
@@ -10,6 +19,7 @@
         <div class="form-container">
             <form method="post">
                 <h2 class="h3 mb-3 font-weight-normal">Mot de passe oublié</h2>
+                <p class="reset-p">Entrez votre adresse email pour recevoir un email de réinitialisation du mot de passe.</p>
                 {{ form_start(resetPassForm) }}
                 {{ form_row(resetPassForm.email) }}
 
