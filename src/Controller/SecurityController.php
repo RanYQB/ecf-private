@@ -102,7 +102,7 @@ class SecurityController extends AbstractController
 
                     ]);
                 $mailer->send($email);
-                $this->addFlash('message', 'Votre e-mail a été envoyé.');
+                $this->addFlash('success', 'Un email a été envoyé pour réinitialiser votre mot de passe.');
                 return $this->redirectToRoute('app_login');
             }
 

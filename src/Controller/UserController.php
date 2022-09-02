@@ -29,7 +29,7 @@ class UserController extends AbstractController
                 $form->handleRequest($request);
 
                 if ($form->isSubmitted() && $form->isValid()) {
-                    // encode the plain password
+                    // encodage du mot de passe
                     $user->setPassword(
                         $userPasswordHasher->hashPassword(
                             $user,
@@ -40,9 +40,9 @@ class UserController extends AbstractController
                     $entityManager->persist($user);
                     $entityManager->flush();
 
-                    // do anything else you need here, like send an email
-
-                    return $this->redirectToRoute('app_logout');
+                    // message flash et redirection
+                    $this->addFlash('success', 'Votre mot de passe a bien été réinitialisé.');
+                    return $this->redirectToRoute('app_login');
 
                 }
 

@@ -1,14 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Fitness Club - Récupération de mot de passe{% endblock %}
+{% block title %}Fitness Club - Réinitialisation du mot de passe{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/login.css') }}">
+
+{% endblock%}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('login') }}
+    {{ encore_entry_script_tags('app') }}
+{% endblock%}
 
 {% block body %}
-<h1>Réinitialisation de votre mot de passe</h1>
-    <p>{{ user.email }}</p>
-    <div>
-        {{ form_start(newPassForm) }}
-        {{ form_row(newPassForm.plainPassword) }}
-        <button type="submit" class="btn">Enregistrer</button>
-        {{ form_end(newPassForm) }}
+
+<div class="page-container">
+    <div class="form-container">
+        <div class="logo-img"></div>
+        <form method="post">
+            <h2>Réinitialisation de votre mot de passe</h2>
+            <p>{{ user.email }}</p>
+            {{ form_start(newPassForm) }}
+                {{ form_row(newPassForm.plainPassword) }}
+                <button type="submit" class="mainForm-btn">Enregistrer</button>
+            {{ form_end(newPassForm) }}
+        </form>
     </div>
+</div>
 {% endblock %}
