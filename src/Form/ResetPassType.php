@@ -20,7 +20,7 @@ class ResetPassType extends AbstractType
                     'class' => 'col-form-label',
                 ],
                 'attr' => [
-                    'class' => 'form-control form-input mb-4',
+                    'class' => 'form-control form-input mb-4 reset-input',
                 ]
             ])
         ;

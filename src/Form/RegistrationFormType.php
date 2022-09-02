@@ -25,7 +25,7 @@ class RegistrationFormType extends AbstractType
                 ],
                 'attr' => [
                     'class' => 'form-control form-input',
-                    'placeholder' => 'adresse mail ...'
+                    'placeholder' => 'adresse email ...'
                 ]
             ])
 
