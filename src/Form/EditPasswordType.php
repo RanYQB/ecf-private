@@ -24,10 +24,10 @@ class EditPasswordType extends AbstractType
                 // this is read and encoded in the controller
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password',],
-                'options' => ['attr' => ['class' => 'password-field']],
+                'options' => ['attr' => ['class' => 'password-field form-control']],
                 'required' => true,
                 'first_options'  => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Confirmation du mot de passe'],
+                'second_options' => ['label' => 'Confirmation'],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Merci de saisir un mot de passe',

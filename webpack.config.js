@@ -33,6 +33,8 @@ Encore
     .addEntry('unverified', './assets/unverified.js')
     .addEntry('read', './assets/read.js')
     .addEntry('reset', './assets/reset.js')
+    .addEntry('newPass', './assets/newPass.js')
+    .addEntry('navBar', './assets/navBar.js')
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
 
