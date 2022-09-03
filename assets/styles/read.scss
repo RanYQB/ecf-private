@@ -18,12 +18,18 @@
   min-height: 100%;
 }
 
+.gym-logo{
+  margin: 1.3rem auto;
+  display: block;
+  fill: #3585bb;
+}
 
 .main-content{
   background-color: white;
   border: solid 1px #3585bb;
   box-shadow: 0px 0px 15px 8px #3585bb;
   min-height: 100%;
+
 }
 
 .white-card{
@@ -40,7 +46,7 @@
 }
 .title{
 
-  padding: 2rem 0;
+  padding-bottom: 2rem ;
   word-break: break-word;
   border-bottom: solid 1px #3585bb;
   margin: .5rem 2rem;
@@ -93,6 +99,7 @@
     margin-top: 1rem;
 
     li{
+      background-color: white;
       color: #112B3C;
       font-size: .9rem;
       font-weight: 600;
@@ -110,11 +117,60 @@
       }
     }
   }
+  .structures-list{
+    margin-top: 1rem;
+
+    .structure-content{
+      border: solid 1px #4c99cd;
+      border-top: unset;
+      padding: 1rem;
+      margin-bottom: 0;
+      display: none;
+      background-color: #d7e8f4;
+      box-shadow: rgb(149, 172, 210) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+
+      div{
+        margin-bottom: .5rem;
+      }
+    }
+    ul{
+
+      margin-top: .5rem;
+      margin-bottom: 0;
+
+    }
+    .structure-div{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: .5rem 1rem;
+      border-bottom: solid 1px #4c99cd;
+      margin-bottom: 0;
+      cursor: pointer;
+
+      .blue-color{
+        color: #4c99cd;
+      }
+
+
+    }
+  }
+
 }
 
 svg{
   vertical-align: baseline;
 }
+
+.blue-fill{
+  fill: #4c99cd;
+  transform: rotate(180deg) ;
+  animation: transform 1s ease;
+}
+
+
+
 
 @media screen and (max-width: 680px) {
   .main-container {
