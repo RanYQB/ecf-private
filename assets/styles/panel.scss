@@ -100,6 +100,9 @@ h3{
       padding: 1rem;
       border-left: solid 3px #4c99cd ;
 
+      &:hover{
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+      }
 
       .title-card{
         text-align: start;
@@ -138,6 +141,9 @@ h3{
     padding: 1rem;
     border-left: solid 3px #4c99cd ;
 
+    &:hover{
+      box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    }
 
     .title-card{
       text-align: start;
@@ -215,6 +221,12 @@ h6{
   }
 }
 
+.permission-granted{
+  background-color: white;
+  margin-bottom: .3rem;
+  padding: .2rem 1rem;
+  border: solid 1px lightgray;
+}
 
 
 @media screen and (max-width: 992px) {

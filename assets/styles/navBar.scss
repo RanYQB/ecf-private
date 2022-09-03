@@ -6,14 +6,15 @@
   height: 8vh;
   width: 100vw;
   padding: 0 2rem;
-  background-color: #112B3C /* #205375 */;
+  background-color: white; /* #205375 */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  color: #EEEEEE;
-  border-bottom: solid 1px #0a1e2a;
+  color: #112B3C;
+  border-bottom: solid 1px #0a1d29;
   z-index: 1;
+  box-shadow: 5px 8px 20px 10px #0a1d29;
 
   .logo{
 
@@ -38,13 +39,13 @@
     padding: 5px 1rem;
     font-size: 0.8rem;
     font-weight: 600;
-
+    border-radius: 17px;
     color: #378cc8;
 
     &:hover{
       color: white;
       border: solid 1px white;
-      background-color: rgba(76, 153, 205, 0.53);
+      background-color: rgb(76, 153, 205);
     }
   }
 
