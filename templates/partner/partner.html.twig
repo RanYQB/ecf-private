@@ -14,17 +14,58 @@
     {{ encore_entry_script_tags('navBar') }}
 
 {% endblock%}
-
 {% block body %}
-
-<div class="example-wrapper">
-    {% include 'Partials/_navBar.html.twig' %}
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/apps/Fitness-club-app/src/Controller/PartnerController.php'|file_link(0) }}">src/Controller/PartnerController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/apps/Fitness-club-app/templates/partner/admin.html.twig'|file_link(0) }}">templates/partner/index.html.twig</a></code></li>
-    </ul>
-</div>
+{% include 'Partials/_navBar.html.twig' %}
+    <div class="main-container">
+        <div class="main-content-div">
+            <div class="main-content">
+                <div class="title">
+                    <h2>Fitness Club<br>{{ partner.name }}</h2>
+                </div>
+                <div class="info-structure">
+                    <div>
+                        <h4><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                                <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
+                            </svg> Adresse Email</h4>
+                        <p>{{ partner.user.email }}</p>
+                    </div>
+                    <div>
+                        <h4><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 384 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M48 0C21.5 0 0 21.5 0 48V464c0 26.5 21.5 48 48 48h96V432c0-26.5 21.5-48 48-48s48 21.5 48 48v80h96c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48H48zM64 240c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V240zm112-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V240zM80 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V112zM272 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16z"/></svg> Nombre de structures</h4>
+                        <p>{{ structures|length }}</p>
+                    </div>
+                    <div>
+                        <h4><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                            </svg> Permissions globales</h4>
+                        <ul>
+                            {% if permissions.newsletter  == 1 %}
+                                <li>Envoi de la Newsletter</li>
+                            {% endif %}
+                            {% if permissions.planningManagement  == 1 %}
+                                <li>Gestion des plannings</li>
+                            {% endif %}
+                            {% if permissions.drinkSales  == 1 %}
+                                <li>Vente de boissons</li>
+                            {% endif %}
+                            {% if permissions.videoCourses  == 1 %}
+                                <li>Accès aux cours vidéos</li>
+                            {% endif %}
+                            {% if permissions.prospectReminders  == 1 %}
+                                <li>Relance des prospects</li>
+                            {% endif %}
+                            {% if permissions.sponsorship  == 1 %}
+                                <li>Parrainage</li>
+                            {% endif %}
+                            {% if permissions.freeWifi  == 1 %}
+                                <li>Wifi gratuit</li>
+                            {% endif %}
+                            {% if permissions.flexibleHours  == 1 %}
+                                <li>Flexibilité des horaires</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
