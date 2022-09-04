@@ -16,120 +16,130 @@
 {% endblock%}
 {% block body %}
 {% include 'Partials/_navBar.html.twig' %}
-    <div class="main-container">
-        <div class="main-content-div">
-            <div class="main-content">
-                <svg class="gym-logo" width="40" height="40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M112 96c0-17.7 14.3-32 32-32h16c17.7 0 32 14.3 32 32V224v64V416c0 17.7-14.3 32-32 32H144c-17.7 0-32-14.3-32-32V384H64c-17.7 0-32-14.3-32-32V288c-17.7 0-32-14.3-32-32s14.3-32 32-32V160c0-17.7 14.3-32 32-32h48V96zm416 0v32h48c17.7 0 32 14.3 32 32v64c17.7 0 32 14.3 32 32s-14.3 32-32 32v64c0 17.7-14.3 32-32 32H528v32c0 17.7-14.3 32-32 32H480c-17.7 0-32-14.3-32-32V288 224 96c0-17.7 14.3-32 32-32h16c17.7 0 32 14.3 32 32zM416 224v64H224V224H416z"/></svg>
-                <div class="title">
-                    <h2>Fitness Club<br>{{ partner.name }}</h2>
-                </div>
-                <div class="info-structure">
-                    <div>
-                        <h4><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
-                                <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
-                            </svg> Adresse Email</h4>
-                        <p>{{ partner.user.email }}</p>
+    {% if is_granted('ROLE_PARTNER') %}
+        <div class="main-container">
+            {% if partner.user.isActive == true %}
+            <div class="main-content-div">
+                <div class="main-content">
+                    <svg class="gym-logo" width="40" height="40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M112 96c0-17.7 14.3-32 32-32h16c17.7 0 32 14.3 32 32V224v64V416c0 17.7-14.3 32-32 32H144c-17.7 0-32-14.3-32-32V384H64c-17.7 0-32-14.3-32-32V288c-17.7 0-32-14.3-32-32s14.3-32 32-32V160c0-17.7 14.3-32 32-32h48V96zm416 0v32h48c17.7 0 32 14.3 32 32v64c17.7 0 32 14.3 32 32s-14.3 32-32 32v64c0 17.7-14.3 32-32 32H528v32c0 17.7-14.3 32-32 32H480c-17.7 0-32-14.3-32-32V288 224 96c0-17.7 14.3-32 32-32h16c17.7 0 32 14.3 32 32zM416 224v64H224V224H416z"/></svg>
+                    <div class="title">
+                        <h2>Fitness Club<br>{{ partner.name }}</h2>
                     </div>
-                    <div>
-                        <h4><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 384 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M48 0C21.5 0 0 21.5 0 48V464c0 26.5 21.5 48 48 48h96V432c0-26.5 21.5-48 48-48s48 21.5 48 48v80h96c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48H48zM64 240c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V240zm112-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V240zM80 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V112zM272 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16z"/></svg> Nombre de structures</h4>
-                        <p>{{ structures|length }}</p>
-                    </div>
-                    <div>
-                        <h4><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                            </svg> Permissions globales</h4>
-                        <ul>
-                            {% if permissions.newsletter  == 1 %}
-                                <li>Envoi de la Newsletter</li>
-                            {% endif %}
-                            {% if permissions.planningManagement  == 1 %}
-                                <li>Gestion des plannings</li>
-                            {% endif %}
-                            {% if permissions.drinkSales  == 1 %}
-                                <li>Vente de boissons</li>
-                            {% endif %}
-                            {% if permissions.videoCourses  == 1 %}
-                                <li>Accès aux cours vidéos</li>
-                            {% endif %}
-                            {% if permissions.prospectReminders  == 1 %}
-                                <li>Relance des prospects</li>
-                            {% endif %}
-                            {% if permissions.sponsorship  == 1 %}
-                                <li>Parrainage</li>
-                            {% endif %}
-                            {% if permissions.freeWifi  == 1 %}
-                                <li>Wifi gratuit</li>
-                            {% endif %}
-                            {% if permissions.flexibleHours  == 1 %}
-                                <li>Flexibilité des horaires</li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                </div>
-                <div class="info-structure">
-                    <div>
-                        <h4><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
-                                <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
-                            </svg> Structures</h4>
-                        <div class="structures-list">
-                        {% for structure in structures %}
-                            <div class="structure-div str-accordion">
-                            <p id="structure-name">{{ structure.address }}</p>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" class="arrow-down" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
-                            </div>
-                            <div class="structure-content">
-                                <div>
-                                    <h4>Email du gérant</h4>
-                                    <p>{{ structure.user.email }}</p>
-                                </div>
-                                <div>
-                                <h4>Adresse complète</h4>
-                                    <p>{{ structure.address }}</p>
-                                    <p>{{ structure.zipcode }} - {{ structure.city }}</p>
-                                </div>
-                                <div>
-                                    <h4>Permissions accordées</h4>
-                                    <ul>
-                                        {% if structure.permissions.newsletter  == 1 %}
-                                            <li>Envoi de la Newsletter</li>
-                                        {% endif %}
-                                        {% if structure.permissions.planningManagement  == 1 %}
-                                            <li>Gestion des plannings</li>
-                                        {% endif %}
-                                        {% if structure.permissions.drinkSales  == 1 %}
-                                            <li>Vente de boissons</li>
-                                        {% endif %}
-                                        {% if structure.permissions.videoCourses  == 1 %}
-                                            <li>Accès aux cours vidéos</li>
-                                        {% endif %}
-                                        {% if structure.permissions.prospectReminders  == 1 %}
-                                            <li>Relance des prospects</li>
-                                        {% endif %}
-                                        {% if structure.permissions.sponsorship  == 1 %}
-                                            <li>Parrainage</li>
-                                        {% endif %}
-                                        {% if structure.permissions.freeWifi  == 1 %}
-                                            <li>Wifi gratuit</li>
-                                        {% endif %}
-                                        {% if structure.permissions.flexibleHours  == 1 %}
-                                            <li>Flexibilité des horaires</li>
-                                        {% endif %}
-                                    </ul>
-                                </div>
-                            </div>
-                        {% endfor %}
+                    <div class="info-structure">
+                        <div>
+                            <h4><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                                    <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
+                                </svg> Adresse Email</h4>
+                            <p>{{ partner.user.email }}</p>
+                        </div>
+                        <div>
+                            <h4><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 384 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M48 0C21.5 0 0 21.5 0 48V464c0 26.5 21.5 48 48 48h96V432c0-26.5 21.5-48 48-48s48 21.5 48 48v80h96c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48H48zM64 240c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V240zm112-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V240zM80 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V112zM272 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16z"/></svg> Nombre de structures</h4>
+                            <p>{{ structures|length }}</p>
+                        </div>
+                        <div>
+                            <h4><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                                </svg> Permissions globales</h4>
+                            <ul>
+                                {% if permissions.newsletter  == 1 %}
+                                    <li>Envoi de la Newsletter</li>
+                                {% endif %}
+                                {% if permissions.planningManagement  == 1 %}
+                                    <li>Gestion des plannings</li>
+                                {% endif %}
+                                {% if permissions.drinkSales  == 1 %}
+                                    <li>Vente de boissons</li>
+                                {% endif %}
+                                {% if permissions.videoCourses  == 1 %}
+                                    <li>Accès aux cours vidéos</li>
+                                {% endif %}
+                                {% if permissions.prospectReminders  == 1 %}
+                                    <li>Relance des prospects</li>
+                                {% endif %}
+                                {% if permissions.sponsorship  == 1 %}
+                                    <li>Parrainage</li>
+                                {% endif %}
+                                {% if permissions.freeWifi  == 1 %}
+                                    <li>Wifi gratuit</li>
+                                {% endif %}
+                                {% if permissions.flexibleHours  == 1 %}
+                                    <li>Flexibilité des horaires</li>
+                                {% endif %}
+                            </ul>
                         </div>
                     </div>
-                    {#
-                    <div>
-                        <h4><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                            </svg> Permissions globales</h4>
+                    <div class="info-structure">
+                        <div>
+                            <h4><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                                    <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
+                                </svg> Structures</h4>
+                            <div class="structures-list">
+                            {% for structure in structures %}
+                                <div class="structure-div str-accordion">
+                                <p id="structure-name">{{ structure.address }}</p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" class="arrow-down" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
+                                </div>
+                                <div class="structure-content">
+                                    <div>
+                                        <h4>Email du gérant</h4>
+                                        <p>{{ structure.user.email }}</p>
+                                    </div>
+                                    <div>
+                                    <h4>Adresse complète</h4>
+                                        <p>{{ structure.address }}</p>
+                                        <p>{{ structure.zipcode }} - {{ structure.city }}</p>
+                                    </div>
+                                    <div>
+                                        <h4>Permissions accordées</h4>
+                                        <ul>
+                                            {% if structure.permissions.newsletter  == 1 %}
+                                                <li>Envoi de la Newsletter</li>
+                                            {% endif %}
+                                            {% if structure.permissions.planningManagement  == 1 %}
+                                                <li>Gestion des plannings</li>
+                                            {% endif %}
+                                            {% if structure.permissions.drinkSales  == 1 %}
+                                                <li>Vente de boissons</li>
+                                            {% endif %}
+                                            {% if structure.permissions.videoCourses  == 1 %}
+                                                <li>Accès aux cours vidéos</li>
+                                            {% endif %}
+                                            {% if structure.permissions.prospectReminders  == 1 %}
+                                                <li>Relance des prospects</li>
+                                            {% endif %}
+                                            {% if structure.permissions.sponsorship  == 1 %}
+                                                <li>Parrainage</li>
+                                            {% endif %}
+                                            {% if structure.permissions.freeWifi  == 1 %}
+                                                <li>Wifi gratuit</li>
+                                            {% endif %}
+                                            {% if structure.permissions.flexibleHours  == 1 %}
+                                                <li>Flexibilité des horaires</li>
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </div>
+                        </div>
+                        {#
+                        <div>
+                            <h4><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                                </svg> Permissions globales</h4>
 
+                        </div>
+                        #}
                     </div>
-                    #}
                 </div>
             </div>
+        {% elseif partner.user.isActive == false %}
+            <div class="disabled-div">
+                <h2>Fitness Club<br>{{ partner.name }}</h2>
+                <p>Votre compte a été désactivé.</p>
+                <p>Pour en savoir plus, contactez votre gestionnaire.</p>
+            </div>
+        {% endif %}
         </div>
-    </div>
+    {% endif%}
 {% endblock %}

@@ -36,9 +36,9 @@
         </div>
         <div class="partner-btns">
         {% if partner.user.isActive == true %}
-            <a href="{{ path('app_admin_enable_user', {id: partner.user.id }) }}" class="btn btn-primary">Désactiver</a>
+            <button type="button" class="btn btn-primary btn-confirm" id="status-modal" >Désactiver</button>
         {% elseif partner.user.isActive == false %}
-            <a href="{{ path('app_admin_enable_user', {id: partner.user.id }) }}" class="btn btn-success">Activer</a>
+            <button type="button" class="btn btn-success" id="status-modal" >Activer</button>
         {% endif %}
         <a href="#" class="btn btn-danger">Supprimer</a>
         </div>
@@ -61,17 +61,16 @@
                 <button type="submit" class="btn" id="submit-form">Enregistrer les modifications</button>
         {{ form_end(partnerPermissionsForm) }}
             </form>
-            <button type="button" class="btn btn-primary" id="open-modal" >Enregistrer les modifications</button>
+            <button type="button" class="btn btn-primary btn-confirm" id="open-modal" >Enregistrer les modifications</button>
         </div>
     </div>
-
-    <!-- The Modal -->
+    <!-- Modal modification des permissions-->
     <div id="confirm-modal" class="confirm-modal">
-        <!-- Modal content -->
+        <!-- Contenu de la modal -->
         <div class="modal-buttons">
             <div class="closing">
                 <h4>Modification des permissions</h4>
-                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#aaa" class="bi bi-x" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#aaa" class="md-closing bi bi-x" viewBox="0 0 16 16">
                     <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                 </svg>
             </div>
@@ -79,9 +78,45 @@
             <p>Etes-vous sûr de vouloir modifier les permissions globales du partenaire? </p>
             </div>
             <div class="modal-buttons-div">
-                <button class="btn btn-outline-secondary">Annuler</button>
-                <button class="btn btn-primary" id="confirm-btn">Confirmer</button>
+                <button class="btn btn-outline-secondary cancel-mod">Annuler</button>
+                <button class="btn btn-primary btn-confirm" id="confirm-btn">Confirmer</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Modal activation et désactivation des comptes-->
+    <div id="activate-modal" class="confirm-modal">
+        <!-- Contenu de la modal -->
+        <div class="modal-buttons">
+            {% if partner.user.isActive == true %}
+                <div class="closing">
+                    <h4>Désactiver le partenaire</h4>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#aaa" class="ac-closing bi bi-x" viewBox="0 0 16 16">
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                    </svg>
+                </div>
+                <div class="modal-p">
+                    <p>Etes-vous sûr de vouloir désactiver ce partenaire? </p>
+                </div>
+                <div class="modal-buttons-div">
+                    <button class="btn btn-outline-secondary cancel-btn">Annuler</button>
+                    <a href="{{ path('app_admin_enable_user', {id: partner.user.id }) }}" class="btn btn-primary btn-confirm">Confirmer</a>
+                </div>
+            {% elseif partner.user.isActive == false %}
+                <div class="closing">
+                <h4>Activer le partenaire</h4>
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#aaa" class="ac-closing bi bi-x" viewBox="0 0 16 16">
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+                </div>
+                <div class="modal-p">
+                    <p>Etes-vous sûr de vouloir activer le partenaire? </p>
+                </div>
+                <div class="modal-buttons-div">
+                    <button class="btn btn-outline-secondary cancel-btn">Annuler</button>
+                    <a href="{{ path('app_admin_enable_user', {id: partner.user.id }) }}" class="btn btn-success">Activer</a>
+                </div>
+            {% endif %}
         </div>
     </div>
 
@@ -106,7 +141,7 @@
                         <p><span>Ville :</span> {{ structure.city }}</p>
                         </div>
                         <div class="structure-btn">
-                        <a href="{{ path('app_admin_show_structure', {slug: structure.slug }) }}" class="btn btn-primary">
+                        <a href="{{ path('app_admin_show_structure', {slug: structure.slug }) }}" class="btn btn-primary btn-confirm">
                             Voir la fiche de la structure</a>
                         </div>
                     </div>

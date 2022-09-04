@@ -1,5 +1,7 @@
 .main-container {
-  background-color: #112B3C/*#f3f9fc*/;
+
+  background: linear-gradient(to right, #243B55, #141E30);
+  /*background-color: #112B3C;*/
   position: absolute;
   top: 8vh;
   left: 0%;
@@ -9,13 +11,22 @@
 }
 
 .main-content-div{
-  width: 460px;
+  /*width: 460px;
   margin: 0 auto;
   background-color: #4c99cd;
   border: solid 1px #0a1d29;
   box-shadow: 0px 0px 15px 8px #0a1d29;
   padding: 3rem 5rem;
-  min-height: 100%;
+  min-height: 100%;*/
+
+  width: 460px;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 5px;
+  padding: 3rem 2rem;
+
 }
 
 .gym-logo{
@@ -25,9 +36,9 @@
 }
 
 .main-content{
-  background-color: white;
+  /*background-color: white;
   border: solid 1px #3585bb;
-  box-shadow: 0px 0px 15px 8px #3585bb;
+  box-shadow: 0px 0px 15px 8px #3585bb;*/
   min-height: 100%;
 
 }
@@ -58,6 +69,7 @@
     text-align: center;
     font-size: 1.2rem;
     color: #3585bb;
+    word-break: break-word;
 
   }
 
@@ -169,7 +181,33 @@ svg{
   animation: transform 1s ease;
 }
 
+.disabled-div {
+  width: 460px;
+  margin: 0 auto;
+  background: rgba(255, 240, 242, 0.97);
+  padding: 2rem;
+  border-radius: 5px;
+  color: #cc001b;
 
+  h2{
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #cc001b;
+    word-break: break-word;
+
+  }
+
+  p{
+    margin-bottom: 0;
+    font-size: .9rem;
+    font-weight: 500;
+    color: #cc001b;
+    word-break: break-word;
+  }
+}
 
 
 @media screen and (max-width: 680px) {
@@ -183,5 +221,9 @@ svg{
   }
   .main-content{
     box-shadow: unset;
+  }
+
+  .disabled-div{
+    width: 100%
   }
 }

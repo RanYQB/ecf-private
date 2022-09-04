@@ -10,7 +10,7 @@
         </div>
         <div class="partner-card">
             <div class="partner-titles">
-            <h3>{{ partner.name }}</h3>
+                <a href="{{ path('app_admin_show_partner', {slug: partner.slug }) }}"><h3>{{ partner.name }}</h3></a>
                 <div>
                     <p class="title"><span>Statut :</span>
                     {% if partner.user.isActive == 1%}activé

@@ -7,7 +7,8 @@ import './bootstrap';
 
 
 const strModal = document.getElementById("confirm-str-modal");
-
+const cancelBtn = document.querySelector('.cancel-btn');
+const cancelModify = document.querySelector('.cancel-mod');
 const openStrModal = document.getElementById('open-str-modal');
 
 window.onload = ()=>{
@@ -31,22 +32,50 @@ window.onload = ()=>{
 
 
 // Get the modal
-
-
 openStrModal.onclick = function (){
     strModal.style.display = "block";
 };
 
-const span = document.querySelector(".closing");
+const closing = document.querySelector(".closing-svg");
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
+closing.onclick = function() {
+    strModal.style.display = "none";
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
+    if (event.target == strModal) {
+        strModal.style.display = "none";
+    }
+}
+
+cancelModify.onclick = function() {
+    strModal.style.display = "none";
+}
+
+
+const statusModal = document.getElementById("status-modal");
+const activateModal = document.getElementById("activate-modal");
+
+// affichage modal de confirmation désactivation et activation des comptes partenaires
+statusModal.onclick = function (){
+    activateModal.style.display = "block";
+}
+
+//Fermer modal pour l'activation et la désactivation des comptes partenaires
+const acSpan = document.querySelector(".ac-closing");
+
+acSpan.onclick = function() {
+    activateModal.style.display = "none";
+}
+
+cancelBtn.onclick = function() {
+    activateModal.style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target == activateModal) {
+        activateModal.style.display = "none";
     }
 }
 

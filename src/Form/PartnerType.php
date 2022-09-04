@@ -20,7 +20,7 @@ class PartnerType extends AbstractType
                 ],
                 'attr' => [
                     'class' => 'form-control ',
-                    'placeholder' => 'nom du partenaire ...'
+                    'placeholder' => 'nom du partenaire...'
                 ]
             ])
         ;

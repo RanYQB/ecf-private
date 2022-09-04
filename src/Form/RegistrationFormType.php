@@ -25,7 +25,7 @@ class RegistrationFormType extends AbstractType
                 ],
                 'attr' => [
                     'class' => 'form-control form-input',
-                    'placeholder' => 'adresse email ...'
+                    'placeholder' => 'adresse email...'
                 ]
             ])
 
@@ -40,7 +40,7 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'autocomplete' => 'new-password',
                     'class' => 'form-control form-input',
-                    'placeholder' => 'mot de passe ...'
+                    'placeholder' => 'mot de passe...'
                 ],
                 'constraints' => [
                     new NotBlank([

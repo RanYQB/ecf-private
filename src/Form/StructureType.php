@@ -28,7 +28,7 @@ class StructureType extends AbstractType
                 ],
                 'attr' => [
                     'class' => 'form-control form-input',
-                    'placeholder' => 'adresse de la structure ...',
+                    'placeholder' => 'adresse de la structure...',
                     ],
             ])
             ->add('zipcode', NumberType::class,  [
@@ -37,7 +37,7 @@ class StructureType extends AbstractType
                     'class' => 'col-sm-2 col-form-label',
                 ],
                 'attr' => ['class' => 'form-control form-input',
-                    'placeholder' => 'code postal ...'],
+                    'placeholder' => 'code postal...'],
                 'constraints' => [
                     new Length([
                         'max' => 5,
@@ -49,13 +49,13 @@ class StructureType extends AbstractType
                     'class' => 'col-sm-2 col-form-label',
                 ],
                 'attr' => ['class' => 'form-control form-input',
-                    'placeholder' => 'ville ...'],
+                    'placeholder' => 'ville...'],
             ])
             ->add('partner', EntityType::class, [
                     'mapped' => false,
                     'class' => Partner::class,
                     'choice_label' => 'name',
-                    'placeholder' => 'choisissez un partenaire ...',
+                    'placeholder' => 'choisissez un partenaire...',
                     'label' => 'Partenaire ',
                     'label_attr' => [
                         'class' => 'col-sm-2 col-form-label',

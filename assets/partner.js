@@ -5,8 +5,9 @@ import './styles/partner.scss';
 import './bootstrap';
 
 const modal = document.getElementById("confirm-modal");
-
+const activateModal = document.getElementById("activate-modal");
 const openModal = document.getElementById('open-modal');
+const statusModal = document.getElementById("status-modal");
 
 window.onload = ()=>{
     const checkBoxes = document.querySelectorAll('.my-checkbox');
@@ -33,7 +34,8 @@ openModal.onclick = function (){
     modal.style.display = "block";
 };
 
-const span = document.querySelector(".closing");
+const span = document.querySelector(".md-closing");
+const cancelModify = document.querySelector(".cancel-mod");
 span.onclick = function() {
     modal.style.display = "none";
 }
@@ -43,6 +45,34 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
+cancelModify.onclick = function() {
+    modal.style.display = "none";
+}
+
+// affichage modal de confirmation désactivation et activation des comptes partenaires
+statusModal.onclick = function (){
+    activateModal.style.display = "block";
+}
+
+//Fermer modal pour l'activation et la désactivation des comptes partenaires
+const acSpan = document.querySelector(".ac-closing");
+const cancelBtn = document.querySelector('.cancel-btn')
+acSpan.onclick = function() {
+    activateModal.style.display = "none";
+}
+
+cancelBtn.onclick = function() {
+    activateModal.style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target == activateModal) {
+        activateModal.style.display = "none";
+    }
+}
+
+
 
 const permissionsForm = document.getElementById('permissions-modify');
 

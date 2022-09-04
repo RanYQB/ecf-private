@@ -459,7 +459,7 @@ class AdminController extends AbstractController
 
 
     #[Route('/desactiver/{id}', name: '_enable_user')]
-    public function setStatus(EntityManagerInterface $entityManager, UserRepository $userRepository, int $id, Request $request): Response
+    public function setStatus(EntityManagerInterface $entityManager, UserRepository $userRepository, int $id,MailerInterface $mailer, Request $request): Response
     {
         if($this->isGranted('ROLE_ADMIN')){
             // Pour désactiver et activer un compte, nous récupérons l'id de l'utilisateur
@@ -468,12 +468,26 @@ class AdminController extends AbstractController
 
             if($user->isIsActive() == true){
                 $user->setIsActive(false);
+                $subject = 'Désactivation de votre compte utilisateur Fitness Club';
+                $template = 'user/disabled_email.html.twig';
             } elseif ($user->isIsActive() == false){
                 $user->setIsActive(true);
+                $subject = 'Activation de votre compte utilisateur Fitness Club';
+                $template = 'user/enabled_email.html.twig';
             }
 
             $entityManager->persist($user);
             $entityManager->flush();
+
+            $email = (new TemplatedEmail())
+                ->from(new Address('manager.fitnessclub.app@gmail.com', 'Manager Fitness Club'))
+                ->to($user->getEmail())
+                ->subject($subject)
+                ->htmlTemplate($template)
+                ->context([
+                    'user'=> $user,
+                ]);
+            $mailer->send($email);
 
         }
         // Définition de la route dans une variable qui récupère l'URL de provenance de la requête
