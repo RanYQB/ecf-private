@@ -231,6 +231,8 @@ h2{
   }
 
 .filter-bar{
+  padding: 1rem;
+
   .search-bar {
     flex-direction: column;
     align-items: start;
@@ -257,7 +259,7 @@ h2{
 
   .partners-card{
     flex-direction: column;
-    width: 85%;
+    width: 95%;
     height: 60%;
 
   }
@@ -265,6 +267,7 @@ h2{
   .partners-content{
     width: 100%;
     margin-top: 0;
+    padding: 1rem;
   }
 
   .partners-card .person-svg{
