@@ -36,11 +36,11 @@
         </div>
         <div class="partner-btns">
         {% if partner.user.isActive == true %}
-            <button type="button" class="btn btn-primary btn-confirm" id="status-modal" >Désactiver</button>
+            <button type="button" class="bouton bouton-jaune btn-confirm" id="status-modal" >Désactiver</button>
         {% elseif partner.user.isActive == false %}
-            <button type="button" class="btn btn-success" id="status-modal" >Activer</button>
+            <button type="button" class="bouton bouton-jaune" id="status-modal" >Activer</button>
         {% endif %}
-        <a href="#" class="btn btn-danger">Supprimer</a>
+        <a href="#" class="bouton bouton-jaune-b">Supprimer</a>
         </div>
     </div>
 
@@ -61,7 +61,7 @@
                 <button type="submit" class="btn" id="submit-form">Enregistrer les modifications</button>
         {{ form_end(partnerPermissionsForm) }}
             </form>
-            <button type="button" class="btn btn-primary btn-confirm" id="open-modal" >Enregistrer les modifications</button>
+            <button type="button" class="bouton bouton-jaune btn-confirm" id="open-modal" >Enregistrer les modifications</button>
         </div>
     </div>
     <!-- Modal modification des permissions-->
@@ -78,8 +78,8 @@
             <p>Etes-vous sûr de vouloir modifier les permissions globales du partenaire? </p>
             </div>
             <div class="modal-buttons-div">
-                <button class="btn btn-outline-secondary cancel-mod">Annuler</button>
-                <button class="btn btn-primary btn-confirm" id="confirm-btn">Confirmer</button>
+                <button class="bouton cancel-mod">Annuler</button>
+                <button class="bouton btn-confirm" id="confirm-btn">Confirmer</button>
             </div>
         </div>
     </div>
@@ -99,7 +99,7 @@
                     <p>Etes-vous sûr de vouloir désactiver ce partenaire? </p>
                 </div>
                 <div class="modal-buttons-div">
-                    <button class="btn btn-outline-secondary cancel-btn">Annuler</button>
+                    <button class="bouton cancel-btn">Annuler</button>
                     <a href="{{ path('app_admin_enable_user', {id: partner.user.id }) }}" class="btn btn-primary btn-confirm">Confirmer</a>
                 </div>
             {% elseif partner.user.isActive == false %}
@@ -113,8 +113,8 @@
                     <p>Etes-vous sûr de vouloir activer le partenaire? </p>
                 </div>
                 <div class="modal-buttons-div">
-                    <button class="btn btn-outline-secondary cancel-btn">Annuler</button>
-                    <a href="{{ path('app_admin_enable_user', {id: partner.user.id }) }}" class="btn btn-success">Activer</a>
+                    <button class="bouton cancel-btn">Annuler</button>
+                    <a href="{{ path('app_admin_enable_user', {id: partner.user.id }) }}" class="bouton">Activer</a>
                 </div>
             {% endif %}
         </div>
@@ -141,7 +141,7 @@
                         <p><span>Ville :</span> {{ structure.city }}</p>
                         </div>
                         <div class="structure-btn">
-                        <a href="{{ path('app_admin_show_structure', {slug: structure.slug }) }}" class="btn btn-primary btn-confirm">
+                        <a href="{{ path('app_admin_show_structure', {slug: structure.slug }) }}" class="bouton bouton-jaune btn-confirm">
                             Voir la fiche de la structure</a>
                         </div>
                     </div>

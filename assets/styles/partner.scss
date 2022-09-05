@@ -9,15 +9,17 @@
 }
 
 h2{
-  font-weight: 700;
+  font-size: 1.5rem;
   margin-bottom: 1.5rem;
+  font-weight: 600;
   margin-top: 1rem;
 }
 
 
 h3{
   color: #2c70a0;
-  font-weight: 700;
+  font-weight: 600;
+  font-size: 1.4rem;
   margin-bottom: 1.5rem;
 }
 
@@ -81,6 +83,7 @@ h3{
 
       p{
         margin-bottom: .5rem;
+        font-size: .9rem;
       }
     }
 
@@ -93,6 +96,7 @@ h3{
 
     a{
       margin-left: .5rem;
+      text-decoration: none;
     }
   }
 }
@@ -103,6 +107,8 @@ h3{
     margin-bottom: 0.5rem;
   }
 }
+
+
 
 /* The Modal (background) */
 .confirm-modal {
@@ -196,8 +202,8 @@ h3{
 
   span{
     color: #2c70a0;
-    font-weight: 700;
-    font-size: 1.75rem;
+    font-weight: 600;
+    font-size: 1.4rem;
     padding-bottom: .3rem;
     padding-left: 0;
   }
@@ -327,15 +333,51 @@ h3{
   }
 }
 
-.btn-confirm{
-  background-color: #4c99cd;
-  border: solid 1px rgb(66, 148, 203);
+.bouton{
+    border: none;
+    line-height: 1.8rem;
+    padding: .05rem 1.1rem;
+    border-radius: 17px;
+
+
+}
+
+.bouton-jaune{
+  color: white;
+  background-color: #e9c949;
+  border: solid 1px #e9c949;
 
   &:hover{
-    background-color: #2c70a0;
-    border: solid 1px #2c70a0;
+    background-color: #e3bb1c;
+
   }
 
+}
+
+a{
+  text-decoration: none;
+
+  &:hover{
+    color: white;
+  }
+}
+
+.bouton-jaune-b{
+  color: #e9c949;
+  background-color: white;
+  border: solid 1px #e9c949;
+
+  &:hover{
+    background-color: #e3bb1c;
+    color: white;
+  }
+}
+
+
+.form-check{
+  label{
+    font-size: .9rem;
+  }
 }
 
 
@@ -392,12 +434,23 @@ h3{
 
     width: 100%;
     margin-top: 2rem;
+    flex-direction: column;
 
-    a{
-      width: 50%;
+    .bouton-jaune{
+      width: 100%;
+      margin-bottom: .5rem;
     }
 
+    .bouton-jaune-b{
+      width: 100%;
+      margin-left: 0;
+      text-align: center;
+    }
   }
+
+
+
+
 }
 
 @media screen and (max-width: 576px) {

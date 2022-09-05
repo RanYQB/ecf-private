@@ -1,4 +1,5 @@
 <p class="number-structure">Nombre de résultats : {{ partners|length }}</p>
+<div>
 {% for partner in partners %}
     <div class="partners-card">
         <div class="person-svg">
@@ -31,3 +32,4 @@
         </div>
     </div>
 {% endfor %}
+</div>

@@ -12,8 +12,8 @@ structuresAcc.forEach( structureAcc =>{
 
         this.classList.toggle("str-active");
 
-        const arrow = document.querySelector('.arrow-down');
-        const strName = document.getElementById('structure-name');
+        const arrow = structureAcc.querySelector('.arrow-down');
+        const strName = structureAcc.querySelector('.structure-name');
 
         arrow.classList.toggle("blue-fill");
         strName.classList.toggle('blue-color')
