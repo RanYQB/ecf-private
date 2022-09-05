@@ -6,25 +6,27 @@
   left: 20%;
   width: 80%;
   min-height: 92%;
-  padding: 3rem 6rem;
+  padding: 3rem;
 
 }
 
 h2{
+  color: #3585bb;
+  text-align: center;
   font-weight: 600;
+  font-size: 1.2rem;
   margin-bottom: 1.5rem;
+
 }
 
 .form-add{
-  background-color: white;
-  border: solid 1px lightgray;
+  width: 595px;
+  margin: 2rem auto;
+  background-color: hsla(0,0%,100%,.92);
+  border: 1px solid lightgray;
+  border-radius: 7px;
   padding: 1rem 3rem;
-  margin-bottom: 1.5rem;
-
-
-  &:hover{
-    box-shadow: 0 0 10px 2px lightgray;
-  }
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
   div{
     display: flex;
@@ -32,8 +34,10 @@ h2{
     margin-bottom: 1.5rem;
 
     label{
-      width: 30%;
+      width: 25%;
       color: #4d4d4d;
+      font-size: .9rem;
+      font-weight: 600;
     }
   }
 
@@ -49,19 +53,31 @@ form{
   margin-top: 2rem;
   margin-bottom: 2rem;
 
+}
+
+.form-select{
+  font-size: .9rem;
 
 
 }
 
+input::placeholder{
+  font-size: .9rem;
+}
+
 .submit-btn{
   background-color: #2ecc71;
-  font-size: 1rem;
+  font-size: .9rem;
   border: solid 1px #27ae60;
   color: white;
+  border-radius: 17px;
+  line-height: 1.2rem;
+
 
   &:hover{
     background-color: #27ae60;
     border: solid 1px #27ae60;
+    color: white;
   }
 }
 

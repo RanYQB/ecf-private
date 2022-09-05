@@ -19,8 +19,9 @@
     {% endfor %}
     {% include 'Partials/_admin_navBar.html.twig' %}
     <div class="main-container">
-    <h2>Nouvelle structure</h2>
+
     <div class="form-add">
+        <h2>Nouvelle structure</h2>
     {{ form_start(structureForm) }}
     {{ form_row(structureForm.structure.partner) }}
     {{ form_row(structureForm.user.email) }}

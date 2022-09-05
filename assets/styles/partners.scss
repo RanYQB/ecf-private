@@ -10,33 +10,49 @@
 }
 
 h2{
+  color: #3585bb;
+  text-align: center;
   font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
 }
 
 
 .number-structure{
   color: gray;
+  font-size: .9rem;
+  font-weight: 600;
 }
 
 .filter-bar{
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+  align-items: start;
   justify-content: space-between;
-  background-color: white;
   border: solid 1px lightgray;
-  padding: 1rem 2rem;
-  margin-bottom: 1.5rem;
-  border-radius: 5px;
+  margin: 2rem auto;
+  background-color: hsla(0,0%,100%,.92);
+  border-radius: 7px;
+  padding: 1rem 3rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  margin-bottom: 1rem;
 
-
-  &:hover{
-    box-shadow: 0 0 10px 2px lightgray;
+  .search-bar{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-size: .9rem;
   }
 
   input{
-    height: 2.5rem;
+    height: 2.2rem;
     width: 60%;
+
+    &::placeholder{
+      font-size: .9rem;
+    }
   }
 
   form{
@@ -46,9 +62,19 @@ h2{
     }
 
     select {
-      height: 2.5rem ;
+      height: 2rem ;
     }
   }
+}
+
+.partners-content{
+  border: solid 1px lightgray;
+  margin: 2rem auto;
+  background-color: hsla(0,0%,100%,.92);
+  border-radius: 7px;
+  padding: 1rem 3rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  margin-top: 1rem;
 }
 
 .partners-card{
@@ -56,26 +82,24 @@ h2{
   flex-direction: row;
   align-items: center;
   justify-content: start;
-  width: 100%;
-  height: 190px;
-  margin-bottom: 1rem;
+  width: fit-content;
+  height: 160px;
+  margin: 1rem auto;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
-
-  &:hover{
-    box-shadow: 0 0 10px 2px lightgray;
-  }
 
   .person-svg{
-    height: 100%;
-    width: 190px;
+    min-height: 160px;
+    min-width: 160px;
     border: solid 1px lightgray;
     border-right: none;
     border-collapse: collapse;
-    background-color: #e6e6e6;
+    background-color: #4c99cd /*#e6e6e6*/;
     position: relative;
     display: flex;
     align-items: end;
     justify-content: center;
+    padding-bottom: 1rem;
 
 
     div{
@@ -90,11 +114,11 @@ h2{
 
 .partner-card{
   border: solid 1px lightgray;
-  padding: 1rem 2rem;
+  padding: 1rem 1.5rem;
   background-color: white;
   position: relative;
   height: 100%;
-  width: 80%;
+  width: 413px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -112,7 +136,9 @@ h2{
 
     h3{
       color: #2c70a0;
-      font-weight: 700;
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-transform: uppercase;
 
 
     }
@@ -120,7 +146,12 @@ h2{
     div{
       .title{
         color: black;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.3rem;
+        font-size: .9rem;
+        width: 320px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
 
         span{
           color: #112B3C;
@@ -150,7 +181,7 @@ h2{
       border: solid .5px #112B3C;
 
       svg{
-        fill: white;
+        fill:  white;
 
       }
     }
@@ -159,8 +190,22 @@ h2{
   }
 }
 
+@media screen and (max-width: 1100px){
+
+
+  .partner-card .partner-titles div .title{
+    width: 250px;
+  }
+
+  .partner-card{
+    width: fit-content;
+  }
+
+}
+
 
 @media screen and (max-width: 992px) {
+
 
 
   .main-container{
@@ -176,7 +221,7 @@ h2{
 }
 
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 680px) {
   .main-container{
     padding: 1rem;
   }
@@ -185,8 +230,8 @@ h2{
     justify-content: start;
   }
 
-
-  .filter-bar {
+.filter-bar{
+  .search-bar {
     flex-direction: column;
     align-items: start;
     background-color: unset;
@@ -197,6 +242,11 @@ h2{
     &:hover{
       box-shadow: unset;
     }
+  }
+}
+
+  .partner-card .partner-titles div .title{
+    width: 227px;
   }
 
   .filter-bar input {
@@ -212,6 +262,11 @@ h2{
 
   }
 
+  .partners-content{
+    width: 100%;
+    margin-top: 0;
+  }
+
   .partners-card .person-svg{
     width: 100%;
     min-height: 180px;
@@ -221,7 +276,7 @@ h2{
     width: 100%;
     flex-direction: column;
     padding: 1rem;
-    min-height: 255px;
+    min-height: 235px;
   }
 
   .partner-card .partner-titles {

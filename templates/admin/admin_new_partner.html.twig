@@ -19,8 +19,9 @@
     {% endfor %}
     {% include 'Partials/_admin_navBar.html.twig' %}
     <div class="main-container">
-    <h2>Nouveau partenaire</h2>
+
 <div class="form-add">
+    <h2>Nouveau partenaire</h2>
     {{ form_start(partnerForm) }}
     {{ form_row(partnerForm.partner.name) }}
     {{ form_row(partnerForm.user.email) }}

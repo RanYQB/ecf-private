@@ -36,11 +36,11 @@
         </div>
         <div class="partner-btns">
         {% if partner.user.isActive == true %}
-            <button type="button" class="bouton bouton-jaune btn-confirm" id="status-modal" >Désactiver</button>
+            <button type="button" class="bouton bouton-bleu btn-confirm" id="status-modal" >Désactiver</button>
         {% elseif partner.user.isActive == false %}
-            <button type="button" class="bouton bouton-jaune" id="status-modal" >Activer</button>
+            <button type="button" class="bouton bouton-bleu" id="status-modal" >Activer</button>
         {% endif %}
-        <a href="#" class="bouton bouton-jaune-b">Supprimer</a>
+        <a href="#" class="bouton bouton-bleu-b">Supprimer</a>
         </div>
     </div>
 
@@ -61,7 +61,7 @@
                 <button type="submit" class="btn" id="submit-form">Enregistrer les modifications</button>
         {{ form_end(partnerPermissionsForm) }}
             </form>
-            <button type="button" class="bouton bouton-jaune btn-confirm" id="open-modal" >Enregistrer les modifications</button>
+            <button type="button" class="bouton bouton-bleu btn-confirm" id="open-modal" >Enregistrer les modifications</button>
         </div>
     </div>
     <!-- Modal modification des permissions-->
@@ -141,7 +141,7 @@
                         <p><span>Ville :</span> {{ structure.city }}</p>
                         </div>
                         <div class="structure-btn">
-                        <a href="{{ path('app_admin_show_structure', {slug: structure.slug }) }}" class="bouton bouton-jaune btn-confirm">
+                        <a href="{{ path('app_admin_show_structure', {slug: structure.slug }) }}" class="bouton bouton-bleu btn-confirm">
                             Voir la fiche de la structure</a>
                         </div>
                     </div>

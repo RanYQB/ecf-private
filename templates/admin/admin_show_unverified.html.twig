@@ -17,9 +17,10 @@
     {% include 'Partials/_admin_navBar.html.twig' %}
 
     <div class="main-container">
-        <h2>Utilisateurs non vérifiés</h2>
+
 
         <div class="white-card">
+            <h2>Utilisateurs non vérifiés</h2>
             {% if users|length >= 1 %}
                 {% set i = 0 %}
             <table class="table">
