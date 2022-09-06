@@ -169,7 +169,7 @@ De la même manière, définissez les trois variables suivantes
 L'application web utilise Webpack Encore. Ajoutez le buildpack correspondant
 
 ```
-heroku buildpacks :add heroku/nodejs
+heroku buildpacks:add heroku/nodejs
 ```
 
 ### **5. Déployer l'application**
