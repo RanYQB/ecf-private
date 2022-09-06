@@ -178,7 +178,7 @@ Exécutez les commandes suivantes :
 ```
 git push heroku main
 
-heroku run php bin/console doctrine :migrations :migrate
+heroku run php bin/console doctrine:migrations:migrate
 ```
 
 En cas d'erreur, vérifiez vos logs avec :
