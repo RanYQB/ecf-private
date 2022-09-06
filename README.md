@@ -122,8 +122,8 @@ Pour l'installer : [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli
 
 Depuis le terminal du projet, connectez-vous à Heroku
 
-```bash
-  heroku login
+```
+heroku login
 ```
 Créez un nouveau projet Heroku
 
