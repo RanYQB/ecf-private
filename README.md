@@ -161,7 +161,7 @@ De la même manière, définissez les trois variables suivantes
 
 `MAILER_DSN=sendgrid+smtp://KEY@default`
 
-`JWT_SECRET='Saisissez ici votre chaine de caractère secrète'`
+`JWT_SECRET=''`
 
 
 ### **4. Ajout du buildpack Node JS**
