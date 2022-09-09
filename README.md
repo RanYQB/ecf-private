@@ -11,7 +11,7 @@ Cet outil permettra à l'équipe technique (gestionnaires de la marque) de :
 6. abandonner une action si elle n'est pas confirmée
 7. effectuer des recherches dynamiques sans rechargement des pages pour plus de fluidité
 
-L'objectif de cette application web est le suivant : **Définir et modifier les permissions des partenaires et des structures afin de configurer les modules auxquels ils auront accès dans une application tiers (proposée aussi par la même marque et connectée à la même base de données que la présente application web).**
+L'objectif de cette application web est le suivant : **Définir et modifier les permissions des partenaires et des structures afin de configurer les modules auxquels ils auront accès dans une application tierce (proposée aussi par la même marque et connectée à la même base de données que la présente application web).**
 
 Sur l'application web Fitness Club, les partenaires et les structures pourront également se connecter et consulter en lecture seule leurs informations personnelles et les permissions qui leur sont octroyées.
 
