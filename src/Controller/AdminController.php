@@ -146,7 +146,7 @@ class AdminController extends AbstractController
                             'password' => $form->get('user')->get('plainPassword')->getData(),
                         ])
                 );
-
+                $this->addFlash('success', 'Le partenaire a bien été créé.');
                 return $this->redirectToRoute('app_admin');
             }
         }
@@ -241,11 +241,12 @@ class AdminController extends AbstractController
                         'city' => $structure->getCity(),
                     ]);
                 $mailer->send($email);
-                $this->addFlash('message', 'Votre e-mail a été envoyé.');
+                $this->addFlash('success', 'La structure a bien été créée.');
 
+                return $this->redirectToRoute('app_admin_create_structure');
 
-                return $this->redirectToRoute('app_admin');
-
+            } elseif ($form->isSubmitted() && !$form->isValid()) {
+                $this->addFlash('danger', 'Formulaire invalide, vérifiez votre saisie.');
             }
         }
         return $this->render('admin/admin_new_structure.html.twig', [
@@ -411,7 +412,7 @@ class AdminController extends AbstractController
                         'name' => $partner->getName(),
                     ]);
                 $mailer->send($email);
-                $this->addFlash('message', 'Votre e-mail a été envoyé.');
+                $this->addFlash('success', 'Les permissions globales du partenaire ont bien été modifiées.');
 
             }
 
@@ -466,7 +467,7 @@ class AdminController extends AbstractController
                         'structure'=> $structure,
                     ]);
                 $mailer->send($emailPartner);
-                $this->addFlash('message', 'Vos e-mails ont bien été envoyés.');
+                $this->addFlash('success', 'Les permissions de la structure ont bien été modifiées.');
             }
         }
 
@@ -509,6 +510,8 @@ class AdminController extends AbstractController
                     ])
             );
 
+            $this->addFlash('success', 'L\'email de confirmation a bien été renvoyé.');
+
         }
         // Définition de la route dans une variable qui récupère l'URL de provenance de la requête
         // étant donné que plusieurs pages sont concernées par cette action
@@ -530,10 +533,12 @@ class AdminController extends AbstractController
                 $user->setIsActive(false);
                 $subject = 'Désactivation de votre compte utilisateur Fitness Club';
                 $template = 'user/disabled_email.html.twig';
+                $message = 'Le compte a bien été désactivé.';
             } elseif ($user->isIsActive() == false){
                 $user->setIsActive(true);
                 $subject = 'Activation de votre compte utilisateur Fitness Club';
                 $template = 'user/enabled_email.html.twig';
+                $message = 'Le compte a bien été activé.';
             }
 
             $entityManager->persist($user);
@@ -548,7 +553,7 @@ class AdminController extends AbstractController
                     'user'=> $user,
                 ]);
             $mailer->send($email);
-
+            $this->addFlash('success', $message);
         }
         // Définition de la route dans une variable qui récupère l'URL de provenance de la requête
         // étant donné que plusieurs pages sont concernées par cette action

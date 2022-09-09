@@ -17,7 +17,7 @@ class ResetPassType extends AbstractType
                 'mapped' => false,
                 'label' => 'Email',
                 'attr' => [
-                    'class' => 'form-control form-input mb-4 reset-input',
+                    'class' => 'form-control form-input reset-input',
                 ]
             ])
         ;

@@ -26,6 +26,7 @@ body{
     align-items: center;
     justify-content: space-between;
     padding: 1rem 2rem;
+    z-index: 3;
 
     .flash-success-content{
         color: #27ae60;
@@ -34,6 +35,35 @@ body{
 
     .flash-message-close{
         color: #27ae60 ;
+    }
+}
+
+.flash-danger-messages{
+    position: absolute;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 4rem;
+    width: 50%;
+    background-color: #fad5d1;
+    border: solid 1px #e74c3c;
+    border-radius: 5px;
+    opacity: 0;
+    animation: flash 4s ease;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    z-index: 3;
+
+    .flash-danger-content{
+        color: #e74c3c;
+        margin-bottom: 0;
+    }
+
+    .flash-message-close{
+        color: #e74c3c ;
     }
 }
 

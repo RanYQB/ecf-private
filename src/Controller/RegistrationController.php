@@ -41,7 +41,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        $this->addFlash('success', 'Your email address has been verified.');
+        $this->addFlash('success', 'Votre adresse email a bien été vérifiée.');
 
         // Une fois le compte vérifié, l'EmailVerifier redirige directement l'utilisateur à un formulaire
         // de réinitialisation du mot de passe à  sa première connexion.

@@ -29,7 +29,8 @@ class SecurityController extends AbstractController
         // Dernier utilisateur connecté
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error
+        ]);
     }
 
 
@@ -61,7 +62,7 @@ class SecurityController extends AbstractController
             } elseif ($this->isGranted('ROLE_STRUCTURE')){
                 $route = 'app_structure';
              }
-
+            $this->addFlash('success', 'Votre mot de passe a bien été modifié.');
             return $this->redirectToRoute($route);
         }
 

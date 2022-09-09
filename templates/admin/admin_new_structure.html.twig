@@ -9,8 +9,10 @@
 {% endblock%}
 
 {% block javascripts %}
+    {{ parent() }}
     {{ encore_entry_script_tags('adminNavBar') }}
     {{ encore_entry_script_tags('formAdd') }}
+
 {% endblock%}
 
 {% block body %}

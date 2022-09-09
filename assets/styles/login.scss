@@ -37,6 +37,7 @@
 h2{
   font-weight: 700;
   text-align: center;
+  font-size: 1.7rem;
 }
 
 .reset-title{
@@ -94,6 +95,8 @@ h2{
 
     .reset-input{
       width:100%;
+      margin-top: 1.7rem;
+      margin-bottom: 2rem;
     }
 
   }
@@ -102,6 +105,8 @@ h2{
 
 .reset-p{
   text-align: center;
+  font-size: .9rem;
+  margin-bottom: 0;
 }
 
 .form-field{
@@ -130,6 +135,15 @@ h2{
 
 label{
   color: black;
+  font-size: .9rem;
+}
+
+.form-control{
+  font-size: .9rem;
+}
+
+input::placeholder{
+  font-size: .9rem;
 }
 
 .reset-pass{
