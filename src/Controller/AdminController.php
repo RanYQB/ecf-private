@@ -255,13 +255,12 @@ class AdminController extends AbstractController
 
 
     #[Route('/partenaires', name: '_show_partners')]
-    public function showPartners(PartnerRepository $partnerRepository, UserRepository $userRepository, Request $request): Response
+    public function showPartners(PartnerRepository $partnerRepository, Request $request): Response
     {
         // Récupération de la liste de tous les partenaires avec la fonction findBy afin de les classer par ordre
         // alphabétique.
-        $user = $userRepository->findBy(['isVerified' => true]);
 
-        $partners = $partnerRepository->findBy(['user' => $user], ['name' => 'ASC']);
+        $partners = $partnerRepository->showVerified();
 
         // Création de la barre de recherche
         //$form = $this->createForm(SearchPartnerType::class);
@@ -313,6 +312,67 @@ class AdminController extends AbstractController
 
         ]);
     }
+
+    #[Route('/structures', name: '_show_structures')]
+    public function showStructures(StructureRepository $structureRepository, Request $request): Response
+    {
+        // Récupération de la liste de tous les partenaires avec la fonction findBy afin de les classer par ordre
+        // alphabétique.
+        //$user = $userRepository->findBy(['isVerified' => true]);
+
+        //$structures = $structureRepository->findBy(['user' => $user], ['address' => 'ASC']);
+        $structures = $structureRepository->showVerified();
+        // Création de la barre de recherche
+        //$form = $this->createForm(SearchPartnerType::class);
+
+        // $search = $form->handleRequest($request);
+        $search = $request->get("search");
+
+        $filter = $request->get("filtre");
+
+        if($filter != "" && $filter != null ){
+            // Utilisation de la fonction Filter que l'on a créée dans le PartnerRepository
+            $structures = $structureRepository->filter($filter);
+        }
+
+        if($search != "" || $search != null){
+            // Utilisation de la fonction Filter que l'on a créée dans le PartnerRepository
+            // Utilisation de la fonction Filter que l'on a créée dans le PartnerRepository
+            if(isset($_GET['filtre'])){
+                $structures = $structureRepository->search($search, $filter);
+            } else {
+                $structures = $structureRepository->searchWithoutFilters($search);
+            }
+
+
+        }
+
+
+
+        //if($form->isSubmitted() && $form->isValid()){
+        // Utilisation de la fonction Search que l'on a créée dans le PartnerRepository
+        //  $partners = $partnerRepository->search($search->get('word')->getData());
+        //}
+
+
+        // On vérifie si l'URL possède un paramètre "Ajax" pour retourner les résultats du filtrage de la page
+        if($request->get('ajax')){
+            return new JsonResponse([
+                'content' => $this->renderView('Partials/_structure_content.html.twig', [
+                    'structures' => $structures,
+                    //'searchForm' => $form->createView(),
+
+                ])
+            ]);
+        }
+
+        return $this->render('admin/admin_show_structures.html.twig', [
+            'structures' => $structures,
+            //'searchForm' => $form->createView(),
+
+        ]);
+    }
+
 
     #[Route('/partenaires/{slug}', name: '_show_partner')]
     public function showPartner(EntityManagerInterface $entityManager,UserRepository $userRepository, PartnerRepository $partnerRepository, string $slug, StructureRepository $structureRepository, PermissionsRepository $permissionsRepository, Request $request, MailerInterface $mailer): Response

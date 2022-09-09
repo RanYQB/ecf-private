@@ -28,6 +28,7 @@ Encore
     .addEntry('formAdd', './assets/formAdd.js')
     .addEntry('partners', './assets/partners.js')
     .addEntry('partner', './assets/partner.js')
+    .addEntry('structures', './assets/structures.js')
     .addEntry('structure', './assets/structure.js')
     .addEntry('mainContainer', './assets/mainContainer.js')
     .addEntry('unverified', './assets/unverified.js')

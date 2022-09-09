@@ -39,13 +39,28 @@ class PartnerRepository extends ServiceEntityRepository
         }
     }
 
+    public function showVerified(){
+        $query = $this->createQueryBuilder('p');
+
+        $query->select('p', 'u')
+            ->innerJoin('p.user', 'u')
+            ->where('u.isVerified = 1')
+            ->orderBy('p.name');
+
+        return $query->getQuery()->getResult();
+    }
+
+
 
     public function searchWithoutFilters(string $words){
-        $query = $this->createQueryBuilder('p');
+
 
         $query = $this->createQueryBuilder('p');
         if($words != null){
-            $query->where('p.name LIKE :name')
+            $query->select('p', 'u')
+                ->innerJoin('p.user', 'u')
+                ->where('u.isVerified = 1')
+                ->andWhere('p.name LIKE :name')
                 ->orderBy('p.name')
                 // $words.'%' nous permet de saisir quelques lettres seulement et d'obtenir des résultats
                 // substitut à la méthode SQL "STARTSWITH" en DQL
@@ -74,6 +89,7 @@ class PartnerRepository extends ServiceEntityRepository
                 $query->select('p', 'u')
                     ->innerJoin('p.user', 'u')
                     ->where('u.is_active = 1')
+                    ->andWhere('u.isVerified = 1')
                     ->andWhere('p.name LIKE :name')
                     ->orderBy('p.name')
                     // $words.'%' nous permet de saisir quelques lettres seulement et d'obtenir des résultats
@@ -84,6 +100,7 @@ class PartnerRepository extends ServiceEntityRepository
                 $query->select('p', 'u')
                     ->innerJoin('p.user', 'u')
                     ->where('u.is_active = 0')
+                    ->andWhere('u.isVerified = 1')
                     ->andWhere('p.name LIKE :name')
                     ->orderBy('p.name')
                     // $words.'%' nous permet de saisir quelques lettres seulement et d'obtenir des résultats
@@ -92,7 +109,8 @@ class PartnerRepository extends ServiceEntityRepository
             } elseif ($filter == "none") {
                 $query->select('p', 'u')
                     ->innerJoin('p.user', 'u')
-                    ->where('p.name LIKE :name')
+                    ->where('u.isVerified = 1')
+                    ->andWhere('p.name LIKE :name')
                     ->orderBy('p.name')
                     // $words.'%' nous permet de saisir quelques lettres seulement et d'obtenir des résultats
                     // substitut à la méthode SQL "STARTSWITH" en DQL
@@ -115,16 +133,20 @@ class PartnerRepository extends ServiceEntityRepository
             $query->select('p', 'u')
                 ->innerJoin('p.user', 'u')
                 ->where('u.is_active = 1')
+                ->andWhere('u.isVerified = 1')
                 ->orderBy('p.name');
 
         } elseif ($filter == 0) {
             $query->select('p', 'u')
                 ->innerJoin('p.user', 'u')
                 ->where('u.is_active = 0')
+                ->andWhere('u.isVerified = 1')
                 ->orderBy('p.name');
 
         } elseif ($filter == "none") {
-            $query->select('p')
+            $query->select('p', 'u')
+                ->innerJoin('p.user', 'u')
+                ->where('u.isVerified = 1')
                 ->orderBy('p.name');
         }
         return $query->getQuery()->getResult();

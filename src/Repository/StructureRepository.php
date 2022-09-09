@@ -39,6 +39,109 @@ class StructureRepository extends ServiceEntityRepository
         }
     }
 
+    public function showVerified(){
+        $query = $this->createQueryBuilder('s');
+
+        $query->select('s', 'u')
+            ->innerJoin('s.user', 'u')
+            ->where('u.isVerified = 1')
+            ->orderBy('s.address');
+
+        return $query->getQuery()->getResult();
+    }
+
+
+    public function searchWithoutFilters(string $words){
+
+
+        $query = $this->createQueryBuilder('s');
+        if($words != null){
+            $query->select('s', 'u')
+                ->innerJoin('s.user', 'u')
+                ->where('u.isVerified = 1')
+                ->andWhere('s.address LIKE :address')
+                ->orderBy('s.address')
+
+                ->setParameter('address', '%'.$words.'%');
+        }
+
+        return $query->getQuery()->getResult();
+
+    }
+
+
+    // Création de la fonction de recherche
+    public function search(string $words, $filter )
+    {
+        $query = $this->createQueryBuilder('s');
+
+        if($words != null){
+
+            if ($filter == 1) {
+
+                $query->select('s', 'u')
+                    ->innerJoin('s.user', 'u')
+                    ->where('u.is_active = 1')
+                    ->andWhere('u.isVerified = 1')
+                    ->andWhere('s.address LIKE :address')
+                    ->orderBy('s.address')
+                    ->setParameter('address', '%'.$words.'%');
+
+            } elseif ($filter == 0) {
+                $query->select('s', 'u')
+                    ->innerJoin('s.user', 'u')
+                    ->where('u.is_active = 0')
+                    ->andWhere('u.isVerified = 1')
+                    ->andWhere('s.address LIKE :address')
+                    ->orderBy('s.address')
+                    ->setParameter('address', '%'.$words.'%');
+            } elseif ($filter == "none") {
+                $query->select('s', 'u')
+                    ->innerJoin('s.user', 'u')
+                    ->where('u.isVerified = 1')
+                    ->andWhere('s.address LIKE :address')
+                    ->orderBy('s.address')
+                    ->setParameter('address', '%'.$words.'%');
+            }
+        }
+
+        return $query->getQuery()->getResult();
+    }
+
+    // Création de la fonction de filtrage
+    public function filter($filter)
+    {
+        // On joint les tables User et Partner afin de récupérer les statuts activés
+        // et désactivés des utilisateurs et les intégrer à notre vue "show_partners"
+        $query = $this->createQueryBuilder('s');
+        if ($filter == 1) {
+            // Utilisation du 0 et du 1 en remplacement des valeurs booléennes pour
+            // éviter les erreurs dûes aux égalités strictes
+            $query->select('s', 'u')
+                ->innerJoin('s.user', 'u')
+                ->where('u.is_active = 1')
+                ->andWhere('u.isVerified = 1')
+                ->orderBy('s.address');
+
+        } elseif ($filter == 0) {
+            $query->select('s', 'u')
+                ->innerJoin('s.user', 'u')
+                ->where('u.is_active = 0')
+                ->andWhere('u.isVerified = 1')
+                ->orderBy('s.address');
+
+        } elseif ($filter == "none") {
+            $query->select('s', 'u')
+                ->innerJoin('s.user', 'u')
+                ->where('u.isVerified = 1')
+                ->orderBy('s.address');
+        }
+        return $query->getQuery()->getResult();
+    }
+
+
+
+
 //    /**
 //     * @return Structure[] Returns an array of Structure objects
 //     */
