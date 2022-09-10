@@ -14,9 +14,13 @@ class StructureController extends AbstractController
     #[Route('/structure', name: 'app_structure')]
     public function index( StructureRepository $structureRepository, PermissionsRepository $permissionsRepository): Response
     {
+
         $user = $this->getUser();
-        $structure = $structureRepository->findOneBy(['user'=> $user]);
-        $permissions = $permissionsRepository->findOneBy(['structure' => $structure]);
+
+            $structure = $structureRepository->findOneBy(['user'=> $user]);
+            $permissions = $permissionsRepository->findOneBy(['structure' => $structure]);
+
+
 
         return $this->render('structure/structure.html.twig', [
             'structure' => $structure,

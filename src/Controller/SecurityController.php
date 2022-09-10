@@ -28,8 +28,8 @@ class SecurityController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         // Dernier utilisateur connecté
         $lastUsername = $authenticationUtils->getLastUsername();
-
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername,
+            'error' => $error
         ]);
     }
 
@@ -85,26 +85,31 @@ class SecurityController extends AbstractController
 
             if($user !== null ){
 
-                $header = [
-                    'alg' => 'HS256',
-                    'typ' => 'JWT'];
-                $payload = [
-                    'user_id' => $user->getId(),
-                ];
-                $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
-                $email = (new TemplatedEmail())
-                    ->from(new Address('manager.fitnessclub.app@gmail.com', 'Manager Fitness Club'))
-                    ->to($user->getEmail())
-                    ->subject('Réinitialisation de votre mot de passe')
-                    ->htmlTemplate('user/reset_pass_email.html.twig')
-                    ->context([
-                        'token' => $token,
+                if($user->isIsActive() == 1){
+                    $header = [
+                        'alg' => 'HS256',
+                        'typ' => 'JWT'];
+                    $payload = [
+                        'user_id' => $user->getId(),
+                    ];
+                    $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
+                    $email = (new TemplatedEmail())
+                        ->from(new Address('manager.fitnessclub.app@gmail.com', 'Manager Fitness Club'))
+                        ->to($user->getEmail())
+                        ->subject('Réinitialisation de votre mot de passe')
+                        ->htmlTemplate('user/reset_pass_email.html.twig')
+                        ->context([
+                            'token' => $token,
 
 
-                    ]);
-                $mailer->send($email);
-                $this->addFlash('success', 'Un email a été envoyé pour réinitialiser votre mot de passe.');
-                return $this->redirectToRoute('app_login');
+                        ]);
+                    $mailer->send($email);
+                    $this->addFlash('success', 'Un email a été envoyé pour réinitialiser votre mot de passe.');
+                    return $this->redirectToRoute('app_login');
+                } else {
+                    $this->addFlash('danger', 'Votre compte est désactivé, vous ne pouvez pas réinitialiser votre mot de passe.');
+                }
+
             }
 
         }
