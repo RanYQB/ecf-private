@@ -24,24 +24,23 @@
 
     <div class="infos-div white-card">
         <div class="info-partner">
-            <h3>{{ structure.address }}</h3>
-            <p>Adresse : {{ structure.address }}</p>
-            <p>Code postal : {{ structure.zipcode }}</p>
-            <p>Ville : {{ structure.city }}</p>
+            <h3><span>{{ structure.partner.name }}</span> - {{ structure.address }}</h3>
             <p>Statut : {% if structure.user.isActive == 1%}<span class="status">activé</span>
                 {% elseif structure.user.isActive == 0%}<span class="status">désactivé</span>
                 {% endif %}</p>
+            <p>Adresse : {{ structure.address }} {{ structure.zipcode }} - {{ structure.city }}</p>
+            <p>Email : {{ structure.user.email }}</p>
             <p>Partenaire : Fitness Club - {{ structure.partner.name }}</p>
         </div>
         <div class="partner-btns">
             {% if structure.user.isActive == true %}
-                <button type="button" class="btn btn-primary btn-confirm" id="status-modal" >Désactiver</button>
+                <button type="button" class="bouton bouton-rouge btn-confirm" id="status-modal" >Désactiver</button>
 
             {% elseif structure.user.isActive == false %}
-                <button type="button" class="btn btn-success" id="status-modal" >Activer</button>
+                <button type="button" class="bouton bouton-vert" id="status-modal" >Activer</button>
 
             {% endif %}
-            <a href="#" class="btn btn-danger">Supprimer</a>
+            <a href="#" class="bouton bouton-rouge-b">Supprimer</a>
         </div>
     </div>
     <div class="permissions-div white-card">
@@ -61,7 +60,7 @@
                 <button type="submit" class="btn" id="submit-modify">Enregistrer les modifications</button>
                 {{ form_end(structurePermissionsForm) }}
             </form>
-            <button type="button" class="btn btn-primary btn-confirm" id="open-str-modal" >Enregistrer les modifications</button>
+            <button type="button" class="bouton bouton-bleu btn-confirm" id="open-str-modal" >Enregistrer les modifications</button>
         </div>
     </div>
     <!-- The Modal -->
@@ -78,8 +77,8 @@
                 <p>Etes-vous sûr de vouloir modifier les permissions de cette structure ? </p>
             </div>
             <div class="modal-buttons-div">
-                <button class="btn btn-outline-secondary cancel-mod">Annuler</button>
-                <button class="btn btn-primary  btn-confirm" id="confirm-str-btn">Confirmer</button>
+                <button class="bouton bouton-bleu-b cancel-mod">Annuler</button>
+                <button class="bouton bouton-bleu  btn-confirm" id="confirm-str-btn">Confirmer</button>
             </div>
         </div>
     </div>
@@ -97,8 +96,8 @@
                     <p>Etes-vous sûr de vouloir désactiver cette structure? </p>
                 </div>
                 <div class="modal-buttons-div">
-                    <button class="btn btn-outline-secondary cancel-btn">Annuler</button>
-                    <a href="{{ path('app_admin_enable_user', {id: structure.user.id }) }}" class="btn btn-primary btn-confirm">Confirmer</a>
+                    <button class="bouton bouton-bleu-b cancel-btn">Annuler</button>
+                    <a href="{{ path('app_admin_enable_user', {id: structure.user.id }) }}" class="bouton bouton-bleu btn-confirm">Confirmer</a>
                 </div>
             {% elseif structure.user.isActive == false %}
                 <div class="closing">
@@ -111,8 +110,8 @@
                     <p>Etes-vous sûr de vouloir activer cette structure? </p>
                 </div>
                 <div class="modal-buttons-div">
-                    <button class="btn btn-outline-secondary cancel-btn">Annuler</button>
-                    <a href="{{ path('app_admin_enable_user', {id: structure.user.id }) }}" class="btn btn-success btn-confirm">Confirmer</a>
+                    <button class="bouton bouton-bleu-b cancel-btn">Annuler</button>
+                    <a href="{{ path('app_admin_enable_user', {id: structure.user.id }) }}" class="bouton bouton-bleu btn-confirm">Confirmer</a>
                 </div>
             {% endif %}
         </div>

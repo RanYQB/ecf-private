@@ -27,10 +27,10 @@
         <div class="info-partner">
             <h3>Informations</h3>
             <div>
-            <p>Nom du partenaire : {{ partner.name }}</p>
                 <p>Statut : {% if partner.user.isActive == 1%}<span class="status">activé</span>
-                {% elseif partner.user.isActive == 0%}<span class="status">désactivé</span>
-                {% endif %}</p>
+                    {% elseif partner.user.isActive == 0%}<span class="status">désactivé</span>
+                    {% endif %}</p>
+            <p>Nom du partenaire : {{ partner.name }}</p>
             <p>Adresse email : {{ partner.user.email }}</p>
             <p>Nombre de structures : {{ partner.structures|length }}</p>
             </div>
@@ -115,7 +115,7 @@
                 </div>
                 <div class="modal-buttons-div">
                     <button class="bouton bouton-bleu-b cancel-btn">Annuler</button>
-                    <a href="{{ path('app_admin_enable_user', {id: partner.user.id }) }}" class="bouton bouton-vert">Activer</a>
+                    <a href="{{ path('app_admin_enable_user', {id: partner.user.id }) }}" class="bouton bouton-bleu">Confirmer</a>
                 </div>
             {% endif %}
         </div>

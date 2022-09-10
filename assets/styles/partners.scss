@@ -17,6 +17,9 @@ h2{
   margin-bottom: 1.5rem;
 }
 
+#gym-bg{
+  background-color: #1abc9c /*#16a085*/;
+}
 
 .number-structure{
   color: gray;
@@ -95,6 +98,10 @@ select{
   border-radius: 15px;
 
 
+  &:hover{
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  }
+
   .person-svg{
     min-height: 160px;
     min-width: 160px;
@@ -157,7 +164,7 @@ select{
         color: black;
         margin-bottom: 0.3rem;
         font-size: .9rem;
-        width: 320px;
+        width: 300px;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
