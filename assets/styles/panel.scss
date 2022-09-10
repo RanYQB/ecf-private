@@ -2,20 +2,20 @@
   background-color: #f3f9fc;
   position: absolute;
   top: 8vh;
-  left: 20%;
-  width: 80%;
+  left: 22%;
+  width: 78%;
   min-height: 92%;
-  padding: 2rem;
-  padding-bottom: 0;
+  padding: 3rem 6rem;
 }
 
 .white-card{
-  background-color: rgba(255, 255, 255, 0.92);
-  border: solid 1px lightgray;
-  padding: 1rem 2rem;
-  margin-bottom: 1.5rem;
-  border-radius: 5px;
 
+  border: solid 1px lightgray;
+  margin-bottom: 1.5rem;
+  background-color: hsla(0deg, 0%, 100%, 0.92);
+  border-radius: 7px;
+  padding: 1rem 3rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   //&:hover{
   //  box-shadow: 0 0 10px 2px lightgray;
 
@@ -31,17 +31,21 @@
 }
 
 h2{
+  color: #3585bb;
+  text-align: center;
   font-weight: 600;
-  margin-bottom: 1.5rem;
+  font-size: 1.2rem;
+  width: 100%;
+  border: solid 1px lightgray;
+  margin: 2rem auto;
+  background-color: hsla(0deg, 0%, 100%, 0.92);
+  border-radius: 7px;
+  padding: 1rem 3rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  margin-bottom: 1rem;
 }
 
 
-h3{
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
-  font-weight: 600;
-  color: #112B3C;
-}
 
 .dashboard-content{
   display: flex;
@@ -81,9 +85,9 @@ h3{
   border-radius: 5px;
 
   h4{
-    color: #2c70a0;
+    color: #225577;
     font-weight: 600;
-    font-size: 1.4rem;
+    font-size: 1.1rem;
   }
 
   .dashboard-row{
@@ -97,12 +101,13 @@ h3{
     .dashboard-card{
       display: flex;
       flex-direction: column;
-      height: 35%;
+      height: 25%;
       background-color: white;
       border: solid 1px lightgray;
       width: 32% ;
       padding: 1rem;
       border-left: solid 3px #4c99cd ;
+      border-radius: 7px;
 
       &:hover{
         box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
@@ -113,8 +118,8 @@ h3{
         height: 1.5rem;
 
         h5{
-          color: gray;
-          font-size: .8rem;
+          color: black;
+          font-size: .9rem;
         }
       }
 
@@ -123,7 +128,7 @@ h3{
 }
 
 .dashboard-stats{
-  display: flex;
+  /*display: flex;*/
   height: 100%;
 }
 
@@ -138,12 +143,13 @@ h3{
   .dashboard-card{
     display: flex;
     flex-direction: column;
-    height: 35%;
+    height: 25%;
     background-color: white;
     border: solid 1px lightgray;
     width: 49% ;
     padding: 1rem;
     border-left: solid 3px #4c99cd ;
+    border-radius: 7px;
 
     &:hover{
       box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
@@ -154,8 +160,8 @@ h3{
       height: 1.5rem;
 
       h5{
-        color: gray;
-        font-size: .8rem;
+        color: black;
+        font-size: .9rem;
       }
     }
 
@@ -175,8 +181,8 @@ h3{
   justify-content: center;
 
   p{
-    color: #333333;
-    font-size: 0.8rem;
+    color: black;
+    font-size: 0.9rem;
   }
 
   ul{
@@ -185,8 +191,14 @@ h3{
     padding-left: 0;
 
     li{
-      color: #333333;
-      font-size: 0.8rem;
+      color: #225577;
+      font-size: 0.9rem;
+      border-radius: 17px;
+      text-align: center;
+
+      &:hover{
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+      }
     }
   }
 
@@ -194,8 +206,8 @@ h3{
 }
 
 h6{
-  color: #2c70a0;
-  font-size: 0.8rem;
+  color: #225577;
+  font-size: 0.9rem;
   font-weight: 600;
 }
 
@@ -204,13 +216,13 @@ h6{
   flex-direction: row;
   align-items:center;
   justify-content: center;
-  margin: 1.5rem;
+  margin: .5rem;
   height: 3rem;
 
   div{
     text-align: center;
-    min-width: 32px;
-    height: 32px;
+    min-width: 29px;
+    height: 29px;
     border-radius: 50%;
     border: solid .5px #c4dfed;
     background-color: #ebf4f9;
@@ -220,8 +232,8 @@ h6{
 
   p{
     margin-bottom: 0;
-    color: gray;
-    font-size: 2rem;
+    color: #112b3c;
+    font-size: 1.3rem;
   }
 }
 
@@ -263,7 +275,7 @@ h6{
   }
 
   .dashboard-stats {
-    display: flex;
+    /* display: flex;*/
     width: 100%;
 
     .stats-content {
@@ -277,46 +289,20 @@ h6{
     padding: 1rem .8rem;
   }
 
-  .dashboard-users{
 
-    .white-card{
-      background-color: white;
-      border: none;
-      padding: 0 .5rem;
-      margin-bottom: 1.5rem;
-    }
-  }
-
-  .dashboard-stats{
-    .white-card{
-      background-color: white;
-      border: none;
-      padding: 0;
-      margin-bottom: 1.5rem;
-    }
-  }
-
-  .dashboard-cards .dashboard-row .dashboard-card .title-card h5 {
-    color: gray;
-    font-size: 1rem;
-  }
-
-  .dashboard-second-row .dashboard-card .title-card h5 {
-    color: gray;
-    font-size: 1rem;
-  }
 
   h6 {
-    font-size: 1rem;
+    font-size: .9rem;
   }
 
   .stat-content p {
 
-    font-size: 1rem;
+    font-size: .9rem;
   }
 
   .stat-content ul li {
-    font-size: 1rem;
+    font-size: .9rem;
+    text-align: center;
   }
 
   .dashboard-cards {
