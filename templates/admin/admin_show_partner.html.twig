@@ -31,16 +31,17 @@
                 <p>Statut : {% if partner.user.isActive == 1%}<span class="status">activé</span>
                 {% elseif partner.user.isActive == 0%}<span class="status">désactivé</span>
                 {% endif %}</p>
+            <p>Adresse email : {{ partner.user.email }}</p>
             <p>Nombre de structures : {{ partner.structures|length }}</p>
             </div>
         </div>
         <div class="partner-btns">
         {% if partner.user.isActive == true %}
-            <button type="button" class="bouton bouton-bleu btn-confirm" id="status-modal" >Désactiver</button>
+            <button type="button" class="bouton bouton-rouge btn-confirm" id="status-modal" >Désactiver</button>
         {% elseif partner.user.isActive == false %}
-            <button type="button" class="bouton bouton-bleu" id="status-modal" >Activer</button>
+            <button type="button" class="bouton bouton-vert" id="status-modal" >Activer</button>
         {% endif %}
-        <a href="#" class="bouton bouton-bleu-b">Supprimer</a>
+        <a href="#" class="bouton bouton-rouge-b">Supprimer</a>
         </div>
     </div>
 
@@ -99,8 +100,8 @@
                     <p>Etes-vous sûr de vouloir désactiver ce partenaire? </p>
                 </div>
                 <div class="modal-buttons-div">
-                    <button class="bouton cancel-btn">Annuler</button>
-                    <a href="{{ path('app_admin_enable_user', {id: partner.user.id }) }}" class="btn btn-primary btn-confirm">Confirmer</a>
+                    <button class="bouton bouton-bleu-b cancel-btn">Annuler</button>
+                    <a href="{{ path('app_admin_enable_user', {id: partner.user.id }) }}" class="bouton bouton-bleu btn-confirm">Confirmer</a>
                 </div>
             {% elseif partner.user.isActive == false %}
                 <div class="closing">
@@ -113,8 +114,8 @@
                     <p>Etes-vous sûr de vouloir activer le partenaire? </p>
                 </div>
                 <div class="modal-buttons-div">
-                    <button class="bouton cancel-btn">Annuler</button>
-                    <a href="{{ path('app_admin_enable_user', {id: partner.user.id }) }}" class="bouton">Activer</a>
+                    <button class="bouton bouton-bleu-b cancel-btn">Annuler</button>
+                    <a href="{{ path('app_admin_enable_user', {id: partner.user.id }) }}" class="bouton bouton-vert">Activer</a>
                 </div>
             {% endif %}
         </div>
@@ -123,7 +124,7 @@
     <div class="structures-div white-card" id="my-accordion">
         <button class="my-accordion">
             <span>Structures</span>
-            <svg xmlns="http://www.w3.org/2000/svg"  width="22" height="22" fill="#4c99cd" viewBox="0 0 384 512"><!--! Font Awesome Pro 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M192 384c-8.188 0-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L192 306.8l137.4-137.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-160 160C208.4 380.9 200.2 384 192 384z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg"  width="22" height="22" fill="#225577" viewBox="0 0 384 512"><!--! Font Awesome Pro 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M192 384c-8.188 0-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L192 306.8l137.4-137.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-160 160C208.4 380.9 200.2 384 192 384z"/></svg>
         </button>
         <div class="my-panel">
             {% if structures|length >= 1 %}
