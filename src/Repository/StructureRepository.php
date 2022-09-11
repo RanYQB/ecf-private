@@ -56,13 +56,14 @@ class StructureRepository extends ServiceEntityRepository
 
         $query = $this->createQueryBuilder('s');
         if($words != null){
-            $query->select('s', 'u')
+            $query->select('s', 'u', 'p')
                 ->innerJoin('s.user', 'u')
+                ->innerJoin('s.partner', 'p')
                 ->where('u.isVerified = 1')
-                ->andWhere('s.address LIKE :address')
+                ->andWhere('s.address LIKE :address OR p.name LIKE :name')
                 ->orderBy('s.address')
-
-                ->setParameter('address', '%'.$words.'%');
+                ->setParameter('address', '%'.$words.'%')
+                ->setParameter('name', $words.'%');
         }
 
         return $query->getQuery()->getResult();
@@ -79,29 +80,35 @@ class StructureRepository extends ServiceEntityRepository
 
             if ($filter == 1) {
 
-                $query->select('s', 'u')
+                $query->select('s', 'u', 'p' )
                     ->innerJoin('s.user', 'u')
+                    ->innerJoin('s.partner', 'p')
                     ->where('u.is_active = 1')
                     ->andWhere('u.isVerified = 1')
-                    ->andWhere('s.address LIKE :address')
+                    ->andWhere('s.address LIKE :address OR p.name LIKE :name')
                     ->orderBy('s.address')
-                    ->setParameter('address', '%'.$words.'%');
+                    ->setParameter('address', '%'.$words.'%')
+                    ->setParameter('name', $words.'%');
 
             } elseif ($filter == 0) {
-                $query->select('s', 'u')
+                $query->select('s', 'u', 'p')
                     ->innerJoin('s.user', 'u')
+                    ->innerJoin('s.partner', 'p')
                     ->where('u.is_active = 0')
                     ->andWhere('u.isVerified = 1')
-                    ->andWhere('s.address LIKE :address')
+                    ->andWhere('s.address LIKE :address OR p.name LIKE :name')
                     ->orderBy('s.address')
-                    ->setParameter('address', '%'.$words.'%');
+                    ->setParameter('address', '%'.$words.'%')
+                    ->setParameter('name', $words.'%');
             } elseif ($filter == "none") {
-                $query->select('s', 'u')
+                $query->select('s', 'u', 'p')
                     ->innerJoin('s.user', 'u')
+                    ->innerJoin('s.partner', 'p')
                     ->where('u.isVerified = 1')
-                    ->andWhere('s.address LIKE :address')
+                    ->andWhere('s.address LIKE :address OR p.name LIKE :name')
                     ->orderBy('s.address')
-                    ->setParameter('address', '%'.$words.'%');
+                    ->setParameter('address', '%'.$words.'%')
+                    ->setParameter('name', $words.'%');
             }
         }
 

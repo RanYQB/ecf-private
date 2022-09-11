@@ -25,14 +25,14 @@
 
     <div class="infos-div white-card">
         <div class="info-partner">
-            <h3>Informations</h3>
+            <h3>Informations du partenaire</h3>
             <div>
-                <p>Statut : {% if partner.user.isActive == 1%}<span class="status">activé</span>
+                <p><span>Statut :</span> {% if partner.user.isActive == 1%}<span class="status">activé</span>
                     {% elseif partner.user.isActive == 0%}<span class="status">désactivé</span>
                     {% endif %}</p>
-            <p>Nom du partenaire : {{ partner.name }}</p>
-            <p>Adresse email : {{ partner.user.email }}</p>
-            <p>Nombre de structures : {{ partner.structures|length }}</p>
+            <p><span>Nom du partenaire :</span> {{ partner.name }}</p>
+            <p><span>Adresse email :</span> {{ partner.user.email }}</p>
+            <p><span>Nombre de structures :</span> {{ partner.structures|length }}</p>
             </div>
         </div>
         <div class="partner-btns">
@@ -143,7 +143,7 @@
                         </div>
                         <div class="structure-btn">
                         <a href="{{ path('app_admin_show_structure', {slug: structure.slug }) }}" class="bouton bouton-bleu btn-confirm">
-                            Voir la fiche de la structure</a>
+                            Voir la fiche</a>
                         </div>
                     </div>
                 {% endfor %}
