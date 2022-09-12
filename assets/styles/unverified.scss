@@ -17,7 +17,6 @@
   margin: 2rem auto;
 
 
-
 }
 
 h2{
@@ -30,11 +29,13 @@ h2{
 
 .td-cell {
   vertical-align: middle;
+  font-size: .9rem;
 
   .btn{
     width: 100%;
-    line-height: 1.2rem;
+    line-height: 1rem;
     border-radius: 17px;
+    font-size: .9rem;
     background-color: #1e90ff;
     border: solid 1px #1e90ff;
 
@@ -53,6 +54,7 @@ h2{
 
 th{
   width:25%;
+  font-size: 0.9rem;
 }
 
 .role-th{
@@ -112,23 +114,18 @@ th{
     padding: 1rem;
   }
 
-  th{
-    font-size: smaller;
-  }
 
   .nb-th{
-    font-size: smaller;
     width: 4%;
 
   }
 
   .email-th{
     width: 38%;
-    font-size: smaller;
+
   }
 
   .td-cell{
-    font-size: smaller;
     vertical-align: middle;
     word-break: break-word;
 

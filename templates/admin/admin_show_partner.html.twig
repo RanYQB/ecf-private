@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Partenaire{% endblock %}
+{% block title %}Fitness Club - {{ partner.name }}{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -9,6 +9,7 @@
 {% endblock%}
 
 {% block javascripts %}
+    {{ parent() }}
     {{ encore_entry_script_tags('adminNavBar') }}
     {{ encore_entry_script_tags('partner') }}
     {{ encore_entry_script_tags('bootstrap') }}

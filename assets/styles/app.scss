@@ -19,7 +19,7 @@ body{
     background-color: #c1f1d5;
     border: solid 1px #27ae60;
     border-radius: 5px;
-    opacity: 0;
+    opacity: 1;
     animation: flash 4s ease;
     display: flex;
     flex-direction: row;
@@ -27,14 +27,20 @@ body{
     justify-content: space-between;
     padding: 1rem 2rem;
     z-index: 3;
+    cursor: pointer;
 
     .flash-success-content{
         color: #27ae60;
         margin-bottom: 0;
+        font-size: .9rem;
     }
 
     .flash-message-close{
-        color: #27ae60 ;
+
+        svg{
+            fill: #27ae60 ;
+        }
+
     }
 }
 
@@ -48,7 +54,7 @@ body{
     background-color: #fad5d1;
     border: solid 1px #e74c3c;
     border-radius: 5px;
-    opacity: 0;
+    opacity: 1;
     animation: flash 4s ease;
     display: flex;
     flex-direction: row;
@@ -56,19 +62,26 @@ body{
     justify-content: space-between;
     padding: 1rem 2rem;
     z-index: 3;
+    cursor: pointer;
 
     .flash-danger-content{
         color: #e74c3c;
         margin-bottom: 0;
+        font-size: .9rem;
     }
 
     .flash-message-close{
-        color: #e74c3c ;
+
+        svg{
+            fill: #e74c3c ;
+        }
+
     }
 }
 
 @keyframes flash {
     0%{
+
         opacity: 0;
     }
 
@@ -76,11 +89,8 @@ body{
         opacity: 1;
     }
 
-    90%{
-        opacity: 1;
-    }
     100%{
-        opacity: 0;
+        opacity: 1;
     }
 }
 
