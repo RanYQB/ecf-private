@@ -17,8 +17,13 @@ class StructureController extends AbstractController
 
         // Affichage des informations de la structure
         $user = $this->getUser();
-            $structure = $structureRepository->findOneBy(['user'=> $user]);
-            $permissions = $permissionsRepository->findOneBy(['structure' => $structure]);
+        if(!$user->isVerified()){
+
+            return $this->redirectToRoute('app_logout');
+
+        }
+        $structure = $structureRepository->findOneBy(['user'=> $user]);
+        $permissions = $permissionsRepository->findOneBy(['structure' => $structure]);
 
         return $this->render('structure/structure.html.twig', [
             'structure' => $structure,

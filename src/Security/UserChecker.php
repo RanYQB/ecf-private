@@ -3,9 +3,7 @@
 namespace App\Security;
 
 use App\Entity\User as AppUser;
-use Symfony\Component\Security\Core\Exception\AccountExpiredException;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
-use Symfony\Component\Security\Core\Exception\LockedException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -29,7 +27,6 @@ class UserChecker implements UserCheckerInterface
         if ($user->isIsActive() != 1) {
             throw new CustomUserMessageAccountStatusException('Votre compte a été désactivé.');
         }
-
 
     }
 }

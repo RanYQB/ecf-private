@@ -182,64 +182,67 @@ class AdminController extends AbstractController
                         $form->get('user')->get('plainPassword')->getData()
                     )
                 );
-
-                $entityManager->persist($user);
-
                 // Récupération dans une variable du partenaire
                 $partner = $form->get('structure')->get('partner')->getData();
 
-                $structure->setUser($user);
-                $structure->setPartner($partner);
-                $structure->setSlug($this->slugger->slug($structure->getAddress())->lower());
+                if($partner->getUser()->isIsActive() == 1 ) {
 
-                $entityManager->persist($structure);
+                    $entityManager->persist($user);
 
-                // Ajout des permissions à la structure, héritées du partenaire auquel elle est rattachée
-                $permissions->setStructure($structure);
-                $permissions->setNewsletter($partner->getPermissions()->isNewsletter());
-                $permissions->setPlanningManagement($partner->getPermissions()->isPlanningManagement());
-                $permissions->setDrinkSales($partner->getPermissions()->isDrinkSales());
-                $permissions->setVideoCourses($partner->getPermissions()->isVideoCourses());
-                $permissions->setProspectReminders($partner->getPermissions()->isProspectReminders());
-                $permissions->setSponsorship($partner->getPermissions()->isSponsorship());
-                $permissions->setFreeWifi($partner->getPermissions()->isFreeWifi());
-                $permissions->setFlexibleHours($partner->getPermissions()->isFlexibleHours());
+                    $structure->setUser($user);
+                    $structure->setPartner($partner);
+                    $structure->setSlug($this->slugger->slug($structure->getAddress())->lower());
 
-                $entityManager->persist($permissions);
-                $entityManager->flush();
+                    $entityManager->persist($structure);
+
+                    // Ajout des permissions à la structure, héritées du partenaire auquel elle est rattachée
+                    $permissions->setStructure($structure);
+                    $permissions->setNewsletter($partner->getPermissions()->isNewsletter());
+                    $permissions->setPlanningManagement($partner->getPermissions()->isPlanningManagement());
+                    $permissions->setDrinkSales($partner->getPermissions()->isDrinkSales());
+                    $permissions->setVideoCourses($partner->getPermissions()->isVideoCourses());
+                    $permissions->setProspectReminders($partner->getPermissions()->isProspectReminders());
+                    $permissions->setSponsorship($partner->getPermissions()->isSponsorship());
+                    $permissions->setFreeWifi($partner->getPermissions()->isFreeWifi());
+                    $permissions->setFlexibleHours($partner->getPermissions()->isFlexibleHours());
+
+                    $entityManager->persist($permissions);
+                    $entityManager->flush();
 
 
-                // Envoi d'un mail à la structure
-                $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-                    (new TemplatedEmail())
+                    // Envoi d'un mail à la structure
+                    $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+                        (new TemplatedEmail())
+                            ->from(new Address('manager.fitnessclub.app@gmail.com', 'Manager Fitness Club'))
+                            ->to($user->getEmail())
+                            ->subject('Veuillez confirmer votre compte')
+                            ->htmlTemplate('registration/confirmation_structure_email.html.twig')
+                            ->context([
+                                'user' => $user,
+                                'structure' => $structure,
+                                'password' => $form->get('user')->get('plainPassword')->getData(),
+                            ])
+                    );
+
+                    // Envoi d'un mail au partenaire pour lui notifier la création d'une nouvelle structure
+                    $email = (new TemplatedEmail())
                         ->from(new Address('manager.fitnessclub.app@gmail.com', 'Manager Fitness Club'))
-                        ->to($user->getEmail())
-                        ->subject('Veuillez confirmer votre compte')
-                        ->htmlTemplate('registration/confirmation_structure_email.html.twig')
+                        ->to($structure->getPartner()->getUser()->getEmail())
+                        ->subject('Nouvelle structure ajoutée à votre compte')
+                        ->htmlTemplate('partner/new_structure_email.html.twig')
                         ->context([
-                            'user' => $user,
                             'structure' => $structure,
-                            'password' => $form->get('user')->get('plainPassword')->getData(),
-                        ])
-                );
+                            'address' => $structure->getAddress(),
+                            'zipcode' => $structure->getZipcode(),
+                            'city' => $structure->getCity(),
+                        ]);
+                    $mailer->send($email);
+                    $this->addFlash('success', 'La structure a bien été créée.');
 
-                // Envoi d'un mail au partenaire pour lui notifier la création d'une nouvelle structure
-                $email = (new TemplatedEmail())
-                    ->from(new Address('manager.fitnessclub.app@gmail.com', 'Manager Fitness Club'))
-                    ->to($structure->getPartner()->getUser()->getEmail())
-                    ->subject('Nouvelle structure ajoutée à votre compte')
-                    ->htmlTemplate('partner/new_structure_email.html.twig')
-                    ->context([
-                        'structure' => $structure,
-                        'address' => $structure->getAddress(),
-                        'zipcode' => $structure->getZipcode(),
-                        'city' => $structure->getCity(),
-                    ]);
-                $mailer->send($email);
-                $this->addFlash('success', 'La structure a bien été créée.');
-
-                return $this->redirectToRoute('app_admin_create_structure');
-
+                    return $this->redirectToRoute('app_admin_create_structure');
+                }  elseif ($partner->getUser()->isIsActive() == 0){
+                    $this->addFlash('danger', 'Le partenaire sélectionné est désactivé, vous ne pouvez pas lui créer un nouvelle structure.');
+                }
             } elseif ($form->isSubmitted() && !$form->isValid()) {
                 $this->addFlash('danger', 'Formulaire invalide, vérifiez votre saisie.');
             }

@@ -16,6 +16,10 @@ class PartnerController extends AbstractController
     {
         // Affichage des informations du partenaire
         $user = $this->getUser();
+        if(!$user->isVerified()){
+
+            return $this->redirectToRoute('app_logout');
+        }
         $partner = $partnerRepository->findOneBy(['user' => $user]);
         $permissions = $permissionsRepository->findOneBy(['partner' => $partner]);
         $structures = $structureRepository->findBy(['partner' => $partner]);
