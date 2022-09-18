@@ -99,6 +99,16 @@ input::placeholder{
   }
 }
 
+ul{
+
+  padding-left: 0;
+  width: 100%;
+
+  li{
+    list-style: none;
+    font-size: .9rem;
+  }
+}
 
 .form-control{
   width: available;

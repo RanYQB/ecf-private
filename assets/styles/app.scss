@@ -10,7 +10,7 @@ body{
 
 
 .flash-messages{
-    position: absolute;
+    position: fixed;
     top: 1rem;
     left: 50%;
     transform: translateX(-50%);
@@ -45,7 +45,7 @@ body{
 }
 
 .flash-danger-messages{
-    position: absolute;
+    position: fixed;
     top: 1rem;
     left: 50%;
     transform: translateX(-50%);
@@ -101,6 +101,16 @@ body{
         width: 90%;
 
         .flash-success-content{
+            width: 70%;
+        }
+
+    }
+
+    .flash-danger-messages{
+        min-height: 4rem;
+        width: 90%;
+
+        .flash-danger-content{
             width: 70%;
         }
 
