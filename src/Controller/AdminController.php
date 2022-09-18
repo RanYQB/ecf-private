@@ -449,7 +449,7 @@ class AdminController extends AbstractController
 
 
     #[Route('/desactiver/{id}', name: '_enable_user')]
-    public function setStatus(EntityManagerInterface $entityManager, UserRepository $userRepository, PartnerRepository $partnerRepository, int $id,MailerInterface $mailer, Request $request): Response
+    public function setStatus(EntityManagerInterface $entityManager, UserRepository $userRepository,StructureRepository $structureRepository, PartnerRepository $partnerRepository, int $id,MailerInterface $mailer, Request $request): Response
     {
         if($this->isGranted('ROLE_ADMIN')){
             // Pour désactiver et activer un compte, nous récupérons l'id de l'utilisateur
@@ -467,7 +467,7 @@ class AdminController extends AbstractController
                     }
                     $subject = 'Désactivation de votre compte utilisateur Fitness Club';
                     $template = 'user/disabled_email.html.twig';
-                    $message = 'Le compte a bien été désactivé.';
+                    $message = 'Le partenaire a bien été désactivé.';
                 } elseif ($user->isIsActive() == false){
                     $user->setIsActive(true);
                     foreach ($structures as $structure){
@@ -476,19 +476,28 @@ class AdminController extends AbstractController
                     }
                     $subject = 'Activation de votre compte utilisateur Fitness Club';
                     $template = 'user/enabled_email.html.twig';
-                    $message = 'Le compte a bien été activé.';
+                    $message = 'Le partenaire a bien été activé.';
                 }
             } elseif (in_array('ROLE_STRUCTURE', $user->getRoles())) {
                 if ($user->isIsActive() == true) {
                     $user->setIsActive(false);
                     $subject = 'Désactivation de votre compte utilisateur Fitness Club';
                     $template = 'user/disabled_email.html.twig';
-                    $message = 'Le compte a bien été désactivé.';
+                    $message = 'La structure a bien été désactivée.';
                 } elseif ($user->isIsActive() == false) {
+                    $structure = $structureRepository->findOneBy(['user' => $user]);
+                    $partner = $structure->getPartner();
+                    $partnerUser = $partner->getUser();
+                    if($partnerUser->isIsActive() == true){
                     $user->setIsActive(true);
                     $subject = 'Activation de votre compte utilisateur Fitness Club';
                     $template = 'user/enabled_email.html.twig';
-                    $message = 'Le compte a bien été activé.';
+                    $message = 'La structure a bien été activée.';
+                    } elseif ($partnerUser->isIsActive() == false){
+                        $this->addFlash('danger', 'Echec de l\'action : Le partenaire de cette structure est désactivé.');
+                        $route = $request->headers->get('referer');
+                        return $this->redirect($route);
+                    }
                 }
             }
 

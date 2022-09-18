@@ -5,18 +5,20 @@ import './styles/adminNavBar.scss';
 // start the Stimulus application
 import './bootstrap';
 
-const showMenu = ()=>{
-    const menuBtn = document.querySelector('.buttons')
-    const menu = document.querySelector('.side-bar')
-    const body = document.querySelector('body')
+const menuBtn = document.querySelector('.buttons')
+const menu = document.querySelector('.side-bar')
+const menuNav = document.querySelector('.nav-bar')
+const body = document.querySelector('body')
 
+const showMenu = ()=>{
     menuBtn.addEventListener('click', ()=>{
         menu.classList.toggle('menu-clicked')
-        body.classList.toggle('open')}
-    )
+        body.classList.toggle('open')
+    })
 }
 
 showMenu()
+
 
 const navAccordions = document.querySelectorAll(".nav-accordion");
 
