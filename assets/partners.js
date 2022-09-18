@@ -19,9 +19,6 @@ window.onload = () => {
 
         parameters.set('search', event.target.value)
 
-        console.log(parameters.toString())
-
-
         fetch(url.pathname + "?" + parameters.toString() + "&ajax=1",{
             headers: {
                 "X-Requested-With": "XMLHttpRequest"

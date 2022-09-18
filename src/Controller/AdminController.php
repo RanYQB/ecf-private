@@ -101,7 +101,7 @@ class AdminController extends AbstractController
             if($form->isSubmitted() && $form->isValid()) {
 
                 $user->setRoles((array)'ROLE_PARTNER');
-                $user->setIsActive(false);
+                $user->setIsActive(true);
                 $user->setPassword(
                     $userPasswordHasher->hashPassword(
                         $user,
@@ -180,7 +180,7 @@ class AdminController extends AbstractController
             // Soumission du formulaire
             if ($form->isSubmitted() && $form->isValid()) {
                 $user->setRoles((array)'ROLE_STRUCTURE');
-                $user->setIsActive(false);
+                $user->setIsActive(true);
                 $user->setPassword(
                     $userPasswordHasher->hashPassword(
                         $user,
@@ -522,23 +522,50 @@ class AdminController extends AbstractController
 
 
     #[Route('/desactiver/{id}', name: '_enable_user')]
-    public function setStatus(EntityManagerInterface $entityManager, UserRepository $userRepository, int $id,MailerInterface $mailer, Request $request): Response
+    public function setStatus(EntityManagerInterface $entityManager, UserRepository $userRepository, PartnerRepository $partnerRepository, int $id,MailerInterface $mailer, Request $request): Response
     {
         if($this->isGranted('ROLE_ADMIN')){
             // Pour désactiver et activer un compte, nous récupérons l'id de l'utilisateur
             // afin que son status puisse être détecté au moment de la connexion
             $user = $userRepository->findOneBy(['id' => $id]);
 
-            if($user->isIsActive() == true){
-                $user->setIsActive(false);
-                $subject = 'Désactivation de votre compte utilisateur Fitness Club';
-                $template = 'user/disabled_email.html.twig';
-                $message = 'Le compte a bien été désactivé.';
-            } elseif ($user->isIsActive() == false){
-                $user->setIsActive(true);
-                $subject = 'Activation de votre compte utilisateur Fitness Club';
-                $template = 'user/enabled_email.html.twig';
-                $message = 'Le compte a bien été activé.';
+            if(in_array('ROLE_PARTNER', $user->getRoles())){
+
+                $partner = $partnerRepository->findOneBy(['user' => $user]);
+                $structures = $partner->getStructures();
+
+                if($user->isIsActive() == true){
+                    $user->setIsActive(false);
+                    foreach ($structures as $structure){
+                        $structureUser = $structure->getUser();
+                        $structureUser->setIsActive(false);
+                    }
+                    $subject = 'Désactivation de votre compte utilisateur Fitness Club';
+                    $template = 'user/disabled_email.html.twig';
+                    $message = 'Le compte a bien été désactivé.';
+                } elseif ($user->isIsActive() == false){
+                    $user->setIsActive(true);
+                    foreach ($structures as $structure){
+                        $structureUser = $structure->getUser();
+                        $structureUser->setIsActive(true);
+                    }
+                    $subject = 'Activation de votre compte utilisateur Fitness Club';
+                    $template = 'user/enabled_email.html.twig';
+                    $message = 'Le compte a bien été activé.';
+                }
+            } elseif (in_array('ROLE_STRUCTURE', $user->getRoles())) {
+
+                if ($user->isIsActive() == true) {
+                    $user->setIsActive(false);
+                    $subject = 'Désactivation de votre compte utilisateur Fitness Club';
+                    $template = 'user/disabled_email.html.twig';
+                    $message = 'Le compte a bien été désactivé.';
+                } elseif ($user->isIsActive() == false) {
+                    $user->setIsActive(true);
+                    $subject = 'Activation de votre compte utilisateur Fitness Club';
+                    $template = 'user/enabled_email.html.twig';
+                    $message = 'Le compte a bien été activé.';
+                }
             }
 
             $entityManager->persist($user);
