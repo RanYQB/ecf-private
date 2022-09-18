@@ -9,23 +9,23 @@
 {% endblock%}
 
 {% block javascripts %}
+    {{ parent() }}
     {{ encore_entry_script_tags('newPass') }}
 {% endblock%}
 
 {% block body %}
-
-<div class="page-container">
-    <div class="form-container">
-        <div class="logo-img"></div>
-        <form method="post">
-            <h2>Réinitialisation du mot de passe</h2>
-            {{ form_start(newPassForm) }}
-            <div class="form-inputs">
-                {{ form_row(newPassForm.plainPassword) }}
-            </div>
-                <button type="submit" class="mainForm-btn">Enregistrer</button>
-            {{ form_end(newPassForm) }}
-        </form>
+    <div class="page-container">
+        <div class="form-container">
+            <div class="logo-img"></div>
+            <form method="post">
+                <h2>Réinitialisation du mot de passe</h2>
+                {{ form_start(newPassForm) }}
+                <div class="form-inputs">
+                    {{ form_row(newPassForm.plainPassword) }}
+                </div>
+                    <button type="submit" class="mainForm-btn">Enregistrer</button>
+                {{ form_end(newPassForm) }}
+            </form>
+        </div>
     </div>
-</div>
 {% endblock %}

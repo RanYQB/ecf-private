@@ -9,20 +9,6 @@
   align-items: center;
 }
 
-/*h1{
-  text-transform: uppercase;
-  margin-bottom: 2rem;
-  font-size: 2rem;
-  font-weight: 700;
-  font-style: italic;
-  color: black;
-  text-align: center;
-
-  span{
-
-    color: #4c99cd;
-  }
-}*/
 
 .logo-img{
   width: 60px;
@@ -164,7 +150,7 @@ input::placeholder{
    .form-container{
 
      width: 90vw;
-     height: 70vh;
+     height: fit-content;
      padding: 2rem 1rem;
    }
   .form-field label {

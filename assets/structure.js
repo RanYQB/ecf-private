@@ -1,6 +1,5 @@
 // any CSS you import will output into a single css file (app.scss in this case)
 import './styles/partner.scss';
-import './styles/structure.scss';
 
 // start the Stimulus application
 import './bootstrap';
@@ -15,7 +14,7 @@ window.onload = ()=>{
     const checkBoxes = document.querySelectorAll('.my-checkbox');
     const status = document.querySelector('.status');
 
-
+    // Ajout des classes CSS pour les boutons switch
     checkBoxes.forEach(checkBox => {
         const parent = checkBox.parentNode;
         parent.classList.add("form-check")
@@ -31,18 +30,17 @@ window.onload = ()=>{
 }
 
 
-// Get the modal
+
 openStrModal.onclick = function (){
     strModal.style.display = "block";
 };
 
 const closing = document.querySelector(".closing-svg");
-// When the user clicks on <span> (x), close the modal
 closing.onclick = function() {
     strModal.style.display = "none";
 }
 
-// When the user clicks anywhere outside of the modal, close it
+
 window.onclick = function(event) {
     if (event.target == strModal) {
         strModal.style.display = "none";
@@ -53,16 +51,15 @@ cancelModify.onclick = function() {
     strModal.style.display = "none";
 }
 
-
 const statusModal = document.getElementById("status-modal");
 const activateModal = document.getElementById("activate-modal");
 
-// affichage modal de confirmation désactivation et activation des comptes partenaires
+// affichage modal de confirmation désactivation et activation
 statusModal.onclick = function (){
     activateModal.style.display = "block";
 }
 
-//Fermer modal pour l'activation et la désactivation des comptes partenaires
+//Fermer modal
 const acSpan = document.querySelector(".ac-closing");
 
 acSpan.onclick = function() {
@@ -86,3 +83,27 @@ const confirmStrBtn = document.getElementById('confirm-str-btn');
 confirmStrBtn.onclick = function (){
     document.getElementById('submit-modify').click();
 }
+
+const deleteBtn = document.querySelector('.btn-delete')
+const body = document.querySelector("body")
+
+deleteBtn.addEventListener('click', ()=>{
+    const msgDiv = document.createElement("div")
+    msgDiv.classList.add('flash-danger-messages')
+    msgDiv.classList.add('flash-el-danger')
+    msgDiv.style.textAlign = "center"
+
+    const contentDiv = document.createElement("p")
+    contentDiv.innerText = "Pour conserver les données, cette fonction n'est pas disponible."
+    contentDiv.classList.add("flash-danger-content")
+    contentDiv.style.width = "100%"
+    msgDiv.classList.add('flash-el-danger')
+
+    msgDiv.appendChild(contentDiv)
+    body.appendChild(msgDiv)
+
+    msgDiv.onclick = function (){
+        msgDiv.style.display = "none"
+    }
+
+})

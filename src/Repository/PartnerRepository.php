@@ -54,7 +54,6 @@ class PartnerRepository extends ServiceEntityRepository
 
     public function searchWithoutFilters(string $words){
 
-
         $query = $this->createQueryBuilder('p');
         if($words != null){
             $query->select('p', 'u')
@@ -62,8 +61,7 @@ class PartnerRepository extends ServiceEntityRepository
                 ->where('u.isVerified = 1')
                 ->andWhere('p.name LIKE :name')
                 ->orderBy('p.name')
-                // $words.'%' nous permet de saisir quelques lettres seulement et d'obtenir des résultats
-                // substitut à la méthode SQL "STARTSWITH" en DQL
+                // $words.'%' nous permet de saisir quelques lettres seulement
                 ->setParameter('name', $words.'%');
         }
 
@@ -78,22 +76,15 @@ class PartnerRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('p');
 
         if($words != null){
-            // $query->where('p.name LIKE :name')
-                // $words.'%' nous permet de saisir quelques lettres seulement et d'obtenir des résultats
-                // substitut à la méthode SQL "STARTSWITH" en DQL
-            //    ->setParameter('name', $words.'%');
 
             if ($filter == 1) {
-                // Utilisation du 0 et du 1 en remplacement des valeurs booléennes pour
-                // éviter les erreurs dûes aux égalités strictes
+
                 $query->select('p', 'u')
                     ->innerJoin('p.user', 'u')
                     ->where('u.is_active = 1')
                     ->andWhere('u.isVerified = 1')
                     ->andWhere('p.name LIKE :name')
                     ->orderBy('p.name')
-                    // $words.'%' nous permet de saisir quelques lettres seulement et d'obtenir des résultats
-                    // substitut à la méthode SQL "STARTSWITH" en DQL
                     ->setParameter('name', $words.'%');
 
             } elseif ($filter == 0) {
@@ -103,8 +94,6 @@ class PartnerRepository extends ServiceEntityRepository
                     ->andWhere('u.isVerified = 1')
                     ->andWhere('p.name LIKE :name')
                     ->orderBy('p.name')
-                    // $words.'%' nous permet de saisir quelques lettres seulement et d'obtenir des résultats
-                    // substitut à la méthode SQL "STARTSWITH" en DQL
                     ->setParameter('name', $words.'%');
             } elseif ($filter == "none") {
                 $query->select('p', 'u')
@@ -112,8 +101,6 @@ class PartnerRepository extends ServiceEntityRepository
                     ->where('u.isVerified = 1')
                     ->andWhere('p.name LIKE :name')
                     ->orderBy('p.name')
-                    // $words.'%' nous permet de saisir quelques lettres seulement et d'obtenir des résultats
-                    // substitut à la méthode SQL "STARTSWITH" en DQL
                     ->setParameter('name', $words.'%');
             }
         }
@@ -124,12 +111,9 @@ class PartnerRepository extends ServiceEntityRepository
     // Création de la fonction de filtrage
     public function filter($filter)
     {
-        // On joint les tables User et Partner afin de récupérer les statuts activés
-        // et désactivés des utilisateurs et les intégrer à notre vue "show_partners"
+
         $query = $this->createQueryBuilder('p');
         if ($filter == 1) {
-            // Utilisation du 0 et du 1 en remplacement des valeurs booléennes pour
-            // éviter les erreurs dûes aux égalités strictes
             $query->select('p', 'u')
                 ->innerJoin('p.user', 'u')
                 ->where('u.is_active = 1')

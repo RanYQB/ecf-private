@@ -18,8 +18,6 @@
     {% include 'Partials/_admin_navBar.html.twig' %}
 
     <div class="main-container">
-
-
         <div class="white-card">
             <h2>Utilisateurs non vérifiés</h2>
             {% if users|length >= 1 %}
@@ -50,7 +48,7 @@
                 </tbody>
             </table>
             {% else %}
-            <p>Tous les utilisateurs ont vérifié leurs adresses mails.</p>
+                <p>Tous les utilisateurs ont vérifié leurs adresses mails.</p>
             {% endif %}
         </div>
     </div>

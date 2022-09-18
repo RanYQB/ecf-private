@@ -21,14 +21,11 @@ class RegistrationController extends AbstractController
     }
 
     // La fonction "register" avec la route "app_register" a été supprimée car nous n'aurons pas de formulaire d'enregistrement
-    // L'action d'ajout des utilisateurs est entièrement déléguée à l'administrateur dans l'AdminController
 
     #[Route('/verify/email', name: 'app_verify_email')]
     public function verifyUserEmail(Request $request, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
-        // Lorsque l'utilisateur suit le lien envoyé par mail, "is_verified" est défini à true (1)
         try {
             $user = $this->getUser();
             $this->emailVerifier->handleEmailConfirmation($request, $user);
@@ -37,16 +34,12 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
         } catch (VerifyEmailExceptionInterface $exception) {
             $this->addFlash('verify_email_error', $exception->getReason());
-
             return $this->redirectToRoute('app_login');
         }
-
         $this->addFlash('success', 'Votre adresse email a bien été vérifiée.');
 
-        // Une fois le compte vérifié, l'EmailVerifier redirige directement l'utilisateur à un formulaire
-        // de réinitialisation du mot de passe à  sa première connexion.
+        // redirection de l'utilisateur vers une modification du mot de passe
         $route = 'app_edit_pass';
-
 
         return $this->redirectToRoute($route);
     }

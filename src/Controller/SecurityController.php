@@ -23,7 +23,6 @@ class SecurityController extends AbstractController
     #[Route(path: '/', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-
         // Retour d'un message d'erreur à la connexion, s'il y en a une
         $error = $authenticationUtils->getLastAuthenticationError();
         // Dernier utilisateur connecté
@@ -66,7 +65,6 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute($route);
         }
 
-
         return $this->render('security/edit_pass.html.twig', [
             'editPassForm' => $form->createView(),
         ]);
@@ -75,7 +73,6 @@ class SecurityController extends AbstractController
     #[Route(path: '/reinitialisation-mot-de-passe', name: 'app_reset_pass')]
     public function resetPassword(Request $request, MailerInterface $mailer, JWTService $jwt, UserRepository $userRepository): Response
     {
-
         $form = $this->createForm(ResetPassType::class);
         $form->handleRequest($request);
 
@@ -92,6 +89,7 @@ class SecurityController extends AbstractController
                     $payload = [
                         'user_id' => $user->getId(),
                     ];
+                    // Génération du token envoyé par email
                     $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
                     $email = (new TemplatedEmail())
                         ->from(new Address('manager.fitnessclub.app@gmail.com', 'Manager Fitness Club'))
@@ -100,8 +98,6 @@ class SecurityController extends AbstractController
                         ->htmlTemplate('user/reset_pass_email.html.twig')
                         ->context([
                             'token' => $token,
-
-
                         ]);
                     $mailer->send($email);
                     $this->addFlash('success', 'Un email a été envoyé pour réinitialiser votre mot de passe.');
@@ -109,9 +105,7 @@ class SecurityController extends AbstractController
                 } else {
                     $this->addFlash('danger', 'Votre compte est désactivé, vous ne pouvez pas réinitialiser votre mot de passe.');
                 }
-
             }
-
         }
 
         return $this->render('security/reset_pass.html.twig', [

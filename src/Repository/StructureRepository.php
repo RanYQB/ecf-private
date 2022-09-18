@@ -79,7 +79,6 @@ class StructureRepository extends ServiceEntityRepository
         if($words != null){
 
             if ($filter == 1) {
-
                 $query->select('s', 'u', 'p' )
                     ->innerJoin('s.user', 'u')
                     ->innerJoin('s.partner', 'p')
@@ -118,12 +117,8 @@ class StructureRepository extends ServiceEntityRepository
     // Création de la fonction de filtrage
     public function filter($filter)
     {
-        // On joint les tables User et Partner afin de récupérer les statuts activés
-        // et désactivés des utilisateurs et les intégrer à notre vue "show_partners"
         $query = $this->createQueryBuilder('s');
         if ($filter == 1) {
-            // Utilisation du 0 et du 1 en remplacement des valeurs booléennes pour
-            // éviter les erreurs dûes aux égalités strictes
             $query->select('s', 'u')
                 ->innerJoin('s.user', 'u')
                 ->where('u.is_active = 1')

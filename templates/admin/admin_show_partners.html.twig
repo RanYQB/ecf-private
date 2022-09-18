@@ -12,7 +12,6 @@
     {{ parent() }}
     {{ encore_entry_script_tags('adminNavBar') }}
     {{ encore_entry_script_tags('partners') }}
-    {{ encore_entry_script_tags('app') }}
 {% endblock%}
 
 {% block body %}
@@ -22,20 +21,17 @@
     <div class="filter-bar">
         <h2>Liste des partenaires</h2>
         <div class="search-bar">
-        <input type="text" class="form-control" id="search-bar" placeholder=" Rechercher un partenaire...">
-
-        <form id="filters">
-            <label for="filter-select">Filtrer</label>
-            <select name="filters" id="filter-select">
-                <option value="none">Tous</option>
-                <option value="1">Activés</option>
-                <option value="0">Désactivés</option>
-            </select>
-
-        </form>
+            <input type="text" class="form-control" id="search-bar" placeholder=" Rechercher un partenaire...">
+            <form id="filters">
+                <label for="filter-select">Filtrer</label>
+                <select name="filters" id="filter-select">
+                    <option value="none">Tous</option>
+                    <option value="1">Activés</option>
+                    <option value="0">Désactivés</option>
+                </select>
+            </form>
         </div>
     </div>
-
     <div id="content">
         {% include 'Partials/_content.html.twig' %}
     </div>

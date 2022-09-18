@@ -93,3 +93,28 @@ acc.addEventListener("click", function() {
             panel.style.display = "block";
         }
     })
+
+
+const deleteButton = document.querySelector('.btn-delete')
+const body = document.querySelector("body")
+
+deleteButton.addEventListener('click', ()=>{
+    const msgDiv = document.createElement("div")
+    msgDiv.classList.add('flash-danger-messages')
+    msgDiv.classList.add('flash-el-danger')
+    msgDiv.style.textAlign = "center"
+
+    const contentDiv = document.createElement("p")
+    contentDiv.innerText = "Pour conserver les données, cette fonction n'est pas disponible."
+    contentDiv.classList.add("flash-danger-content")
+    contentDiv.style.width = "100%"
+    msgDiv.classList.add('flash-el-danger')
+
+    msgDiv.appendChild(contentDiv)
+    body.appendChild(msgDiv)
+
+    msgDiv.onclick = function (){
+        msgDiv.style.display = "none"
+    }
+
+})

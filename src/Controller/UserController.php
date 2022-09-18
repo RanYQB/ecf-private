@@ -21,13 +21,11 @@ class UserController extends AbstractController
         if($jwt->isValid($token) && !$jwt->isExpired($token) && $jwt->check($token, $this->getParameter('app.jwtsecret')))
         {
             $payload = $jwt->getPayload($token);
-
             $user = $userRepository->find($payload['user_id']);
 
             if($user !== null){
                 $form = $this->createForm(EditPasswordType::class, $user);
                 $form->handleRequest($request);
-
                 if ($form->isSubmitted() && $form->isValid()) {
                     // encodage du mot de passe
                     $user->setPassword(
@@ -43,9 +41,7 @@ class UserController extends AbstractController
                     // message flash et redirection
                     $this->addFlash('success', 'Votre mot de passe a bien été réinitialisé.');
                     return $this->redirectToRoute('app_login');
-
                 }
-
             }
 
             return $this->render('security/new_pass.html.twig', [
@@ -56,6 +52,5 @@ class UserController extends AbstractController
 
         $this->addFlash('danger', 'Le token est invalide ou a expiré !');
         return $this->redirectToRoute('app_login');
-
     }
 }

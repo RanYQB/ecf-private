@@ -79,8 +79,7 @@ class AdminController extends AbstractController
     #[Route('/nouveau-partenaire', name: '_create_partner')]
     public function createPartner(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
-
-        // Conditionner l'exécution de la fonction à l'attribution du rôle Administrateur à l'utilisateur connecté
+        // Conditionner l'exécution de la fonction à l'attribution du rôle Administrateur
         if($this->isGranted('ROLE_ADMIN')){
 
             // Initialisation d'un nouvel utilisateur et d'un nouveau partenaire
@@ -89,7 +88,7 @@ class AdminController extends AbstractController
             $permissions = new Permissions();
             $items = ['user' => $user, 'partner' => $partner];
 
-            // Création d'un formulaire rattaché aux deux entités précédemment initialisées
+            // Création d'un formulaire
             $form = $this->createFormBuilder($items)
                 ->add('user', RegistrationFormType::class)
                 ->add('partner', PartnerType::class)
@@ -129,8 +128,6 @@ class AdminController extends AbstractController
 
                 $entityManager->persist($permissions);
 
-                // Enregistrement en base de données du partenaire, de son compte utilisateur et de ses permissions.
-                // L'action est effectuée en dernier afin d'éviter un enregistrement partiel ou incomplet en cas d'erreur.
                 $entityManager->flush();
 
                 // Envoi d'un mail au partenaire pour confirmer son compte
@@ -160,7 +157,6 @@ class AdminController extends AbstractController
     #[Route('/nouvelle-structure', name: '_create_structure')]
     public function createStructure(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
     {
-
         if($this->isGranted('ROLE_ADMIN')) {
             // Initialisation d'un nouvel utilisateur et d'une nouvelle structure
             $user = new User();
@@ -169,7 +165,6 @@ class AdminController extends AbstractController
 
             $items = ['user' => $user, 'structure' => $structure];
 
-            //De nouveau, un formulaire rattaché à deux entités : User + Structure
             $form = $this->createFormBuilder($items)
                 ->add('user', RegistrationFormType::class)
                 ->add('structure', StructureType::class)
@@ -190,7 +185,7 @@ class AdminController extends AbstractController
 
                 $entityManager->persist($user);
 
-                // Récupération dans une variable du partenaire sélectionné via le formulaire d'ajout de la structure "StructureType"
+                // Récupération dans une variable du partenaire
                 $partner = $form->get('structure')->get('partner')->getData();
 
                 $structure->setUser($user);
@@ -214,7 +209,7 @@ class AdminController extends AbstractController
                 $entityManager->flush();
 
 
-                // Envoi d'un mail à la structure pour confirmer son compte
+                // Envoi d'un mail à la structure
                 $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                     (new TemplatedEmail())
                         ->from(new Address('manager.fitnessclub.app@gmail.com', 'Manager Fitness Club'))
@@ -254,135 +249,78 @@ class AdminController extends AbstractController
         ]);
     }
 
-
     #[Route('/partenaires', name: '_show_partners')]
     public function showPartners(PartnerRepository $partnerRepository, Request $request): Response
     {
-        // Récupération de la liste de tous les partenaires avec la fonction findBy afin de les classer par ordre
-        // alphabétique.
-
         $partners = $partnerRepository->showVerified();
-
-        // Création de la barre de recherche
-        //$form = $this->createForm(SearchPartnerType::class);
-
-        // $search = $form->handleRequest($request);
         $search = $request->get("search");
-
         $filter = $request->get("filtre");
 
         if($filter != "" && $filter != null ){
-            // Utilisation de la fonction Filter que l'on a créée dans le PartnerRepository
+            // Utilisation de la fonction Filter
             $partners = $partnerRepository->filter($filter);
         }
 
         if($search != "" || $search != null){
-            // Utilisation de la fonction Filter que l'on a créée dans le PartnerRepository
-                // Utilisation de la fonction Filter que l'on a créée dans le PartnerRepository
+            // Utilisation des fonctions search et searchWithoutFilters
                 if(isset($_GET['filtre'])){
                     $partners = $partnerRepository->search($search, $filter);
                 } else {
                     $partners = $partnerRepository->searchWithoutFilters($search);
                 }
-
-
         }
 
-
-
-        //if($form->isSubmitted() && $form->isValid()){
-            // Utilisation de la fonction Search que l'on a créée dans le PartnerRepository
-          //  $partners = $partnerRepository->search($search->get('word')->getData());
-        //}
-
-
-        // On vérifie si l'URL possède un paramètre "Ajax" pour retourner les résultats du filtrage de la page
+        // On vérifie si l'URL possède un paramètre "Ajax"
         if($request->get('ajax')){
             return new JsonResponse([
                 'content' => $this->renderView('Partials/_content.html.twig', [
                     'partners' => $partners,
-                    //'searchForm' => $form->createView(),
-
                 ])
             ]);
         }
 
         return $this->render('admin/admin_show_partners.html.twig', [
             'partners' => $partners,
-            //'searchForm' => $form->createView(),
-
         ]);
     }
 
     #[Route('/structures', name: '_show_structures')]
     public function showStructures(StructureRepository $structureRepository, Request $request): Response
     {
-        // Récupération de la liste de tous les partenaires avec la fonction findBy afin de les classer par ordre
-        // alphabétique.
-        //$user = $userRepository->findBy(['isVerified' => true]);
-
-        //$structures = $structureRepository->findBy(['user' => $user], ['address' => 'ASC']);
         $structures = $structureRepository->showVerified();
-        // Création de la barre de recherche
-        //$form = $this->createForm(SearchPartnerType::class);
-
-        // $search = $form->handleRequest($request);
         $search = $request->get("search");
-
         $filter = $request->get("filtre");
 
         if($filter != "" && $filter != null ){
-            // Utilisation de la fonction Filter que l'on a créée dans le PartnerRepository
             $structures = $structureRepository->filter($filter);
         }
 
         if($search != "" || $search != null){
-            // Utilisation de la fonction Filter que l'on a créée dans le PartnerRepository
-            // Utilisation de la fonction Filter que l'on a créée dans le PartnerRepository
             if(isset($_GET['filtre'])){
                 $structures = $structureRepository->search($search, $filter);
             } else {
                 $structures = $structureRepository->searchWithoutFilters($search);
             }
-
-
         }
 
-
-
-        //if($form->isSubmitted() && $form->isValid()){
-        // Utilisation de la fonction Search que l'on a créée dans le PartnerRepository
-        //  $partners = $partnerRepository->search($search->get('word')->getData());
-        //}
-
-
-        // On vérifie si l'URL possède un paramètre "Ajax" pour retourner les résultats du filtrage de la page
+        // On vérifie si l'URL possède un paramètre "Ajax"
         if($request->get('ajax')){
             return new JsonResponse([
                 'content' => $this->renderView('Partials/_structure_content.html.twig', [
                     'structures' => $structures,
-                    //'searchForm' => $form->createView(),
-
                 ])
             ]);
         }
 
         return $this->render('admin/admin_show_structures.html.twig', [
             'structures' => $structures,
-            //'searchForm' => $form->createView(),
-
         ]);
     }
-
 
     #[Route('/partenaires/{slug}', name: '_show_partner')]
     public function showPartner(EntityManagerInterface $entityManager,UserRepository $userRepository, PartnerRepository $partnerRepository, string $slug, StructureRepository $structureRepository, PermissionsRepository $permissionsRepository, Request $request, MailerInterface $mailer): Response
     {
         if($this->isGranted('ROLE_ADMIN')){
-            // Passage du slug du partenaire par l'intermédiaire de l'URL.
-            // Le slug est en suite passé en paramètre de la fonction.
-            // Une fois récupéré, nous pouvons effectuer une recherche du partenaire souhaité dans le répertoire
-            // de l'entité Partner grâce à ce slug avec la méthode findOneBy.
             $partner = $partnerRepository->findOneBy(['slug' => $slug]);
 
             $user = $userRepository->findBy(['isVerified' => true]);
@@ -390,18 +328,16 @@ class AdminController extends AbstractController
             $structures = $structureRepository->findBy(array('partner' => $partner, 'user' => $user), ['address' => 'ASC']);
             $partnerPermissions = $permissionsRepository->findOneBy(['partner' => $partner]);
 
-            // Création d'un formulaire permettant la modification des permissions du partenaire dans la base de données
+            // Création d'un formulaire permettant la modification des permissions du partenaire
             $form = $this->createFormBuilder(['permissions' => $partnerPermissions])
                 ->add('permissions', PermissionsType::class)
                 ->getForm();
-
             $form->handleRequest($request);
 
             if($form->isSubmitted() && $form->isValid()) {
                 $entityManager->persist($partnerPermissions);
                 $entityManager->flush();
-
-                // Notification au partenaire de la modification de ses permissions si le formulaire est soumis
+                // Notification au partenaire de la modification de ses permissions
                 $email = (new TemplatedEmail())
                     ->from(new Address('manager.fitnessclub.app@gmail.com', 'Manager Fitness Club'))
                     ->to($partner->getUser()->getEmail())
@@ -413,9 +349,7 @@ class AdminController extends AbstractController
                     ]);
                 $mailer->send($email);
                 $this->addFlash('success', 'Les permissions globales du partenaire ont bien été modifiées.');
-
             }
-
         }
         return $this->render('admin/admin_show_partner.html.twig', [
             'partnerPermissionsForm' => $form->createView(),
@@ -424,19 +358,16 @@ class AdminController extends AbstractController
         ]);
     }
 
+
     #[Route('/structure/{slug}', name: '_show_structure')]
     public function showStructure(EntityManagerInterface $entityManager, string $slug, StructureRepository $structureRepository, PermissionsRepository $permissionsRepository, Request $request, MailerInterface $mailer): Response
     {
         if($this->isGranted('ROLE_ADMIN')){
-            // Utilisation de la même méthode pour récupérer une structure et l'afficher sur une page grâce au slug
             $structure = $structureRepository->findOneBy(['slug' => $slug]);
             $structurePermissions = $permissionsRepository->findOneBy(['structure' => $structure]);
-
             $form = $this->createFormBuilder(['permissions' => $structurePermissions])
                 ->add('permissions', PermissionsType::class)
                 ->getForm();
-
-            // $form = $this->createForm(PermissionsType::class, $partnerPermissions);
 
             $form->handleRequest($request);
             if($form->isSubmitted() && $form->isValid()) {
@@ -482,11 +413,9 @@ class AdminController extends AbstractController
     {
         if($this->isGranted('ROLE_ADMIN')){
             $users = $userRepository->findBy(['isVerified' => false]);
-
         }
 
         return $this->render('admin/admin_show_unverified.html.twig', [
-
             'users' => $users,
         ]);
     }
@@ -497,7 +426,6 @@ class AdminController extends AbstractController
     {
         if($this->isGranted('ROLE_ADMIN')){
             $user = $userRepository->findOneBy(['id' => $id]);
-
 
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
@@ -513,8 +441,7 @@ class AdminController extends AbstractController
             $this->addFlash('success', 'L\'email de confirmation a bien été renvoyé.');
 
         }
-        // Définition de la route dans une variable qui récupère l'URL de provenance de la requête
-        // étant donné que plusieurs pages sont concernées par cette action
+
         $route = $request->headers->get('referer');
 
         return $this->redirect($route);
@@ -526,16 +453,14 @@ class AdminController extends AbstractController
     {
         if($this->isGranted('ROLE_ADMIN')){
             // Pour désactiver et activer un compte, nous récupérons l'id de l'utilisateur
-            // afin que son status puisse être détecté au moment de la connexion
             $user = $userRepository->findOneBy(['id' => $id]);
 
             if(in_array('ROLE_PARTNER', $user->getRoles())){
-
                 $partner = $partnerRepository->findOneBy(['user' => $user]);
                 $structures = $partner->getStructures();
-
                 if($user->isIsActive() == true){
                     $user->setIsActive(false);
+                    // On désactive ou active toutes les structures du partenaire
                     foreach ($structures as $structure){
                         $structureUser = $structure->getUser();
                         $structureUser->setIsActive(false);
@@ -554,7 +479,6 @@ class AdminController extends AbstractController
                     $message = 'Le compte a bien été activé.';
                 }
             } elseif (in_array('ROLE_STRUCTURE', $user->getRoles())) {
-
                 if ($user->isIsActive() == true) {
                     $user->setIsActive(false);
                     $subject = 'Désactivation de votre compte utilisateur Fitness Club';
@@ -582,10 +506,8 @@ class AdminController extends AbstractController
             $mailer->send($email);
             $this->addFlash('success', $message);
         }
-        // Définition de la route dans une variable qui récupère l'URL de provenance de la requête
-        // étant donné que plusieurs pages sont concernées par cette action
-        $route = $request->headers->get('referer');
 
+        $route = $request->headers->get('referer');
         return $this->redirect($route);
     }
 

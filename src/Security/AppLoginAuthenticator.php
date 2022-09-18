@@ -28,9 +28,7 @@ class AppLoginAuthenticator extends AbstractLoginFormAuthenticator
     public function authenticate(Request $request): Passport
     {
         $email = $request->request->get('email', '');
-
         $request->getSession()->set(Security::LAST_USERNAME, $email);
-
         return new Passport(
             new UserBadge($email),
             new PasswordCredentials($request->request->get('password', '')),
@@ -47,20 +45,16 @@ class AppLoginAuthenticator extends AbstractLoginFormAuthenticator
         }
 
         $user = $token->getUser();
-
         // Définitions des routes en fonction des rôles des utilisateurs
         if (in_array('ROLE_PARTNER', $user->getRoles())) {
             return new RedirectResponse($this->urlGenerator->generate('app_partner'));
         }
-
         if (in_array('ROLE_STRUCTURE', $user->getRoles())) {
             return new RedirectResponse($this->urlGenerator->generate('app_structure'));
         }
-
         if (in_array('ROLE_ADMIN', $user->getRoles())) {
             return new RedirectResponse($this->urlGenerator->generate('app_admin'));
         }
-
         return new RedirectResponse($this->urlGenerator->generate('app_main'));
 
     }

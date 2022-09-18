@@ -20,8 +20,7 @@
 <div class="main-container">
     <div class="dashboard-content">
         <div class="dashboard-title">
-        <h2>Tableau de bord</h2>
-        <!--<div class="dashboard-border"></div>-->
+            <h2>Tableau de bord</h2>
         </div>
         <div class="dashboard-sections">
             <div class="dashboard-users">
@@ -40,7 +39,7 @@
                                 </div>
                                 <p>{{ users|length }}</p>
                             </div>
-                         </div>
+                        </div>
                         <div class="dashboard-card">
                             <div class="title-card">
                                 <h5>Vérifiés</h5>
@@ -195,50 +194,50 @@
                     </div>
                 </div>
             </div>
-        <div class="dashboard-stats">
-            <div class="white-card stats-content">
-                <div class="stats-card">
-                    <h6>Connecté : </h6>
-                    <div class="dashboard-border no-margin"></div>
-                    <div class="stat-content">
-                        <p>{{ currentUser }}</p>
-                    </div>
+            <div class="dashboard-stats">
+                <div class="white-card stats-content">
+                    <div class="stats-card">
+                        <h6>Connecté : </h6>
+                        <div class="dashboard-border no-margin"></div>
+                        <div class="stat-content">
+                            <p>{{ currentUser }}</p>
+                        </div>
 
-                </div>
-                <div class="stats-card">
-                    <h6>Nombre de managers :</h6>
-                    <div class="dashboard-border no-margin" ></div>
-                    <div class="stat-content">
-                        <p>3</p>
                     </div>
+                    <div class="stats-card">
+                        <h6>Nombre de managers :</h6>
+                        <div class="dashboard-border no-margin" ></div>
+                        <div class="stat-content">
+                            <p>3</p>
+                        </div>
 
-                </div>
-                <div class="stats-card">
-                    <h6>Moyenne de structures par partenaire :</h6>
-                    <div class="dashboard-border no-margin"></div>
-                    {% set nbStr = structures|length %}
-                    {% set nbPart = partners|length %}
-                    {% set average = nbStr / nbPart %}
-                    <div class="stat-content">
-                        <p>{{ average|round(1, 'floor') }}</p>
                     </div>
+                    <div class="stats-card">
+                        <h6>Moyenne de structures par partenaire :</h6>
+                        <div class="dashboard-border no-margin"></div>
+                        {% set nbStr = structures|length %}
+                        {% set nbPart = partners|length %}
+                        {% set average = nbStr / nbPart %}
+                        <div class="stat-content">
+                            <p>{{ average|round(1, 'floor') }}</p>
+                        </div>
 
-                </div>
-                <div class="stats-card">
-                    <h6>Permissions accordées par défaut :</h6>
-                    <div class="dashboard-border no-margin"></div>
-                    <div class="stat-content">
-                        <ul>
-                            <li class="permission-granted">Envoi de la Newsletter</li>
-                            <li class="permission-granted">Gestion des plannings</li>
-                            <li class="permission-granted">Vente de boissons</li>
-                            <li class="permission-granted">Accès aux cours vidéos</li>
-                        </ul>
+                    </div>
+                    <div class="stats-card">
+                        <h6>Permissions accordées par défaut :</h6>
+                        <div class="dashboard-border no-margin"></div>
+                        <div class="stat-content">
+                            <ul>
+                                <li class="permission-granted">Envoi de la Newsletter</li>
+                                <li class="permission-granted">Gestion des plannings</li>
+                                <li class="permission-granted">Vente de boissons</li>
+                                <li class="permission-granted">Accès aux cours vidéos</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </div>
 {% endblock %}

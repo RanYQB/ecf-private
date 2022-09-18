@@ -9,9 +9,10 @@
 {% endblock%}
 
 {% block javascripts %}
+    {{ parent() }}
     {{ encore_entry_script_tags('adminNavBar') }}
     {{ encore_entry_script_tags('structures') }}
-    {{ encore_entry_script_tags('app') }}
+
 {% endblock%}
 
 {% block body %}
@@ -21,17 +22,15 @@
     <div class="filter-bar">
         <h2>Liste des structures</h2>
         <div class="search-bar">
-        <input type="text" class="form-control" id="search-bar" placeholder=" Saisissez l'adresse ou le nom du partenaire de la structure...">
-
-        <form id="filters">
-            <label for="filter-select">Filtrer</label>
-            <select name="filters" id="filter-select">
-                <option value="none">Tous</option>
-                <option value="1">Activés</option>
-                <option value="0">Désactivés</option>
-            </select>
-
-        </form>
+            <input type="text" class="form-control" id="search-bar" placeholder=" Saisissez l'adresse ou le nom du partenaire de la structure...">
+            <form id="filters">
+                <label for="filter-select">Filtrer</label>
+                <select name="filters" id="filter-select">
+                    <option value="none">Tous</option>
+                    <option value="1">Activés</option>
+                    <option value="0">Désactivés</option>
+                </select>
+            </form>
         </div>
     </div>
 

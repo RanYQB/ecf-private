@@ -15,12 +15,10 @@ class StructureController extends AbstractController
     public function index( StructureRepository $structureRepository, PermissionsRepository $permissionsRepository): Response
     {
 
+        // Affichage des informations de la structure
         $user = $this->getUser();
-
             $structure = $structureRepository->findOneBy(['user'=> $user]);
             $permissions = $permissionsRepository->findOneBy(['structure' => $structure]);
-
-
 
         return $this->render('structure/structure.html.twig', [
             'structure' => $structure,

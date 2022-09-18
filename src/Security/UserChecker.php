@@ -25,12 +25,11 @@ class UserChecker implements UserCheckerInterface
         if (!$user instanceof AppUser) {
             return;
         }
-
-        // user account is expired, the user may be notified
+        // Empêcher un utilisateur de se connecter si son compte a été désactivé.
         if ($user->isIsActive() != 1) {
-            // the message passed to this exception is meant to be displayed to the user
-
             throw new CustomUserMessageAccountStatusException('Votre compte a été désactivé.');
         }
+
+
     }
 }

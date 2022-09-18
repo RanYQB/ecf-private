@@ -14,6 +14,7 @@ class PartnerController extends AbstractController
     #[Route('/partner', name: 'app_partner')]
     public function index(PartnerRepository $partnerRepository, StructureRepository $structureRepository, PermissionsRepository $permissionsRepository): Response
     {
+        // Affichage des informations du partenaire
         $user = $this->getUser();
         $partner = $partnerRepository->findOneBy(['user' => $user]);
         $permissions = $permissionsRepository->findOneBy(['partner' => $partner]);

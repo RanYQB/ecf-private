@@ -20,19 +20,18 @@
     {% endfor %}
     {% include 'Partials/_admin_navBar.html.twig' %}
     <div class="main-container">
-
-<div class="form-add">
-    <h2>Nouveau partenaire</h2>
-    {{ form_start(partnerForm) }}
-    {{ form_row(partnerForm.partner.name) }}
-    {{ form_row(partnerForm.user.email) }}
-    {{ form_row(partnerForm.user.plainPassword, {
-        label: 'Mot de passe '
-    }) }}
-<div class="form-btn">
-    <button type="submit" class="btn submit-btn ">Ajouter le partenaire</button>
-    {{ form_end(partnerForm) }}
-</div>
-</div>
-
+        <div class="form-add">
+            <h2>Nouveau partenaire</h2>
+            {{ form_start(partnerForm) }}
+            {{ form_row(partnerForm.partner.name) }}
+            {{ form_row(partnerForm.user.email) }}
+            {{ form_row(partnerForm.user.plainPassword, {
+                label: 'Mot de passe '
+            }) }}
+            <div class="form-btn">
+                <button type="submit" class="btn submit-btn ">Ajouter le partenaire</button>
+                {{ form_end(partnerForm) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

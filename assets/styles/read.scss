@@ -11,13 +11,6 @@
 }
 
 .main-content-div{
-  /*width: 460px;
-  margin: 0 auto;
-  background-color: #4c99cd;
-  border: solid 1px #0a1d29;
-  box-shadow: 0px 0px 15px 8px #0a1d29;
-  padding: 3rem 5rem;
-  min-height: 100%;*/
 
   width: 460px;
   margin: 0 auto;
@@ -36,9 +29,7 @@
 }
 
 .main-content{
-  /*background-color: white;
-  border: solid 1px #3585bb;
-  box-shadow: 0px 0px 15px 8px #3585bb;*/
+
   min-height: 100%;
 
 }
@@ -126,6 +117,15 @@
       &:hover{
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
         color: #4c99cd;
+      }
+    }
+
+    .not-granted{
+      background-color: lightgray;
+
+      &:hover{
+        color: unset;
+        box-shadow: unset;
       }
     }
   }
