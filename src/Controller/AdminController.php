@@ -144,7 +144,7 @@ class AdminController extends AbstractController
                         ])
                 );
                 $this->addFlash('success', 'Le partenaire a bien été créé.');
-                return $this->redirectToRoute('app_admin');
+                return $this->redirectToRoute('app_admin_create_partner');
             }
         }
 
