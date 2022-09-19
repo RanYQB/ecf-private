@@ -97,21 +97,23 @@ body{
 
 @media screen and (max-width: 992px) {
     .flash-messages{
-        min-height: 4rem;
+        height: fit-content;
         width: 90%;
 
         .flash-success-content{
             width: 70%;
+            text-align: center;
         }
 
     }
 
     .flash-danger-messages{
-        min-height: 4rem;
+        height: fit-content;
         width: 90%;
 
         .flash-danger-content{
             width: 70%;
+            text-align: center;
         }
 
     }
