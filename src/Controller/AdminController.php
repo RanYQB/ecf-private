@@ -241,7 +241,7 @@ class AdminController extends AbstractController
 
                     return $this->redirectToRoute('app_admin_create_structure');
                 }  elseif ($partner->getUser()->isIsActive() == 0){
-                    $this->addFlash('danger', 'Le partenaire sélectionné est désactivé, vous ne pouvez pas lui créer un nouvelle structure.');
+                    $this->addFlash('danger', 'Le partenaire sélectionné est désactivé, vous ne pouvez pas lui créer une nouvelle structure.');
                 }
             } elseif ($form->isSubmitted() && !$form->isValid()) {
                 $this->addFlash('danger', 'Formulaire invalide, vérifiez votre saisie.');
